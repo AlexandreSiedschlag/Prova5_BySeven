@@ -44,7 +44,7 @@ body {
 }
 .card-image {
     grid-area: image;
-    background: url("Code.jpeg");
+    background: url("1.jpg");
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background-size: cover;
@@ -175,7 +175,7 @@ body {
 /*Image*/
 .card-2-image {
     grid-area: image;
-    background: url("Code.jpeg");
+    background: url("1.jpg");
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     background-size:cover;

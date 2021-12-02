@@ -25,7 +25,7 @@ function changeCard(numero){
         document.getElementById('card2').style.display ='none'
         document.getElementById('card3').style.display ='none'
         document.getElementById('card4').style.display ='grid'
-        imagemCard4 = document.getElementById('idImagemCard4').style.background = 'url("Code.jpeg")';
+        imagemCard4 = document.getElementById('idImagemCard4').style.background = 'url("1.jpg")';
     }
     if (numero == 2){
         document.getElementById('card1').style.display ='none'
