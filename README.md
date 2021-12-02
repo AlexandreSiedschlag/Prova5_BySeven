@@ -18,6 +18,7 @@ The needs of the client were:
   - Work with following options Combobox, TextBox, Date and Numeric.
   - Must store all information in a DataBase
   - Intuitive Interface
-  - Almost 0% failures
+  - Almost 0% failures (Poka Yoke)
   - Send Message to WhatsApp
   - Convert URI in URL
+  - 
