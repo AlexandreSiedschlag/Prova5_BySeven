@@ -71,7 +71,7 @@ body {
 
 /*stats*/
 .card-stats {
-    grid-area: stats; 
+    grid-area: stats;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     grid-template-rows: 1fr;

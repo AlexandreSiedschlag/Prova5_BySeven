@@ -1,24 +1,37 @@
-/*
-         TO DO
-- Elaborar 3 Templates.
-- Armazenar Histórico.
-- Montar formulário do jeito que o usuário quiser.
-- Configurar novos templates
-- Converter URI em URL
-- Enviar mensagem por whatsapp
-- Criar preview da mensagem
-*/
-
 var cont_input = 1
 var cont_date = 1
 var cont_combobox = 1
 var cont_textbox = 1
-function pegarValoresForm(){
-    // if {
-    // DDD.length = 2
-    // Celular.length = 9
-    // Texto >= 10 
+
+class Form{
+    constructor(a, b){
+        this.a = a;
+        this.b = b;
+        
+        function verificaCamposForm(){
+
+        }
+        function limparForm(){
+        
+        }
+        function pegarValoresForm(){
+            //validarForm()
+            // if {
+            // DDD.length = 2
+            // Celular.length = 9
+            // Texto >= 10 
+            //     }
+            // else if {
+            //    Limpar Form
+            //    Mensagem na tela (Alerta)
+            //}
+        }
+    }
+    
 }
+
+
+
 function changeCard(numero){
     if (numero == 1){
         document.getElementById('card1').style.display ='none'
