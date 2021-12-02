@@ -21,4 +21,3 @@ The needs of the client were:
   - Almost 0% failures (Poka Yoke)
   - Send Message to WhatsApp
   - Convert URI in URL
-  - 
