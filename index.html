@@ -95,8 +95,8 @@
                         <!--Celular-->
                         <div class='div2-inputs'>
                             <label for="celular">Numerico</label>
-                            <input autofocus type="number" id="ddd" placeholder="DDD">
-                            <input type="number" id="celular" placeholder="Celular">
+                            <input required="required" autofocus type="number" id="ddd" placeholder="DDD">
+                            <input required="required" type="number" id="celular" placeholder="Celular">
                             <button id='add-celular' onclick="addCelular();return false;"><i class="fas fa-plus-square" ></i></button>
                         </div>
                     
@@ -152,13 +152,13 @@
 
                     <div class="stat-2">
                     <div class="btn">
-                        <button onclick="changeCard(4);return false;" class='btn cancel' id='cancel1'>Cancelar</button>
+                        <button type='submit' onclick="changeCard(4);return false;" class='btn cancel' id='cancel1'>Cancelar</button>
                     </div>
                     </div>
 
                     <div class="stat-2">
                     <div class="btn">
-                        <button onclick="changeCard(4);return false;" class='btn send'>Enviar</button>
+                        <button type='submit' onclick="changeCard(4);return false;" class='btn send'>Enviar</button>
                     </div>
                     </div>
 

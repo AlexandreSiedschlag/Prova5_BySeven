@@ -1,37 +1,24 @@
+/*
+         TO DO
+- Elaborar 3 Templates.
+- Armazenar Histórico.
+- Montar formulário do jeito que o usuário quiser.
+- Configurar novos templates
+- Converter URI em URL
+- Enviar mensagem por whatsapp
+- Criar preview da mensagem
+*/
+
 var cont_input = 1
 var cont_date = 1
 var cont_combobox = 1
 var cont_textbox = 1
-
-/*Trocar Cards*/ 
-// function funcaoTrocarProCard(){
-//     elemento = document.getElementsByClassName('card');
-//     for (var i = 0 ; i < elemento.length ; i ++){
-//             elemento[i].style.display = 'none';
-//             console.log(elemento[i])
-//         }
-//     elemento2 = document.getElementsByClassName('card-2');
-//     for (var i = 0 ; i < elemento2.length ; i ++){
-//             elemento2[i].style.display = 'grid';
-//             console.log(elemento2[i])
-//         }    
-// }
-// function funcaoTrocarProCard2(){
-//     elemento = document.getElementsByClassName('card');
-//     for (var i = 0 ; i < elemento.length ; i ++){
-//             elemento[i].style.display = 'grid';
-//             console.log(elemento[i])
-//     }
-//     elemento2 = document.getElementsByClassName('card-2');
-//     for (var i = 0 ; i < elemento2.length ; i ++){
-//             elemento2[i].style.display = 'none';
-//             console.log(elemento2[i])
-//     }
-// }
-
-
-
-
+function pegarValoresForm(){
+    // if {
+    // DDD.length = 2
+    // Celular.length = 9
+    // Texto >= 10 
+}
 function changeCard(numero){
     if (numero == 1){
         document.getElementById('card1').style.display ='none'
