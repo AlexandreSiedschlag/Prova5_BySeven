@@ -20,3 +20,4 @@ The needs of the client were:
   - Intuitive Interface
   - Almost 0% failures
   - Send Message to WhatsApp
+  - Convert URI in URL
