@@ -15,16 +15,8 @@ Tecnologies:
 The needs of the client were:
   - Develop 3 Standard Templates.
   - User can create new templates.
-  - Work with following options Combobox, textBox, date and numeric.
-  - Must store all information
+  - Work with following options Combobox, TextBox, Date and Numeric.
+  - Must store all information in a DataBase
   - Intuitive Interface
   - Almost 0% failures
-  
-  
-  - Elaborar 3 Templates.
-- Armazenar Histórico.
-- Montar formulário do jeito que o usuário quiser.
-- Configurar novos templates
-- Converter URI em URL
-- Enviar mensagem por whatsapp
-- Criar preview da mensagem
+  - Send Message to WhatsApp
