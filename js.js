@@ -7,7 +7,7 @@ function setStorage(numero, conteudo){
     localStorage.setItem(`Card${numero}-Input`, JSON.stringify(conteudo));
 }
 function getStorage(numero){
-    return JSON.parse(localStorage.getItem(`Card${numero}`)) || []
+    return JSON.parse(localStorage.getItem(`Card${numero}-Input`)) || []
 }
 function deleteStorage(numero){
     localStorage.removeItem(`Card${numero}`)
@@ -16,6 +16,7 @@ function deleteStorage(numero){
 /*Cards*/
 function criarCard(){
     let div = document.createElement('div')
+    let divNovoCard = document.getElementById('div-novo-card')
     div.innerHTML = `
     <div id='card${cont_cards}' class='classe-cards'> 
 
@@ -57,12 +58,24 @@ function criarCard(){
                     <button id='btn${cont_cards}' onclick='pegarValoresCard(${cont_cards})'>Card${cont_cards}</button>
                 </div>
     `
-    divNovoCard = document.getElementById('div-novo-card')
+    
     divNovoCard.appendChild(div)
+    conteudo = {
+        'indice': cont_cards,
+        'ddd': '',
+        'celular': '',
+        'email': '',
+        'data': '',
+        'select': '',
+        'text': ''
+    }
+    setStorage(cont_cards, conteudo);
     cont_cards += 1
 }
 function deletarCard(numero){
-    
+    console.log(numero)
+    deleteStorage(numero)
+    document.getElementById(`card${numero}`).remove()
 }
 function editarCard(numero){
 }
@@ -92,4 +105,7 @@ function pegarValoresCard(numero){
     }
     setStorage(numero, conteudo);
     limparCard(numero)
+}
+function mostrarCard(numero){
+
 }
