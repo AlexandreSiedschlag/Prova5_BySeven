@@ -3,32 +3,29 @@ var cont_date = 1
 var cont_combobox = 1
 var cont_textbox = 1
 
-class Form{
-    constructor(a, b){
-        this.a = a;
-        this.b = b;
-        
-        function verificaCamposForm(){
 
-        }
-        function limparForm(){
-        
-        }
-        function pegarValoresForm(){
-            //validarForm()
-            // if {
-            // DDD.length = 2
-            // Celular.length = 9
-            // Texto >= 10 
-            //     }
-            // else if {
-            //    Limpar Form
-            //    Mensagem na tela (Alerta)
-            //}
-        }
-    }
+
+// const Form = {
+    // function verificaCamposForm(){
+
+    // }
+    // function limparForm(){
     
-}
+    // }
+    // function pegarValoresForm(){
+        //validarForm()
+        // if {
+        // DDD.length = 2
+        // Celular.length = 9
+        // Texto >= 10 
+        //     }
+        // else if {
+        //    Limpar Form
+        //    Mensagem na tela (Alerta)
+        //}
+//     } 
+// }
+
 
 
 
