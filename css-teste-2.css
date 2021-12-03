@@ -9,8 +9,9 @@ a{
     text-decoration: none;
 }
 h1{
+    align-items: center;
     text-align: center;
-    margin-top: 100px;
+    margin-top: 50px;
 }
 img{
     max-width: 100%;
