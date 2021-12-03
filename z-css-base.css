@@ -1,0 +1,299 @@
+body {
+    overflow: visible;
+    
+    background:url("background.jpg");
+    border-radius: 18px;
+
+    grid-template-columns: 280px 280px 280px 280px;
+    grid-template-rows: 300px 150px 300px;
+    grid-template-areas: "card1" "card2" "card3" "restoDosCards";
+    column-gap: 50px;
+    row-gap: 50px;
+    margin-left: 150px;
+    margin-top: 50px;
+
+    
+    
+}
+.card {
+    display: grid; /*Cria o grid*/
+    grid-template-columns: 280px;
+    grid-template-rows: 230px 150px 60px; /*Se precisar de mais linhas é so adicionar no final*/
+    grid-template-areas: "image" "text" "stats";
+
+    border-radius: 18px;
+    background: white;
+    box-shadow: 50px 50px 15px rgba(0,0,0,0.9);/*Sombra da Caixa*/
+    font-family: roboto;
+    text-align: center;
+
+    transition: 0.5s ease;
+    cursor: pointer;
+    
+
+    animation-name: cssAnimation;
+    animation-duration:0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: backwards;
+}
+
+/*Card Animations*/
+@keyframes cssAnimation {
+    from {
+      transform: scale(0.1) translate(999px);
+    }
+    to {
+      transform: scale(1) translate(0px);
+    }
+  }
+#corpo.hide .card{
+     display:none;
+}
+.card-image {
+    grid-area: image;
+    background: url("1.jpg");
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size: cover;
+    height: auto;
+}
+.card-text {
+    grid-area: text;
+    margin: 25px;
+}
+.card-text .date {
+    color: rgb(255, 7, 110);
+    font-size:13px;
+}
+.card-text p {
+    color: grey;
+    font-size:15px;
+    font-weight: 300;
+}
+.card-text h2 {
+    margin-top:0px;
+    font-size:28px;
+}
+
+/*stats*/
+.card-stats {
+    grid-area: stats;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: 1fr;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background: rgb(222, 8, 230);
+}
+.card-stats .stat {
+    padding:10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    color: white;
+}
+.card-stats .border {
+    border-left: 1px solid rgb(172, 26, 87);
+    border-right: 1px solid rgb(172, 26, 87);
+}
+.card-stats .value{
+    font-size: 22px;
+    font-weight: 500;
+}
+.card-stats .value sup{
+     font-size:12px;
+}
+.card-stats .type{
+     font-size:11px;
+     font-weight: 300;
+    text-transform: uppercase;
+}
+.card:hover {
+     transform: scale(1.15);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+}
+
+/*card2*/
+.card-image.card2 {
+     background: url("orange.jpg");
+     background-size: cover;
+}
+.card-text.card2 .date {
+    color: rgb(255, 77, 7);
+}
+.card-stats.card2 .border {
+     border-left: 1px solid rgb(185, 67, 20);
+     border-right: 1px solid rgb(185, 67, 20);
+}
+.card-stats.card2 {
+    background: rgb(255, 77, 7);
+}
+
+/*card3*/
+.card-image.card3 {
+    background: url("Matrix.jpeg");
+    background-size: cover;
+}
+.card-text.card3 .date {
+    color: rgb(0, 189, 63);
+}
+.card-stats.card3 .border {
+    border-left: 1px solid rgb(14, 122, 50);
+    border-right: 1px solid rgb(14, 122, 50);
+}
+.card-stats.card3 {
+    background: rgb(0, 189, 63);
+}
+
+/************card4************/
+.card-stats.card4 .border {
+    border-left: 1px solid rgb(75, 75, 75);
+    border-right: 1px solid rgb(75, 75, 75);
+}
+
+/**************************************************/
+#div-novos-cards{
+    display: grid;
+    animation-name: cssAnimation;
+    animation-duration:0.25s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: backwards;
+}
+.card-2 {
+    display: none; /*Cria o grid*/
+    grid-template-columns: 60vw;
+    grid-template-rows: 15% 70%; /*Se precisar de mais linhas é so adicionar no final*/
+    grid-template-areas: "image" "text" "stats";
+
+    border-radius: 18px;
+    background: white;
+    box-shadow: 100px 100px 30px rgba(0,0,0,0.9);/*Sombra da Caixa*/
+    font-family: roboto;
+    text-align: center;
+
+    
+    transition: 0.5s ease;
+    margin: -300px;
+    transform: scale(0.9);
+}
+
+/*Image*/
+.card-2-image {
+    grid-area: image;
+    background: url("1.jpg");
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    background-size:cover;
+    width: 100%;
+    height: auto;
+}
+
+/*text*/
+.card-text-2 {
+    grid-area: text;
+    margin: 25px;
+}
+.card-text-2 .date-2 {
+    color: rgb(255, 7, 110);
+    font-size:13px;
+}
+.card-text-2 p {
+    color: grey;
+    font-size:15px;
+    font-weight: 300;
+}
+.card-text-2 h2 {
+    margin-top:0px;
+    font-size:28px;
+}
+
+/*stats*/
+.card-stats-2 {
+    grid-area: stats; 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+    background: rgb(202, 202, 202);
+}
+.card-stats-2 .stat-2 {
+    padding: 10px;
+    display: flex;
+    
+    justify-content: center;
+    color: white;
+    
+}
+
+/*value*/
+.card-stats-2 .value-2{
+    font-size: 22px;
+    font-weight: 500;
+}
+.card-stats-2 .value-2 sup{
+    font-size: 12px;
+}
+/*stats*/
+.card-stats-2 .type-2{
+    font-size: 11px;
+    font-weight: 300;
+    text-transform: uppercase;
+}
+.card-2:hover {
+    transform: scale(1.00);
+    box-shadow: 5px 5px 15px rgba(0,0,0,0.6);
+}
+
+/*Form*/
+.div-inputs{
+    max-height: 67vh;
+    overflow-y: scroll;
+}
+.div2-inputs{
+    margin: 15px 0 15px 0;
+}
+#bloco-inputs, #bloco-date, #bloco-select{
+    border-bottom:1px solid rgb(197, 197, 197);
+}
+
+/*textarea*/
+textarea{
+    border-radius: 10px;
+    font-size: 20px;
+
+    min-height: 20px;
+    max-height: 30vh;
+    min-width: 10vw;
+    max-width: 70vw; 
+  }
+
+/*Botoes*/
+.btn {
+    background: rgb(141, 146, 201);
+    border-radius: 5px;
+    width: 25vw;
+    height: 10vh;
+    cursor: pointer;
+    text-align: center;
+    
+}
+.btn.cancel{
+    background: rgba(207, 21, 21, 0.6)
+}
+.btn.send{
+    background: rgba(21, 207, 46, 0.6)
+}
+.btn.cancel:hover{
+    background: rgb(190, 16, 16);
+    transform:scale(1.05);
+}
+.btn.send:hover{
+    background: rgb(8, 182, 8);
+    transform:scale(1.05);
+}
+
+
