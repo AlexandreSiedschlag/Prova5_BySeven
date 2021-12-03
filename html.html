@@ -20,7 +20,7 @@
             </div>
 
             <!--Card 0-->
-            <div id='card0' class='card'>
+            <div id='card0' class='classe-cards'>
 
                 <div class='titulo'>
                     <h2>Card0</h2>
@@ -39,7 +39,7 @@
                 </div>
 
                 <div class='inputs'>
-                    <input id='date0' disabled type="date"  placeholder="Email">
+                    <input id='date0' disabled type="date"  placeholder="Data">
                 </div>
 
                 <div class='inputs'>
@@ -54,14 +54,15 @@
                     <textarea id="textarea0" cols="70" rows="5" placeholder="Texto"></textarea>
                 </div>
 
-                <div class='botoes'>
-                    <button id='btn0' onclick='abrirCard0()'>Card1</button>
+                <div class='class-botoes'>
+                    <button id='limpar0' onclick='limparCard(0)'>Limpar Campos 0</button>
+                    <button id='btn0' onclick='pegarValoresCard(0)'>Enviar Card 0</button>
                 </div>
                 
             </div>
 
             <!--Card 1-->
-            <div id='card1' class='card' onclick='abrirCard1()'> 
+            <div id='card1' class='classe-cards'> 
                 
                 <div class='titulo'>
                     <h2>Card1</h2>
@@ -80,7 +81,7 @@
                 </div>
 
                 <div class='inputs'>
-                    <input id='date1' disabled type="date" placeholder="Email">
+                    <input id='date1' disabled type="date" placeholder="Data">
                 </div>
 
                 <div class='inputs'>
@@ -95,14 +96,15 @@
                     <textarea id="textarea1" cols="70" rows="5" placeholder="Texto"></textarea>
                 </div>
 
-                <div class='botoes'>
-                    <button id='btn1' onclick='abrirCard1()'>Card1</button>
+                <div class='class-botoes'>
+                    <button id='limpar1' onclick='limparCard(1)'>Limpar Campos 1</button>
+                    <button id='btn1' onclick='pegarValoresCard(1)'>Card1</button>
                 </div>
 
             </div>
 
             <!--Card 2-->
-            <div id='card2' class='card' onclick='abrirCard2()'>   
+            <div id='card2' class='classe-cards'> 
 
                 <div class='titulo'>
                     <h2>Card2</h2>
@@ -121,7 +123,7 @@
                 </div>
 
                 <div class='inputs'>
-                    <input id='date2' type="date" placeholder="Email">
+                    <input id='date2' type="date" placeholder="Data">
                 </div>
 
                 <div class='inputs'>
@@ -136,17 +138,22 @@
                     <textarea id="textarea2" cols="70" rows="5" placeholder="Texto"></textarea>
                 </div>
 
-                <div class='botoes'>
-                    <button id='btn2' onclick='abrirCard2()'>Card1</button>
+                <div class='class-botoes'>
+                    <button id='limpar2' onclick='limparCard(2)'>Limpar Campos 2</button>
+                    <button id='btn2' onclick='pegarValoresCard(2)'>Card2</button>
                 </div>
 
             </div>
 
             <!--Card 3-->
-            <div id='card3' class='card' onclick='abrirCard3()'>
+            <div id='card3' class='classe-cards'>
 
                 <div>
                     <h2>Card3</h2>
+                </div>
+
+                <div class='class-botoes'>
+                    <button id='btn-criar-card' onclick="criarCard()">Criar Novo Card</button>
                 </div>
 
             </div>

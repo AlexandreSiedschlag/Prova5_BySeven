@@ -4,44 +4,39 @@ var cont_combobox = 1
 var cont_textbox = 1
 
 function xabuska(){
-let templates = JSON.parse(localStorage.getItem('templates')) || []
-console.log(templates)
+    let templates = JSON.parse(localStorage.getItem('templates')) || []
+    console.log(templates)
 
- x = document.querySelector('#corpo')
- templates.forEach(template => {
-    let div = document.createElement('div')
-    // div.setAttribute('id', element)
-// y = template.elementos.length
+    x = document.querySelector('#corpo')
+    templates.forEach(template => {
+        let div = document.createElement('div')
 
-
-
-
-div.innerHTML = `
-<div class="card" onclick="changeCard(1);return false;">
-    <div class="card-image"></div>
-    <div class="card-text">
-        <span class="date">${template.descricao}</span>
-        <h2>${template.nome}</h2>
-        <p>Texto Random</p>
-    </div>
-    <div class="card-stats">
-        <div class="stat">
-            <div class="value">${template.elementos.filter((tartaruga)=>{return tartaruga.element=='nome'}).length}</div>
-            <div class="type">Nome</div>
+    div.innerHTML = `
+    <div class="card" onclick="changeCard(1);return false;">
+        <div class="card-image"></div>
+        <div class="card-text">
+            <span class="date">${template.descricao}</span>
+            <h2>${template.nome}</h2>
+            <p>Texto Random</p>
         </div>
-        <div class="stat border">
-            <div class="value">${template.elementos.filter((elemento)=>{return elemento.element=='data'}).length}</div>
-            <div class="type">Data</div>
-        </div>
-        <div class="stat">
-            <div class="value">1</div>
-            <div class="type">Select</div>
+        <div class="card-stats">
+            <div class="stat">
+                <div class="value">${template.elementos.filter((tartaruga)=>{return tartaruga.element=='nome'}).length}</div>
+                <div class="type">Nome</div>
+            </div>
+            <div class="stat border">
+                <div class="value">${template.elementos.filter((elemento)=>{return elemento.element=='data'}).length}</div>
+                <div class="type">Data</div>
+            </div>
+            <div class="stat">
+                <div class="value">1</div>
+                <div class="type">Select</div>
+            </div>
         </div>
     </div>
-</div>
-`
-x.appendChild(div)
- })
+    `
+    x.appendChild(div)
+    })
 }
 xabuska()
 

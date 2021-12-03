@@ -2,7 +2,7 @@ body{
     margin: 0px;
     padding: 0px;
     list-style: none;
-    font-size: 1.2rem;
+    font-size: 1.0rem;
     font-family: Arial, Helvetica, sans-serif;
 }
 h1{
@@ -10,8 +10,8 @@ h1{
     text-align: center;
     margin-top: 50px;
 }
-/*Section dos 4 itens fixos*/
 
+/*Section dos 4 itens fixos*/
 .flex {
     display: flex;
     flex-wrap: wrap;
@@ -25,30 +25,20 @@ h1{
     margin: 0 10px;
 }
 
+/*Cards*/
 .classe-cards{
-    border: 3px solid black;
+    border: 3px solid rgb(62, 41, 252);
     padding: 10px 10px 10px 10px;
     margin: 10px 10px 10px 10px;
 }
-.card{
-    border: 3px solid rgb(212, 34, 34);
-    padding: 10px 10px 10px 10px;
-    margin: 30px 10px 30px 10px;
-}
-#card1{
 
-}
-#card2{
-
-}
-#card3{
-
-}
-#card4{
-
-}
 #div-novo-card{
-    display:flex;
+    display: flex;
+    flex-wrap: wrap;
+    max-width: 1200px;
+    margin: 0 auto;
+    text-align: center;
+    margin-top: 10px;
 }
 textarea{
     resize: none;
