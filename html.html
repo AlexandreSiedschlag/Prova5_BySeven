@@ -23,7 +23,7 @@
             <div id='card0' class='classe-cards'>
 
                 <div class='titulo'>
-                    <h2>Card0</h2>
+                    <h2>Template0</h2>
                 </div>
 
                 <div class='inputs'>
@@ -56,7 +56,7 @@
 
                 <div class='class-botoes'>
                     <button id='limpar0' onclick='limparCard(0)'>Limpar Campos 0</button>
-                    <button id='btn0' onclick='pegarValoresCard(0)'>Enviar Card 0</button>
+                    <button id='btn0' onclick='mostrarFormulario()'>Mostrar Formulario</button>
                 </div>
                 
             </div>
@@ -65,7 +65,7 @@
             <div id='card1' class='classe-cards'> 
                 
                 <div class='titulo'>
-                    <h2>Card1</h2>
+                    <h2>Template1</h2>
                 </div>
 
                 <div class='inputs'>
@@ -98,7 +98,7 @@
 
                 <div class='class-botoes'>
                     <button id='limpar1' onclick='limparCard(1)'>Limpar Campos 1</button>
-                    <button id='btn1' onclick='pegarValoresCard(1)'>Card1</button>
+                    <button id='btn1' onclick='pegarValoresCard(1)'>Mostrar Formulario</button>
                 </div>
 
             </div>
@@ -107,7 +107,7 @@
             <div id='card2' class='classe-cards'> 
 
                 <div class='titulo'>
-                    <h2>Card2</h2>
+                    <h2>Template2</h2>
                 </div>
 
                 <div class='inputs'>
@@ -140,7 +140,7 @@
 
                 <div class='class-botoes'>
                     <button id='limpar2' onclick='limparCard(2)'>Limpar Campos 2</button>
-                    <button id='btn2' onclick='pegarValoresCard(2)'>Card2</button>
+                    <button id='btn2' onclick='pegarValoresCard(2)'>Criar Card2</button>
                 </div>
 
             </div>
@@ -149,7 +149,7 @@
             <div id='card3' class='classe-cards'>
 
                 <div>
-                    <h2>Card3</h2>
+                    <h2>Template3</h2>
                 </div>
 
                 <div class='class-botoes'>
@@ -177,10 +177,51 @@
             
         </div>
 
+    <!--Formulario-->
     </section>
-
-    <section>
-
-    </section>
+    
 </body>
+<section></section>
+        <div id='formulario' class='classe-cards'> 
+
+            <div class='titulo'>
+                <h2>Formulario</h2>
+            </div>
+
+            <div class='inputs'>
+                <input id='formulario-ddd' type="numeric" placeholder="DDD">
+            </div>
+
+            <div class='inputs'>
+                <input id='formulario-celular' type="numeric" placeholder="Celular">
+            </div>
+
+            <div class='inputs'>
+                <input id='formulario-email' type="email" placeholder="Email">
+            </div>
+
+            <div class='inputs'>
+                <input id='formulario-date' type="date" placeholder="Data">
+            </div>
+
+            <div class='inputs'>
+                <select id="formulario-select" disabled>
+                    <option value="">Option1</option>
+                    <option value="">Option2</option>
+                    <option value="">Option3</option>
+                </select>
+            </div>
+
+            <div class='inputs'>
+                <textarea id="formulario-textarea" cols="70" rows="5" placeholder="Texto"></textarea>
+            </div>
+
+            <div class='class-botoes'>
+                <button id='formulario-limpar' onclick='limparFormulario()'>Limpar Campos</button>
+                <button id='formulario-cancelar' onclick='cancelarFormulario()'>Cancelar</button>
+                <button id='formulario-enviar' onclick='criarCard()'>Criar</button>
+            </div>
+
+        </div>
+    </section>
 </html>

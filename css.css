@@ -44,3 +44,11 @@ textarea{
     resize: none;
 }
 /*Section dos itens mutaveis*/
+
+/*Form*/
+#formulario{
+    display: none;
+    background: rgb(58, 58, 58);
+    text-align: center;
+    visibility: visible;
+}

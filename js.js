@@ -31,12 +31,6 @@ function criarCard(){
     //     console.log(`${key}: ${localStorage.getItem(key)}`)
     //     console.log(key[1])
     // }
-    let keys = Object.keys(localStorage)
-    for (let key of keys){
-        console.log(`${key}: ${localStorage.getItem(key)}`)
-        console.log(typeof(key))
-    }
-    console.log(`index: ${localStorage.getItem(index)}`)
     
     
     
@@ -49,22 +43,21 @@ function deletarCard(numero){
 }
 function editarCard(numero){
 }
-function limparCard(numero){
-    document.getElementById(`ddd${numero}`).value = ''
-    document.getElementById(`ddd${numero}`).value = ''
-    document.getElementById(`celular${numero}`).value = ''
-    document.getElementById(`email${numero}`).value = ''
-    document.getElementById(`date${numero}`).value = ''
-    document.getElementById(`select${numero}`).value = ''
-    document.getElementById(`textarea${numero}`).value = ''
+function limparFormulario(){
+    document.getElementById(`formulario-ddd`).value = ''
+    document.getElementById(`formulario-celular`).value = ''
+    document.getElementById(`formulario-email`).value = ''
+    document.getElementById(`formulario-date`).value = ''
+    document.getElementById(`formulario-select`).value = ''
+    document.getElementById(`formulario-textarea`).value = ''
 }
-function pegarValoresCard(numero){
-    ddd = document.getElementById(`ddd${numero}`).value
-    celular = document.getElementById(`celular${numero}`).value
-    email = document.getElementById(`email${numero}`).value
-    data = document.getElementById(`date${numero}`).value
-    select = document.getElementById(`select${numero}`).value
-    text = document.getElementById(`textarea${numero}`).value
+function pegarValoresFormulario(){
+    ddd = document.getElementById(`formulario-ddd`).value
+    celular = document.getElementById(`formulario-celular`).value
+    email = document.getElementById(`formulario-email`).value
+    data = document.getElementById(`formulario-date`).value
+    select = document.getElementById(`formulario-select`).value
+    text = document.getElementById(`formulario-textarea`).value
     conteudo = {
         'ddd': ddd,
         'celular': celular,
@@ -74,11 +67,9 @@ function pegarValoresCard(numero){
         'text': text
     }
     setStorage(numero, conteudo);
-    limparCard(numero)
+    limparFormulario(numero)
 }
-function mostrarCard(numero){
-    getStorage(numero)
-}
+
 function conteudoCard(){
     let div = document.createElement('div')
     let divNovoCard = document.getElementById('div-novo-card')
@@ -118,11 +109,29 @@ function conteudoCard(){
                 </div>
 
                 <div class='class-botoes'>
-                    <button id='limpar${cont_cards}' onclick='limparCard(${cont_cards})'>Limpar Campos ${cont_cards}</button>
+                    <button id='limpar${cont_cards}' onclick='limparFormulario(${cont_cards})'>Limpar Campos ${cont_cards}</button>
                     <button id='deletar${cont_cards}' onclick='deletarCard(${cont_cards})'>Deletar Card ${cont_cards}</button>
                     <button id='btn${cont_cards}' onclick='pegarValoresCard(${cont_cards})'>Card${cont_cards}</button>
                 </div>
     `
     divNovoCard.appendChild(div)
     cont_cards += 1
+}
+
+/*Formulario*/
+
+function mostrarFormulario(){
+    x = document.getElementsByClassName('flex')
+    x[0].style.display='none'
+
+    document.getElementById('formulario').style.display ='block'
+}
+function cancelarFormulario(){
+    x = document.getElementsByClassName('flex')
+    x[0].style.display='flex'
+
+    document.getElementById('formulario').style.display ='none'
+}
+function enviarFormulario(){
+    pegarValoresFormulario()
 }
