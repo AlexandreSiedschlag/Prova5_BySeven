@@ -1,6 +1,6 @@
 /*Contadores */
 cont_cards = 4
-let templates = []
+templates = []
 /*Templates*/
 function deletarCard(numero){
     console.log(numero)
@@ -49,7 +49,7 @@ function gerarHtmlDoTemplateCriado(preview){
                 </div>
 
                 <div class='inputs'>
-                    <textarea id='preview${cont_cards}' cols="70" rows="5" readonly>${preview}</textarea>
+                    Preview
                 </div>
 
                 <div class='class-botoes'>
@@ -65,18 +65,27 @@ function gerarHtmlDoTemplateCriado(preview){
 function enviarFormulario(){
     pegarValoresFormularioEGravarNoStorage(cont_cards)
     cont_cards += 1
-    templates = gerarPaginaInicial()
+    templates = getStorage()
     gerarHtmlDoTemplateCriado(templates)
+    cancelarFormulario()
 }
 function mostrarFormulario(numero){
-    x = document.getElementsByClassName('flex')
-    x[0].style.display='none'
+    
+    x = document.getElementsByClassName('flex') 
+    x[0].style.display='none' //pagina inicial
+    document.getElementById('div-novo-card').style.display = 'none'
+
     document.getElementById('formulario').style.display ='block'
+    
 }
 function cancelarFormulario(){
+
     x = document.getElementsByClassName('flex')
-    x[0].style.display='flex'
-    document.getElementById('formulario').style.display ='none'
+    x[0].style.display='flex' //pagina inicial
+    document.getElementById('div-novo-card').style.display = 'flex' // Templates criados
+
+    document.getElementById('formulario').style.display ='none' // formulario
+    
 }
 function pegarValoresFormularioEGravarNoStorage(){
     ddd = document.getElementById(`formulario-ddd`).value
@@ -158,8 +167,3 @@ function getStorage(){
 function deleteStorage(){
     localStorage.removeItem(`Templates`)
 }
-
-/*Pagina Inicial*/
-function gerarPaginaInicial(){
-    templates = getStorage()    
-} return templates
