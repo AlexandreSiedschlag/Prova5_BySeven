@@ -36,6 +36,7 @@ function criarCard(){
         console.log(`${key}: ${localStorage.getItem(key)}`)
         console.log(typeof(key))
     }
+    console.log(`index: ${localStorage.getItem(index)}`)
     
     
     
