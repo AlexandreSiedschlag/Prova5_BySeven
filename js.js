@@ -1,41 +1,7 @@
 /*Contadores */
 cont_cards = 4
-
-
-/*Storage */
-function setStorage(numero, conteudo){
-    localStorage.setItem(`Card${numero}-Input`, JSON.stringify(conteudo));
-}
-function getStorage(numero){
-    return JSON.parse(localStorage.getItem(`Card${numero}-Input`)) || []
-}
-function deleteStorage(numero){
-    localStorage.removeItem(`Card${numero}`)
-}
-
-/*Cards*/
-function criarCard(){
-    // conteudo = {
-    //     'indice': cont_cards,
-    //     'ddd': '',
-    //     'celular': '',
-    //     'email': '',
-    //     'data': '',
-    //     'select': '',
-    //     'text': ''
-    // }
-    // setStorage(cont_cards, conteudo);
-    
-    // for (let i=0; i< localStorage.length;i++ ){
-    //     let key = localStorage.key(i)
-    //     console.log(`${key}: ${localStorage.getItem(key)}`)
-    //     console.log(key[1])
-    // }
-    
-    
-    
-    
-}
+let templates = []
+/*Templates*/
 function deletarCard(numero){
     console.log(numero)
     deleteStorage(numero)
@@ -43,34 +9,8 @@ function deletarCard(numero){
 }
 function editarCard(numero){
 }
-function limparFormulario(){
-    document.getElementById(`formulario-ddd`).value = ''
-    document.getElementById(`formulario-celular`).value = ''
-    document.getElementById(`formulario-email`).value = ''
-    document.getElementById(`formulario-date`).value = ''
-    document.getElementById(`formulario-select`).value = ''
-    document.getElementById(`formulario-textarea`).value = ''
-}
-function pegarValoresFormulario(){
-    ddd = document.getElementById(`formulario-ddd`).value
-    celular = document.getElementById(`formulario-celular`).value
-    email = document.getElementById(`formulario-email`).value
-    data = document.getElementById(`formulario-date`).value
-    select = document.getElementById(`formulario-select`).value
-    text = document.getElementById(`formulario-textarea`).value
-    conteudo = {
-        'ddd': ddd,
-        'celular': celular,
-        'email': email,
-        'data': data,
-        'select': select,
-        'text': text
-    }
-    setStorage(numero, conteudo);
-    limparFormulario(numero)
-}
 
-function conteudoCard(){
+function gerarHtmlDoTemplateCriado(preview){
     let div = document.createElement('div')
     let divNovoCard = document.getElementById('div-novo-card')
     div.innerHTML = `
@@ -108,6 +48,10 @@ function conteudoCard(){
                     <textarea id="textarea${cont_cards}" cols="70" rows="5" placeholder="Texto"></textarea>
                 </div>
 
+                <div class='inputs'>
+                    <textarea id='preview${cont_cards}' cols="70" rows="5" readonly>${preview}</textarea>
+                </div>
+
                 <div class='class-botoes'>
                     <button id='limpar${cont_cards}' onclick='limparFormulario(${cont_cards})'>Limpar Campos ${cont_cards}</button>
                     <button id='deletar${cont_cards}' onclick='deletarCard(${cont_cards})'>Deletar Card ${cont_cards}</button>
@@ -115,23 +59,107 @@ function conteudoCard(){
                 </div>
     `
     divNovoCard.appendChild(div)
-    cont_cards += 1
 }
 
 /*Formulario*/
-
-function mostrarFormulario(){
+function enviarFormulario(){
+    pegarValoresFormularioEGravarNoStorage(cont_cards)
+    cont_cards += 1
+    templates = gerarPaginaInicial()
+    gerarHtmlDoTemplateCriado(templates)
+}
+function mostrarFormulario(numero){
     x = document.getElementsByClassName('flex')
     x[0].style.display='none'
-
     document.getElementById('formulario').style.display ='block'
 }
 function cancelarFormulario(){
     x = document.getElementsByClassName('flex')
     x[0].style.display='flex'
-
     document.getElementById('formulario').style.display ='none'
 }
-function enviarFormulario(){
-    pegarValoresFormulario()
+function pegarValoresFormularioEGravarNoStorage(){
+    ddd = document.getElementById(`formulario-ddd`).value
+    celular = document.getElementById(`formulario-celular`).value
+    email = document.getElementById(`formulario-email`).value
+    data = document.getElementById(`formulario-date`).value
+    select = document.getElementById(`formulario-select`).value
+    text = document.getElementById(`formulario-textarea`).value
+
+    template = {
+        'indice':cont_cards,
+        'ddd': ddd,
+        'celular': celular,
+        'email': email,
+        'data': data,
+        'select': select,
+        'text': text
+    }
+    templates.push(template)
+    setStorage(templates);
+    limparFormulario()
 }
+function limparFormulario(){
+    document.getElementById(`formulario-ddd`).value = ''
+    document.getElementById(`formulario-celular`).value = ''
+    document.getElementById(`formulario-email`).value = ''
+    document.getElementById(`formulario-date`).value = ''
+    document.getElementById(`formulario-select`).value = ''
+    document.getElementById(`formulario-textarea`).value = ''
+}
+function formatarFormulario(numero){
+    ddd = document.getElementById(`formulario-ddd`)
+    celular = document.getElementById(`formulario-celular`)
+    email = document.getElementById(`formulario-email`)
+    data = document.getElementById(`formulario-date`)
+    select = document.getElementById(`formulario-select`)
+    text = document.getElementById(`formulario-textarea`)
+    if (numero == 0){
+        ddd.style.visibility =  'visible'
+        celular.style.visibility = 'visible'
+        email.style.visibility = 'hidden'
+        data.style.visibility = 'hidden'
+        select.style.visibility = 'hidden'
+        text.style.visibility = 'visible'        
+    }
+    else if (numero == 1){
+        ddd.style.visibility =  'visible'
+        celular.style.visibility = 'visible'
+        email.style.visibility = 'visible'
+        data.style.visibility = 'hidden'
+        select.style.visibility = 'hidden'
+        text.style.visibility = 'visible' 
+    }
+    else if (numero == 2){
+        ddd.style.visibility =  'visible'
+        celular.style.visibility = 'visible'
+        email.style.visibility = 'visible'
+        data.style.visibility = 'visible'
+        select.style.visibility = 'hidden'
+        text.style.visibility = 'visible' 
+    }
+    else if (numero == 3){
+        ddd.style.visibility =  'visible'
+        celular.style.visibility = 'visible'
+        email.style.visibility = 'visible'
+        data.style.visibility = 'visible'
+        select.style.visibility = 'visible'
+        text.style.visibility = 'visible' 
+    }
+}
+
+/*Storage*/
+function setStorage(conteudo){
+    localStorage.setItem(`Templates`, JSON.stringify(conteudo));
+}
+function getStorage(){
+    return JSON.parse(localStorage.getItem(`Templates`)) || []
+}
+function deleteStorage(){
+    localStorage.removeItem(`Templates`)
+}
+
+/*Pagina Inicial*/
+function gerarPaginaInicial(){
+    templates = getStorage()    
+} return templates
