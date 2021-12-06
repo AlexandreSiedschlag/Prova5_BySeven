@@ -2,78 +2,80 @@
 cont_cards = 4
 templates = []
 templates = getStorage()
+
+
+
 /*Chamadas de funcoes */
 
-gerarHtmlDoTemplateCriado(templates)
 
 /*Templates*/
-function deletarCard(){
-    // for (let i=0; i<templates.length;i++){
-    //     if (templates[i] == index){
-    //         templates.splice[i, 1]
-    //     }
-    // }
-    console.log(templates)
-
-    templates.splice(templates.indexOf(0),1);
-    
-    console.log(templates)
-    
+function deletarCard(indice){
+    templates.splice(templates.indexOf(indice),1);
 }
 
-function gerarHtmlDoTemplateCriado(preview){
+function gerarHtmlDoTemplateCriado(){
+    //Para cada item no storage, gera 1 card
     console.log(templates.length)
-    if (templates.length!= '') {
-        console.log('entrou no if');
+    i=0
+    a=4
+    while (i<=templates.length){
+        console.log(`I: ${i}`)
+        console.log(`a: ${a}`)
         let div = document.createElement('div');
-        let divNovoCard = document.getElementById('div-novo-card');
-        div.innerHTML = `
-        <div id='card${cont_cards}' class='classe-cards'> 
+        
+        htmlASerGerado = `
+            <div id='card${templates[i]}' class='classe-cards'> 
 
-                    <div class='titulo'>
-                        <h2>Card${cont_cards}</h2>
-                    </div>
+                <div class='titulo'>
+                    <h2>Card${cont_cards}</h2>
+                </div>
 
-                    <div class='inputs'>
-                        <input id='ddd${cont_cards}' type="numeric" placeholder="DDD">
-                    </div>
+                <div class='inputs'>
+                    <input id='ddd${cont_cards}' type="numeric" placeholder="DDD">
+                </div>
 
-                    <div class='inputs'>
-                        <input id='celular${cont_cards}' type="numeric" placeholder="Celular">
-                    </div>
+                <div class='inputs'>
+                    <input id='celular${cont_cards}' type="numeric" placeholder="Celular">
+                </div>
 
-                    <div class='inputs'>
-                        <input id='email${cont_cards}' type="email" placeholder="Email">
-                    </div>
+                <div class='inputs'>
+                    <input id='email${cont_cards}' type="email" placeholder="Email">
+                </div>
 
-                    <div class='inputs'>
-                        <input id='date${cont_cards}' type="date" placeholder="Date">
-                    </div>
+                <div class='inputs'>
+                    <input id='date${cont_cards}' type="date" placeholder="Date">
+                </div>
 
-                    <div class='inputs'>
-                        <select id="select${cont_cards}">
-                            <option value="">Option1</option>
-                            <option value="">Option2</option>
-                            <option value="">Option3</option>
-                        </select>
-                    </div>
+                <div class='inputs'>
+                    <select id="select${cont_cards}">
+                        <option value="">Option1</option>
+                        <option value="">Option2</option>
+                        <option value="">Option3</option>
+                    </select>
+                </div>
 
-                    <div class='inputs'>
-                        <textarea id="textarea${cont_cards}" cols="70" rows="5" placeholder="Texto"></textarea>
-                    </div>
+                <div class='inputs'>
+                    <textarea id="textarea${cont_cards}" cols="70" rows="5" placeholder="Texto"></textarea>
+                </div>
 
-                    <div class='inputs'>
-                        Preview
-                    </div>
+                <div class='inputs'>
+                    Preview
+                </div>
 
-                    <div class='class-botoes'>
-                        <button id='limpar${cont_cards}' onclick='limparFormulario(${cont_cards})'>Limpar Campos ${cont_cards}</button>
-                        <button id='deletar${cont_cards}' onclick='deletarCard(${cont_cards})'>Deletar Card ${cont_cards}</button>
-                        <button id='btn${cont_cards}' onclick='pegarValoresCard(${cont_cards})'>Card${cont_cards}</button>
-                    </div>
-        `
+                <div class='class-botoes'>
+                    <button id='limpar${cont_cards}' onclick='limparFormulario(${cont_cards})'>Limpar Campos ${cont_cards}</button>
+                    <button id='deletar${cont_cards}' onclick='deletarCard(${cont_cards})'>Deletar Card ${cont_cards}</button>
+                    <button id='btn${cont_cards}' onclick='pegarValoresCard(${cont_cards})'>Card${cont_cards}</button>
+                </div>`
+        let divNovoCard = document.getElementById('divNovoCard');
+        div.innerHTML = htmlASerGerado
         divNovoCard.appendChild(div)
+        i += 1;
+        a += 1;
+
     }
+
+        
 }
 
 /*Formulario*/
@@ -86,7 +88,7 @@ function mostrarFormulario(numero){
     
     x = document.getElementsByClassName('flex') 
     x[0].style.display='none' //pagina inicial
-    document.getElementById('div-novo-card').style.display = 'none'
+    document.getElementById('divNovoCard').style.display = 'none'
 
     document.getElementById('formulario').style.display ='block'
     
@@ -95,7 +97,7 @@ function cancelarFormulario(){
 
     x = document.getElementsByClassName('flex')
     x[0].style.display='flex' //pagina inicial
-    document.getElementById('div-novo-card').style.display = 'flex' // Templates criados
+    document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
 
     document.getElementById('formulario').style.display ='none' // formulario
     
@@ -180,3 +182,7 @@ function getStorage(){
 function deleteStorage(){
     localStorage.removeItem(`Templates`)
 }
+
+
+
+

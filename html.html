@@ -8,9 +8,9 @@
     <script src="js.js"></script>
     <title>Prova 5</title>
 </head>
-<body>
+<body onload='gerarHtmlDoTemplateCriado();'>
     <button onclick='deleteStorage();'>Delete Storage</button>
-    <button onclick='deletarCard();'>Deletar card[0]</button>
+    <button onclick='deletarCard(0);'>Deletar card[0]</button>
     
     <section class='flex'><!--Sessao dos Cards Fixos-->
 
@@ -170,7 +170,7 @@
                 <h1>Cards Added</h1>
             </div>
             
-            <div id='div-novo-card'>
+            <div id='divNovoCard'>
             </div>
             
         </div>
