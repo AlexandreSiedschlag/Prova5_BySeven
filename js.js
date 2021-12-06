@@ -15,6 +15,70 @@ function deleteStorage(numero){
 
 /*Cards*/
 function criarCard(){
+    // conteudo = {
+    //     'indice': cont_cards,
+    //     'ddd': '',
+    //     'celular': '',
+    //     'email': '',
+    //     'data': '',
+    //     'select': '',
+    //     'text': ''
+    // }
+    // setStorage(cont_cards, conteudo);
+    
+    // for (let i=0; i< localStorage.length;i++ ){
+    //     let key = localStorage.key(i)
+    //     console.log(`${key}: ${localStorage.getItem(key)}`)
+    //     console.log(key[1])
+    // }
+    let keys = Object.keys(localStorage)
+    for (let key of keys){
+        console.log(`${key}: ${localStorage.getItem(key)}`)
+        console.log(typeof(key))
+    }
+    
+    
+    
+    
+}
+function deletarCard(numero){
+    console.log(numero)
+    deleteStorage(numero)
+    document.getElementById(`card${numero}`).remove()
+}
+function editarCard(numero){
+}
+function limparCard(numero){
+    document.getElementById(`ddd${numero}`).value = ''
+    document.getElementById(`ddd${numero}`).value = ''
+    document.getElementById(`celular${numero}`).value = ''
+    document.getElementById(`email${numero}`).value = ''
+    document.getElementById(`date${numero}`).value = ''
+    document.getElementById(`select${numero}`).value = ''
+    document.getElementById(`textarea${numero}`).value = ''
+}
+function pegarValoresCard(numero){
+    ddd = document.getElementById(`ddd${numero}`).value
+    celular = document.getElementById(`celular${numero}`).value
+    email = document.getElementById(`email${numero}`).value
+    data = document.getElementById(`date${numero}`).value
+    select = document.getElementById(`select${numero}`).value
+    text = document.getElementById(`textarea${numero}`).value
+    conteudo = {
+        'ddd': ddd,
+        'celular': celular,
+        'email': email,
+        'data': data,
+        'select': select,
+        'text': text
+    }
+    setStorage(numero, conteudo);
+    limparCard(numero)
+}
+function mostrarCard(numero){
+    getStorage(numero)
+}
+function conteudoCard(){
     let div = document.createElement('div')
     let divNovoCard = document.getElementById('div-novo-card')
     div.innerHTML = `
@@ -58,54 +122,6 @@ function criarCard(){
                     <button id='btn${cont_cards}' onclick='pegarValoresCard(${cont_cards})'>Card${cont_cards}</button>
                 </div>
     `
-    
     divNovoCard.appendChild(div)
-    conteudo = {
-        'indice': cont_cards,
-        'ddd': '',
-        'celular': '',
-        'email': '',
-        'data': '',
-        'select': '',
-        'text': ''
-    }
-    setStorage(cont_cards, conteudo);
     cont_cards += 1
-}
-function deletarCard(numero){
-    console.log(numero)
-    deleteStorage(numero)
-    document.getElementById(`card${numero}`).remove()
-}
-function editarCard(numero){
-}
-function limparCard(numero){
-    document.getElementById(`ddd${numero}`).value = ''
-    document.getElementById(`ddd${numero}`).value = ''
-    document.getElementById(`celular${numero}`).value = ''
-    document.getElementById(`email${numero}`).value = ''
-    document.getElementById(`date${numero}`).value = ''
-    document.getElementById(`select${numero}`).value = ''
-    document.getElementById(`textarea${numero}`).value = ''
-}
-function pegarValoresCard(numero){
-    ddd = document.getElementById(`ddd${numero}`).value
-    celular = document.getElementById(`celular${numero}`).value
-    email = document.getElementById(`email${numero}`).value
-    data = document.getElementById(`date${numero}`).value
-    select = document.getElementById(`select${numero}`).value
-    text = document.getElementById(`textarea${numero}`).value
-    conteudo = {
-        'ddd': ddd,
-        'celular': celular,
-        'email': email,
-        'data': data,
-        'select': select,
-        'text': text
-    }
-    setStorage(numero, conteudo);
-    limparCard(numero)
-}
-function mostrarCard(numero){
-
 }
