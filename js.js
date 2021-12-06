@@ -5,6 +5,7 @@ templates = getStorage()
 
 
 
+
 /*Chamadas de funcoes */
 
 
@@ -13,70 +14,8 @@ function deletarCard(indice){
     templates.splice(templates.indexOf(indice),1);
 }
 
-function gerarHtmlDoTemplateCriado(){
-    //Para cada item no storage, gera 1 card
-    console.log(templates.length)
-    i=0
-    a=4
-    while (i<=templates.length){
-        console.log(`I: ${i}`)
-        console.log(`a: ${a}`)
-        let div = document.createElement('div');
-        
-        htmlASerGerado = `
-            <div id='card${templates[i]}' class='classe-cards'> 
 
-                <div class='titulo'>
-                    <h2>Card${cont_cards}</h2>
-                </div>
-
-                <div class='inputs'>
-                    <input id='ddd${cont_cards}' type="numeric" placeholder="DDD">
-                </div>
-
-                <div class='inputs'>
-                    <input id='celular${cont_cards}' type="numeric" placeholder="Celular">
-                </div>
-
-                <div class='inputs'>
-                    <input id='email${cont_cards}' type="email" placeholder="Email">
-                </div>
-
-                <div class='inputs'>
-                    <input id='date${cont_cards}' type="date" placeholder="Date">
-                </div>
-
-                <div class='inputs'>
-                    <select id="select${cont_cards}">
-                        <option value="">Option1</option>
-                        <option value="">Option2</option>
-                        <option value="">Option3</option>
-                    </select>
-                </div>
-
-                <div class='inputs'>
-                    <textarea id="textarea${cont_cards}" cols="70" rows="5" placeholder="Texto"></textarea>
-                </div>
-
-                <div class='inputs'>
-                    Preview
-                </div>
-
-                <div class='class-botoes'>
-                    <button id='limpar${cont_cards}' onclick='limparFormulario(${cont_cards})'>Limpar Campos ${cont_cards}</button>
-                    <button id='deletar${cont_cards}' onclick='deletarCard(${cont_cards})'>Deletar Card ${cont_cards}</button>
-                    <button id='btn${cont_cards}' onclick='pegarValoresCard(${cont_cards})'>Card${cont_cards}</button>
-                </div>`
-        let divNovoCard = document.getElementById('divNovoCard');
-        div.innerHTML = htmlASerGerado
-        divNovoCard.appendChild(div)
-        i += 1;
-        a += 1;
-
-    }
-
-        
-}
+    
 
 /*Formulario*/
 function enviarFormulario(){
@@ -182,7 +121,70 @@ function getStorage(){
 function deleteStorage(){
     localStorage.removeItem(`Templates`)
 }
-
-
+function gerarHtmlDoTemplateCriado(){
+    if (templates.length>=0){
+        console.log(templates[0].indice)
+        console.log(`Templates.length: ${templates[0].indice}`)
+        i=0
+        a=4
+        while (i<templates.length){
+            console.log('For->')
+            console.log(`I: ${i}`)
+            console.log(`a: ${a}`)
+            let div = document.createElement('div');  
+            htmlASerGerado = `
+                <div id='card${templates[i].indice}' class='classe-cards'> 
+    
+                    <div class='titulo'>
+                        <h2>Card${templates[i].indice}</h2>
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='ddd${templates[i].indice}' type="numeric" placeholder="DDD">
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='celular${templates[i].indice}' type="numeric" placeholder="Celular">
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='email${templates[i].indice}' type="email" placeholder="Email">
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='date${templates[i].indice}' type="date" placeholder="Date">
+                    </div>
+    
+                    <div class='inputs'>
+                        <select id="select${templates[i].indice}">
+                            <option value="">Option1</option>
+                            <option value="">Option2</option>
+                            <option value="">Option3</option>
+                        </select>
+                    </div>
+    
+                    <div class='inputs'>
+                        <textarea id="textarea${templates[i].indice}" cols="70" rows="5" placeholder="Texto"></textarea>
+                    </div>
+    
+                    <div class='inputs'>
+                        Preview
+                    </div>
+    
+                    <div class='class-botoes'>
+                        <button id='limpar${templates[i].indice}' onclick='limparFormulario(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
+                        <button id='deletar${templates[i].indice}' onclick='deletarCard(${templates[i].indice})'>Deletar Card ${templates[i].indice}</button>
+                        <button id='btn${templates[i].indice}' onclick='pegarValoresCard(${templates[i].indice})'>Card${templates[i].indice}</button>
+                    </div>`
+            let divNovoCard = document.getElementById('divNovoCard');
+            console.log(divNovoCard)
+            div.innerHTML = htmlASerGerado
+            divNovoCard.appendChild(div)
+            i += 1;
+            a += 1;
+        }
+    }
+}
+gerarHtmlDoTemplateCriado()
 
 
