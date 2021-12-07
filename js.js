@@ -1,6 +1,10 @@
 /*Contadores */
+templates = []
 templates = getStorageTemplates()
-mensagensEnviadas = getStorageMensagens()
+console.log(templates)
+mensagens = []
+mensagens = getStorageMensagens()
+console.log(mensagens)
 
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
@@ -15,8 +19,6 @@ function gerarHtmlDoTemplateCriado(){
     let divNovoCard = document.getElementById('divNovoCard');
     divNovoCard.innerHTML = ''
     if (templates.length>0){
-        console.log(templates[0].indice)
-        console.log(`Templates.length: ${templates[0].indice}`)
         i=0
         while (i<templates.length){
             htmlASerGerado = `
@@ -64,7 +66,6 @@ function gerarHtmlDoTemplateCriado(){
                         <button id='btn${templates[i].indice}' onclick='pegarValoresCard(${templates[i].indice})'>Card${templates[i].indice}</button>
                     </div>`
             let div = document.createElement('div');
-            console.log(divNovoCard)
             div.innerHTML = htmlASerGerado
             divNovoCard.appendChild(div)
             i += 1;
@@ -73,7 +74,7 @@ function gerarHtmlDoTemplateCriado(){
 }
 /**/
 function enviarMensagem(conteudo){
-    alert(`Mensagem: ${conteudo}`)
+    // alert(`Mensagem: ${conteudo}`)
 }
 
 /*Formulario*/
@@ -94,31 +95,34 @@ function mostrarFormulario(numero){ // mostra formulario fixo ou dinamico
 }
 function enviarFormulario(form){
     if (form == 'fixo'){
-        ddd = document.getElementById(`formularioFixoDDD`).value
-        celular = document.getElementById(`formularioFixoCelular`).value
-        email = document.getElementById(`formularioFixoEmail`).value
-        data = document.getElementById(`formularioFixoDate`).value
-        select = document.getElementById(`formularioFixoSelect`).value
-        text = document.getElementById(`formularioFixoTextarea`).value
+        console.log('formulario fixo')
+        dddFixo = document.getElementById(`formularioFixoDDD`).value
+        celularFixo = document.getElementById(`formularioFixoCelular`).value
+        emailFixo = document.getElementById(`formularioFixoEmail`).value
+        dataFixo = document.getElementById(`formularioFixoDate`).value
+        selectFixo = document.getElementById(`formularioFixoSelect`).value
+        textFixo = document.getElementById(`formularioFixoTextarea`).value
 
         mensagem = {
-            'ddd': ddd,
-            'celular': celular,
-            'email': email,
-            'data': data,
-            'select': select,
-            'text': text
+            'ddd': dddFixo,
+            'celular': celularFixo,
+            'email': emailFixo,
+            'data': dataFixo,
+            'select': selectFixo,
+            'text': textFixo
         }
-        
-        mensagensEnviadas.push(mensagem)
-        enviarMensagem(JSON.stringify(mensagem))
-        setStorageMensagens(mensagem)
-        cancelarFormulario()
+        mensagens.push(mensagem)
+        setStorageMensagens(mensagem);
+        limparFormulario()
+        // enviarMensagem(JSON.stringify(mensagem))
+        // cancelarFormulario()
     }
     else{
-        gerarHtmlDoTemplateCriado()
+        console.log('formulario dinamico')
+        pegarValoresFormularioEGravarNoStorage()
+        limparFormulario()
+        // gerarHtmlDoTemplateCriado()
     }
-    
 }
 function pegarValoresFormulario(){
     
@@ -151,7 +155,7 @@ function pegarValoresFormularioEGravarNoStorage(){
     }
 
     template = {
-        'indice':indexNovoDoTemplate,
+        'indice': indexNovoDoTemplate,
         'ddd': ddd,
         'celular': celular,
         'email': email,
@@ -170,6 +174,13 @@ function limparFormulario(){
     document.getElementById(`formularioFixoDate`).value = ''
     document.getElementById(`formularioFixoSelect`).value = ''
     document.getElementById(`formularioFixoTextarea`).value = ''
+
+    document.getElementById(`formularioDinamicoDDD`).value = ''
+    document.getElementById(`formularioDinamicoCelular`).value = ''
+    document.getElementById(`formularioDinamicoEmail`).value = ''
+    document.getElementById(`formularioDinamicoDate`).value = ''
+    document.getElementById(`formularioDinamicoSelect`).value = ''
+    document.getElementById(`formularioDinamicoTextarea`).value = ''
 }
 function formatarFormulario(numero){
     ddd = document.getElementById(`formularioFixoDDD`)
