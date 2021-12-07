@@ -1,11 +1,6 @@
 /*Contadores */
-templates = []
 templates = getStorageTemplates()
-console.log(templates)
-mensagens = []
 mensagens = getStorageMensagens()
-console.log(mensagens)
-
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
 
@@ -72,9 +67,10 @@ function gerarHtmlDoTemplateCriado(){
         }
     }
 }
-/**/
+/*EnviarMensagem*/
 function enviarMensagem(conteudo){
     // alert(`Mensagem: ${conteudo}`)
+    contadorMensagens +=1
 }
 
 /*Formulario*/
@@ -104,16 +100,17 @@ function enviarFormulario(form){
         textFixo = document.getElementById(`formularioFixoTextarea`).value
 
         mensagem = {
-            'ddd': dddFixo,
-            'celular': celularFixo,
-            'email': emailFixo,
-            'data': dataFixo,
-            'select': selectFixo,
-            'text': textFixo
+            'dddFixo': dddFixo,
+            'celularFixo': celularFixo,
+            'emmailFixo': emailFixo,
+            'dataFixo': dataFixo,
+            'selectFixo': selectFixo,
+            'textFixo': textFixo
         }
         mensagens.push(mensagem)
-        setStorageMensagens(mensagem);
+        setStorageMensagens(mensagens);
         limparFormulario()
+        cancelarFormulario()
         // enviarMensagem(JSON.stringify(mensagem))
         // cancelarFormulario()
     }
@@ -121,6 +118,7 @@ function enviarFormulario(form){
         console.log('formulario dinamico')
         pegarValoresFormularioEGravarNoStorage()
         limparFormulario()
+        cancelarFormulario()
         // gerarHtmlDoTemplateCriado()
     }
 }
@@ -183,12 +181,14 @@ function limparFormulario(){
     document.getElementById(`formularioDinamicoTextarea`).value = ''
 }
 function formatarFormulario(numero){
+
     ddd = document.getElementById(`formularioFixoDDD`)
     celular = document.getElementById(`formularioFixoCelular`)
     email = document.getElementById(`formularioFixoEmail`)
     data = document.getElementById(`formularioFixoDate`)
     select = document.getElementById(`formularioFixoSelect`)
     text = document.getElementById(`formularioFixoTextarea`)
+
     if (numero == 0){
         ddd.style.display =  'inline-block'
         celular.style.display = 'inline-block'
@@ -225,18 +225,25 @@ function formatarFormulario(numero){
 }
 
 /*Storage*/
-function setStorageTemplates(conteudo){
-    localStorage.setItem(`Templates`, JSON.stringify(conteudo));
-}
-function getStorageTemplates(){
-    return JSON.parse(localStorage.getItem(`Templates`)) || []
-}
-function setStorageMensagens(conteudo){
-    localStorage.setItem(`Mensagens`, JSON.stringify(conteudo));
-}
-function getStorageMensagens(){
-    return JSON.parse(localStorage.getItem(`Mensagens`)) || []
-}
-function deleteStorageTemplates(){
-    localStorage.removeItem(`Templates`)
-}
+    /*Templates*/
+    function setStorageTemplates(conteudo){
+        localStorage.setItem(`Templates`, JSON.stringify(conteudo));
+    }
+    function getStorageTemplates(){
+        return JSON.parse(localStorage.getItem(`Templates`)) || []
+    }
+    function deleteStorageTemplates(){
+        localStorage.removeItem(`Templates`)
+    }
+    /*Mensagens*/
+    function setStorageMensagens(conteudo){
+        localStorage.setItem(`Mensagens`, JSON.stringify(conteudo));
+    }
+    function getStorageMensagens(){
+        return JSON.parse(localStorage.getItem(`Mensagens`)) || []
+    }
+    function deleteStorageMensagens(){
+        localStorage.removeItem(`Mensagens`)
+    }
+    
+    
