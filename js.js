@@ -1,3 +1,9 @@
+/*  1- Fazer um For para pegar as quantidades de cada input diferente, o for tem que ser pelo id
+    Armazenar todas as informações em um dicionario
+    Quantidade, Valor(conteudo que o usuario inseriu)
+
+    2- Mudar o Template Gerado para apenas preview
+*/
 /*Contadores */
 templates = getStorageTemplates()
 mensagens = getStorageMensagens()
@@ -26,7 +32,7 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
                 <div id='card${templates[i].indice}' class='classecards'> 
     
                     <div class='titulo' id='divtitutlo${templates[i].indice}'>
-                        <h2>Card${templates[i].indice}</h2>
+                        <h2>Template${templates[i].indice}</h2>
                     </div>
     
                     <div class='inputs' id='divddd${templates[i].indice}'>
@@ -68,9 +74,8 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
                     </div>
     
                     <div class='class-botoes' id='divbotoes${templates[i].indice}'>
-                        <button id='limpar${templates[i].indice}' class='btn btn-warning' onclick='limparFormularioDinamico(${i})'>Limpar Campos</button>
-                        <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar Card </button>
-                        <button id='btn${templates[i].indice}' class='btn btn-success' onclick='pegarFormularioDinamico(${i})'>Card</button>
+                        <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar</button>
+                        <button id='btn${templates[i].indice}' class='btn btn-success' onclick='pegarFormularioDinamico(${i})'>Editar</button>
                     </div>`
             let div = document.createElement('div');
             div.innerHTML = htmlASerGerado
@@ -168,10 +173,9 @@ function enviarMensagem(mensagem){
         document.getElementById('sectionPaginaPrincipal').style.display = 'block' //pagina inicial
         document.getElementById('sectionTemplatesInseridos').style.display = 'block'
         document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
-        document.getElementById('sectionFixo').style.display = 'flex' // formulario Fixo
+        document.getElementById('sectionFixo').style.display = 'none' // formulario Fixo
        
     }
-
     
     /*Dinamico*/
     function limparFormularioDinamico(){ //falta fazer
