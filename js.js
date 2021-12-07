@@ -1,29 +1,82 @@
 /*Contadores */
-cont_cards = 4
-templates = []
 templates = getStorage()
 
-
-
-
-/*Chamadas de funcoes */
-
+/*Chamadas de funcoes*/
+gerarHtmlDoTemplateCriado()
 
 /*Templates*/
 function deletarCard(indice){
-    templates.splice(templates.indexOf(indice),1);
+    templates.splice(indice, 1);
+    setStorage(templates)
 }
-
-
+function gerarHtmlDoTemplateCriado(){
+    let divNovoCard = document.getElementById('divNovoCard');
+    divNovoCard.innerHTML = ''
+    if (templates.length>0){
+        console.log(templates[0].indice)
+        console.log(`Templates.length: ${templates[0].indice}`)
+        i=0
+        while (i<templates.length){
+            htmlASerGerado = `
+                <div id='card${templates[i].indice}' class='classe-cards'> 
     
+                    <div class='titulo'>
+                        <h2>Card${templates[i].indice}</h2>
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='ddd${templates[i].indice}' type="numeric" placeholder="DDD">
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='celular${templates[i].indice}' type="numeric" placeholder="Celular">
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='email${templates[i].indice}' type="email" placeholder="Email">
+                    </div>
+    
+                    <div class='inputs'>
+                        <input id='date${templates[i].indice}' type="date" placeholder="Date">
+                    </div>
+    
+                    <div class='inputs'>
+                        <select id="select${templates[i].indice}">
+                            <option value="">Option1</option>
+                            <option value="">Option2</option>
+                            <option value="">Option3</option>
+                        </select>
+                    </div>
+    
+                    <div class='inputs'>
+                        <textarea id="textarea${templates[i].indice}" cols="70" rows="5" placeholder="Texto"></textarea>
+                    </div>
+    
+                    <div class='inputs'>
+                        Preview
+                    </div>
+    
+                    <div class='class-botoes'>
+                        <button id='limpar${templates[i].indice}' onclick='limparFormulario(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
+                        <button id='deletar${templates[i].indice}' onclick='deletarCard(${templates[i].indice})'>Deletar Card ${templates[i].indice}</button>
+                        <button id='btn${templates[i].indice}' onclick='pegarValoresCard(${templates[i].indice})'>Card${templates[i].indice}</button>
+                    </div>`
+            let div = document.createElement('div');
+            console.log(divNovoCard)
+            div.innerHTML = htmlASerGerado
+            divNovoCard.appendChild(div)
+            i += 1;
+        }
+    }
+}
 
 /*Formulario*/
 function enviarFormulario(){
-    pegarValoresFormularioEGravarNoStorage(cont_cards)
-    cont_cards += 1
+    pegarValoresFormularioEGravarNoStorage()
     cancelarFormulario()
+    gerarHtmlDoTemplateCriado()
 }
-function mostrarFormulario(numero){
+function mostrarFormulario(){
     
     x = document.getElementsByClassName('flex') 
     x[0].style.display='none' //pagina inicial
@@ -49,8 +102,20 @@ function pegarValoresFormularioEGravarNoStorage(){
     select = document.getElementById(`formulario-select`).value
     text = document.getElementById(`formulario-textarea`).value
 
+    let indexNovoDoTemplate = 0
+    if (templates.length>0){
+        let comprimento = templates.length //index 3
+        let indexUltimoTemplate = (comprimento - 1) // 2
+        let indiceUltimoTemplate = templates[indexUltimoTemplate].indice //14
+        indexNovoDoTemplate = indiceUltimoTemplate + 1
+        //indexNovoDoTemplate = templates[templates.length -1].indice +1
+    }
+    else {
+        indexNovoDoTemplate = 4
+    }
+
     template = {
-        'indice':cont_cards,
+        'indice':indexNovoDoTemplate,
         'ddd': ddd,
         'celular': celular,
         'email': email,
@@ -121,70 +186,3 @@ function getStorage(){
 function deleteStorage(){
     localStorage.removeItem(`Templates`)
 }
-function gerarHtmlDoTemplateCriado(){
-    if (templates.length>=0){
-        console.log(templates[0].indice)
-        console.log(`Templates.length: ${templates[0].indice}`)
-        i=0
-        a=4
-        while (i<templates.length){
-            console.log('For->')
-            console.log(`I: ${i}`)
-            console.log(`a: ${a}`)
-            let div = document.createElement('div');  
-            htmlASerGerado = `
-                <div id='card${templates[i].indice}' class='classe-cards'> 
-    
-                    <div class='titulo'>
-                        <h2>Card${templates[i].indice}</h2>
-                    </div>
-    
-                    <div class='inputs'>
-                        <input id='ddd${templates[i].indice}' type="numeric" placeholder="DDD">
-                    </div>
-    
-                    <div class='inputs'>
-                        <input id='celular${templates[i].indice}' type="numeric" placeholder="Celular">
-                    </div>
-    
-                    <div class='inputs'>
-                        <input id='email${templates[i].indice}' type="email" placeholder="Email">
-                    </div>
-    
-                    <div class='inputs'>
-                        <input id='date${templates[i].indice}' type="date" placeholder="Date">
-                    </div>
-    
-                    <div class='inputs'>
-                        <select id="select${templates[i].indice}">
-                            <option value="">Option1</option>
-                            <option value="">Option2</option>
-                            <option value="">Option3</option>
-                        </select>
-                    </div>
-    
-                    <div class='inputs'>
-                        <textarea id="textarea${templates[i].indice}" cols="70" rows="5" placeholder="Texto"></textarea>
-                    </div>
-    
-                    <div class='inputs'>
-                        Preview
-                    </div>
-    
-                    <div class='class-botoes'>
-                        <button id='limpar${templates[i].indice}' onclick='limparFormulario(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
-                        <button id='deletar${templates[i].indice}' onclick='deletarCard(${templates[i].indice})'>Deletar Card ${templates[i].indice}</button>
-                        <button id='btn${templates[i].indice}' onclick='pegarValoresCard(${templates[i].indice})'>Card${templates[i].indice}</button>
-                    </div>`
-            let divNovoCard = document.getElementById('divNovoCard');
-            console.log(divNovoCard)
-            div.innerHTML = htmlASerGerado
-            divNovoCard.appendChild(div)
-            i += 1;
-            a += 1;
-        }
-    }
-}
-
-
-
