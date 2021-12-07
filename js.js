@@ -23,7 +23,7 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
         i=0
         while (i<templates.length){
             htmlASerGerado = `
-                <div id='card${templates[i].indice}' class='classe-cards'> 
+                <div id='card${templates[i].indice}' class='classecards'> 
     
                     <div class='titulo' id='divtitutlo${templates[i].indice}'>
                         <h2>Card${templates[i].indice}</h2>
@@ -157,19 +157,19 @@ function enviarMensagem(mensagem){
     }
     function mostrarFormularioFixo(numero){ // Troca de Telas -  Formulario Fixo ou Dinamico
         console.log('Funcao: mostrarFormulario(numero)')
-        x = document.getElementsByClassName('flex') 
-        x[0].style.display='none' //pagina inicial
-        document.getElementById('divNovoCard').style.display = 'none'
-        document.getElementById('formularioFixo').style.display ='block'
+        document.getElementById('sectionPaginaPrincipal').style.display='none' //pagina inicial
+        document.getElementById('sectionTemplatesInseridos').style.display = 'none'
+        document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
+        document.getElementById('sectionFixo').style.display = 'block'
         formatarFormularioFixo(numero)
     }
     function cancelarFormularioFixo(){
         console.log('Funcao: cancelarFormulario')
-        x = document.getElementsByClassName('flex')
-        x[0].style.display='flex' //pagina inicial
-        document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
-        document.getElementById('formularioFixo').style.display ='none' // formulario Fixo
-        document.getElementById('formularioDinamico').style.display ='none'// formulario Dinamico
+        document.getElementById('sectionPaginaPrincipal').style.display = 'block' //pagina inicial
+        document.getElementById('sectionTemplatesInseridos').style.display = 'block'
+        document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
+        document.getElementById('sectionFixo').style.display = 'flex' // formulario Fixo
+       
     }
 
     
@@ -234,12 +234,20 @@ function enviarMensagem(mensagem){
         
     }
     function mostrarFormularioDinamico(){ // Troca de Telas -  Formulario Fixo ou Dinamico
-        console.log('Funcao: mostrarFormularioDinamico')
-        x = document.getElementsByClassName('flex')
-        x[0].style.display='none' //pagina inicial
-        document.getElementById('divNovoCard').style.display = 'none'
-        document.getElementById('formularioDinamico').style.display ='block'
+        console.log('Funcao: mostrarFormulario(numero)')
+        document.getElementById('sectionPaginaPrincipal').style.display='none' //pagina inicial
+        document.getElementById('sectionTemplatesInseridos').style.display = 'none'
+        document.getElementById('sectionDinamico').style.display = 'block'// formulario Dinamico
+        document.getElementById('sectionFixo').style.display = 'none'
         formatarFormularioDinamico()
+    }
+    function cancelarFormularioDinamico(){
+        console.log('Funcao: cancelarFormulario')
+        console.log('Funcao: mostrarFormulario(numero)')
+        document.getElementById('sectionPaginaPrincipal').style.display='block' //pagina inicial
+        document.getElementById('sectionTemplatesInseridos').style.display = 'block'
+        document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
+        document.getElementById('sectionFixo').style.display = 'none'
     }
     function enviarFormularioDinamico(){
         console.log('Funcao: enviarFormularioDinamico')
@@ -247,14 +255,6 @@ function enviarMensagem(mensagem){
         limparFormularioDinamico()
         cancelarFormularioDinamico()
         gerarHtmlDoTemplateCriado()
-    }
-    function cancelarFormularioDinamico(){
-        console.log('Funcao: cancelarFormulario')
-        x = document.getElementsByClassName('flex')
-        x[0].style.display='flex' //pagina inicial
-        document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
-        document.getElementById('formularioFixo').style.display ='none' // formulario Fixo
-        document.getElementById('formularioDinamico').style.display ='none'// formulario Dinamico
     }
 
 /*Storage*/

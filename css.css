@@ -1,4 +1,5 @@
 body{
+    display:block;
     margin: 0px;
     padding: 0px;
     list-style: none;
@@ -12,31 +13,37 @@ h1{
 }
 
 /*Section dos 4 itens fixos*/
-.flex {
-    display: flex;
+#sectionPaginaPrincipal {
+    display: block;
     flex-wrap: wrap;
-    max-width: 1200px;
+    max-width: 500px;
     margin: 0 auto;
     text-align: center;
     margin-top: 10px;
 }
-.flex > div{
-    flex: 1 1 300px;
-    margin: 0 10px;
-    
+#sectionTemplatesInseridos{
+    display: block;
+    justify-content: center;
+}
+#sectionFixo{
+    display: none;
+    justify-content: center;
+}
+#sectionDinamico{
+    display: none;
+    justify-content: center;
 }
 
 /*Cards*/
-.classe-cards{
+.classecards {
     border: 3px solid rgb(62, 41, 252);
     padding: 10px 10px 10px 10px;
     margin: 10px 10px 10px 10px;
 }
 
 #divNovoCard{
-    display: flex;
     flex-wrap: wrap;
-    max-width: 1200px;
+    max-width: 800px;
     margin: 0 auto;
     text-align: center;
     margin-top: 10px;
@@ -48,15 +55,5 @@ textarea{
 /*Section dos itens mutaveis*/
 
 /*Form*/
-#formularioFixo{
-    display: none;
-    background: rgb(209, 207, 207);
-    text-align: center;
-}
-#formularioDinamico{
-    display: none;
-    background: rgb(230, 227, 227);
-    text-align: center;
 
-}
 
