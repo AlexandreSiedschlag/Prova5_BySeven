@@ -23,6 +23,7 @@ h1{
 .flex > div{
     flex: 1 1 300px;
     margin: 0 10px;
+    
 }
 
 /*Cards*/
@@ -39,6 +40,7 @@ h1{
     margin: 0 auto;
     text-align: center;
     margin-top: 10px;
+    border: 3px solid rgb(252, 66, 41)
 }
 textarea{
     resize: none;
@@ -57,3 +59,4 @@ textarea{
     text-align: center;
 
 }
+

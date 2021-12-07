@@ -17,9 +17,9 @@
                 <h1>Templates</h1>
             </div>
             <div>
-                <button onclick='deleteStorageTemplates();'>Delete Storage Templates</button>
-                <button onclick='deleteStorageMensagens();'>Delete Storage Mensagens</button>
-                <button onclick='deletarCard(0);'>Deletar card[0]</button>
+                <button onclick='deleteStorageTemplates()'>Delete Storage Templates</button>
+                <button onclick='deleteStorageMensagens()'>Delete Storage Mensagens</button>
+                <button onclick='deletarTemplate(0)'>Deletar card[0]</button>
             </div>
             <div>
                 <h2>
@@ -37,7 +37,7 @@
                 <p>DDD, Celular e Mensagem</p>
 
                 <div class='class-botoes'>
-                    <button id='btn0' onclick='mostrarFormulario(0)'>Mostrar Formulario</button>
+                    <button id='btn0' onclick='mostrarFormularioFixo(0)'>Mostrar Formulario</button>
                 </div>
             </div>
             <!--Card 1-->
@@ -50,7 +50,7 @@
                 </h4>
                 <p>DDD, Celular, Email e Mensagem</p>
                 <div class='class-botoes'>
-                    <button id='btn1' onclick='mostrarFormulario(1)'>Mostrar Formulario</button>
+                    <button id='btn1' onclick='mostrarFormularioFixo(1)'>Mostrar Formulario</button>
                 </div>
             </div>
             <!--Card 2-->
@@ -63,7 +63,7 @@
                 </h4>
                 <p>DDD, Celular Email e Data e Mensagem</p>
                 <div class='class-botoes'>
-                    <button id='btn2' onclick='mostrarFormulario(2)'>Mostrar Formulario</button>
+                    <button id='btn2' onclick='mostrarFormularioFixo(2)'>Mostrar Formulario</button>
                 </div>
             </div>
             <!--Card 3-->
@@ -72,7 +72,7 @@
                     <h2>Template3 Dinamico</h2>
                 </div>
                 <div class='class-botoes'>
-                    <button id='btn-criar-card' onclick="mostrarFormulario(3)">Criar Novo Template</button>
+                    <button id='btn-criar-card' onclick="mostrarFormularioDinamico()">Criar Novo Template</button>
                 </div>
             </div>
 
@@ -133,9 +133,9 @@
             </div>
 
             <div class='class-botoes'>
-                <button id='formulario-limpar' onclick='limparFormulario()'>Limpar Campos</button>
-                <button id='formulario-cancelar' onclick='cancelarFormulario()'>Cancelar</button>
-                <button id='formulario-enviar' onclick='enviarFormulario("fixo")'>Enviar Mensagem</button>
+                <button id='formulario-limpar' onclick='limparFormularioFixo()'>Limpar Campos</button>
+                <button id='formulario-cancelar' onclick='cancelarFormularioFixo()'>Cancelar</button>
+                <button id='formulario-enviar' onclick='enviarFormularioFixo()'>Enviar Mensagem</button>
             </div>
 
         </div>
@@ -181,9 +181,9 @@
             </div>
 
             <div class='class-botoes'>
-                <button id='formulario-limpar' onclick='limparFormulario()'>Limpar Campos</button>
-                <button id='formulario-cancelar' onclick='cancelarFormulario()'>Cancelar</button>
-                <button id='formulario-enviar' onclick='enviarFormulario("dinamico")'>Criar</button>
+                <button id='formulario-limpar' onclick='limparFormularioDinamico()'>Limpar Campos</button>
+                <button id='formulario-cancelar' onclick='cancelarFormularioDinamico()'>Cancelar</button>
+                <button id='formulario-enviar' onclick='enviarFormularioDinamico()'>Criar</button>
             </div>
             <!--Aqui vai terminar o dinamico-->
         </div>

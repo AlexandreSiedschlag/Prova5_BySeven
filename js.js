@@ -1,16 +1,22 @@
 /*Contadores */
 templates = getStorageTemplates()
 mensagens = getStorageMensagens()
+
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
-
+console.log(`Templates[0]: ${JSON.stringify(templates[0])}`)
 /*Templates*/
-function deletarCard(indice){
+function deletarTemplate(indice){
+    console.log('Funcao: deletarTemplate(indice)')
+    console.log(indice)
+    console.log(templates)
     templates.splice(indice, 1);
+    console.log(templates)
     setStorageTemplates(templates)
     location.reload()
 }
 function gerarHtmlDoTemplateCriado(){
+    console.log('Funcao: gerarHTMLDoTemplateCriado')
     let divNovoCard = document.getElementById('divNovoCard');
     divNovoCard.innerHTML = ''
     if (templates.length>0){
@@ -56,9 +62,9 @@ function gerarHtmlDoTemplateCriado(){
                     </div>
     
                     <div class='class-botoes' id='divbotoes${templates[i].indice}'>
-                        <button id='limpar${templates[i].indice}' onclick='limparFormulario(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
-                        <button id='deletar${templates[i].indice}' onclick='deletarCard(${templates[i].indice})'>Deletar Card ${templates[i].indice}</button>
-                        <button id='btn${templates[i].indice}' onclick='pegarValoresCard(${templates[i].indice})'>Card${templates[i].indice}</button>
+                        <button id='limpar${templates[i].indice}' onclick='limparFormularioDinamico(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
+                        <button id='deletar${templates[i].indice}' onclick='deletarTemplate(${i})'>Deletar Card ${templates[i].indice}</button>
+                        <button id='btn${templates[i].indice}' onclick='pegarFormularioDinamico(${templates[i].indice})'>Card${templates[i].indice}</button>
                     </div>`
             let div = document.createElement('div');
             div.innerHTML = htmlASerGerado
@@ -67,38 +73,25 @@ function gerarHtmlDoTemplateCriado(){
         }
     }
 }
+
 /*EnviarMensagem*/
-function enviarMensagem(conteudo){
-    // alert(`Mensagem: ${conteudo}`)
-    contadorMensagens +=1
+function enviarMensagem(mensagem){
+    console.log('Funcao: enviarMensagem(mensagem)')
+    alert(`Mensagem: ${mensagem}`)
+    
 }
 
 /*Formulario*/
-function mostrarFormulario(numero){ // mostra formulario fixo ou dinamico
-    x = document.getElementsByClassName('flex') 
-    x[0].style.display='none' //pagina inicial
-    document.getElementById('divNovoCard').style.display = 'none'
-
-    if (numero>=3){
-        document.getElementById('formularioFixo').style.display ='none'
-        document.getElementById('formularioDinamico').style.display ='block'
-    }
-    else {
-        document.getElementById('formularioFixo').style.display ='block'
-        document.getElementById('formularioDinamico').style.display ='none'
-        formatarFormulario(numero)
-    }
-}
-function enviarFormulario(form){
-    if (form == 'fixo'){
-        console.log('formulario fixo')
+    /*Fixo*/
+    function enviarFormularioFixo(){
+        //Pega Formulario Fixo, Armazena no Storage, Limpa Formulario, Atualiza a pagina e Envia mensagem por WhatsApp
+        console.log('Funcao: enviarFormularioFixo')
         dddFixo = document.getElementById(`formularioFixoDDD`).value
         celularFixo = document.getElementById(`formularioFixoCelular`).value
         emailFixo = document.getElementById(`formularioFixoEmail`).value
         dataFixo = document.getElementById(`formularioFixoDate`).value
         selectFixo = document.getElementById(`formularioFixoSelect`).value
         textFixo = document.getElementById(`formularioFixoTextarea`).value
-
         mensagem = {
             'dddFixo': dddFixo,
             'celularFixo': celularFixo,
@@ -108,112 +101,123 @@ function enviarFormulario(form){
             'textFixo': textFixo
         }
         mensagens.push(mensagem)
-        setStorageMensagens(mensagens);
-        limparFormulario()
-        cancelarFormulario()
-        // enviarMensagem(JSON.stringify(mensagem))
-        // cancelarFormulario()
+        setStorageMensagens(mensagens)
+        limparFormularioFixo()
+        cancelarFormularioFixo()
+        enviarMensagem(mensagem)
     }
-    else{
-        console.log('formulario dinamico')
-        pegarValoresFormularioEGravarNoStorage()
-        limparFormulario()
-        cancelarFormulario()
-        // gerarHtmlDoTemplateCriado()
+    function limparFormularioFixo(){
+        console.log('Funcao: limparFormularioFixo')
+        document.getElementById(`formularioFixoDDD`).value = ''
+        document.getElementById(`formularioFixoCelular`).value = ''
+        document.getElementById(`formularioFixoEmail`).value = ''
+        document.getElementById(`formularioFixoDate`).value = ''
+        document.getElementById(`formularioFixoSelect`).value = ''
+        document.getElementById(`formularioFixoTextarea`).value = ''
     }
-}
-function pegarValoresFormulario(){
+    function formatarFormularioFixo(numero){
+        console.log('Funcao: formatarFormularioFixo(numero)')
+        ddd = document.getElementById(`formularioFixoDDD`)
+        celular = document.getElementById(`formularioFixoCelular`)
+        email = document.getElementById(`formularioFixoEmail`)
+        data = document.getElementById(`formularioFixoDate`)
+        select = document.getElementById(`formularioFixoSelect`)
+        text = document.getElementById(`formularioFixoTextarea`)
     
-}
-function cancelarFormulario(){
-    x = document.getElementsByClassName('flex')
-    x[0].style.display='flex' //pagina inicial
-    document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
-    document.getElementById('formularioFixo').style.display ='none' // formulario Fixo
-    document.getElementById('formularioDinamico').style.display ='none'// formulario Dinamico
-}
-function pegarValoresFormularioEGravarNoStorage(){
-    ddd = document.getElementById(`formularioDinamicoDDD`).value
-    celular = document.getElementById(`formularioDinamicoCelular`).value
-    email = document.getElementById(`formularioDinamicoEmail`).value
-    data = document.getElementById(`formularioDinamicoDate`).value
-    select = document.getElementById(`formularioDinamicoSelect`).value
-    text = document.getElementById(`formularioDinamicoTextarea`).value
+        if (numero == 0){
+            ddd.style.display =  'inline-block'
+            celular.style.display = 'inline-block'
+            email.style.display = 'none'
+            data.style.display = 'none'
+            select.style.display = 'none'
+            text.style.display = 'inline-block'        
+        }
+        else if (numero == 1){
+            ddd.style.display =  'inline-block'
+            celular.style.display = 'inline-block'
+            email.style.display = 'inline-block'
+            data.style.display = 'none'
+            select.style.display = 'none'
+            text.style.display = 'inline-block' 
+        }
+        else if (numero == 2){
+            ddd.style.display =  'inline-block'
+            celular.style.display = 'inline-block'
+            email.style.display = 'inline-block'
+            data.style.display = 'inline-block'
+            select.style.display = 'none'
+            text.style.display = 'inline-block' 
+        }
+    }
+    function mostrarFormularioFixo(numero){ // Troca de Telas -  Formulario Fixo ou Dinamico
+        console.log('Funcao: mostrarFormulario(numero)')
+        x = document.getElementsByClassName('flex') 
+        x[0].style.display='none' //pagina inicial
+        document.getElementById('divNovoCard').style.display = 'none'
+        document.getElementById('formularioFixo').style.display ='block'
+        formatarFormularioFixo(numero)
+    }
+    function cancelarFormularioFixo(){
+        console.log('Funcao: cancelarFormulario')
+        x = document.getElementsByClassName('flex')
+        x[0].style.display='flex' //pagina inicial
+        document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
+        document.getElementById('formularioFixo').style.display ='none' // formulario Fixo
+        document.getElementById('formularioDinamico').style.display ='none'// formulario Dinamico
+    }
 
-    let indexNovoDoTemplate = 0
-    if (templates.length>0){
-        let comprimento = templates.length //index 3
-        let indexUltimoTemplate = (comprimento - 1) // 2
-        let indiceUltimoTemplate = templates[indexUltimoTemplate].indice //14
-        indexNovoDoTemplate = indiceUltimoTemplate + 1
-        //indexNovoDoTemplate = templates[templates.length -1].indice +1
+    
+    /*Dinamico*/
+    function limparFormularioDinamico(){ //falta fazer
+        console.log('Funcao: limparFormularioDinamico')
+        document.getElementById(`formularioDinamicoDDD`).value = ''
+        document.getElementById(`formularioDinamicoCelular`).value = ''
+        document.getElementById(`formularioDinamicoEmail`).value = ''
+        document.getElementById(`formularioDinamicoDate`).value = ''
+        document.getElementById(`formularioDinamicoSelect`).value = ''
+        document.getElementById(`formularioDinamicoTextarea`).value = ''
     }
-    else {
-        indexNovoDoTemplate = 4
-    }
+    function pegarFormularioDinamicoEGravarNoStorage(){ // falta dividir em partes
+        console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
+        ddd = document.getElementById(`formularioDinamicoDDD`).value
+        celular = document.getElementById(`formularioDinamicoCelular`).value
+        email = document.getElementById(`formularioDinamicoEmail`).value
+        data = document.getElementById(`formularioDinamicoDate`).value
+        select = document.getElementById(`formularioDinamicoSelect`).value
+        text = document.getElementById(`formularioDinamicoTextarea`).value
 
-    template = {
-        'indice': indexNovoDoTemplate,
-        'ddd': ddd,
-        'celular': celular,
-        'email': email,
-        'data': data,
-        'select': select,
-        'text': text
-    }
-    templates.push(template)
-    setStorageTemplates(templates);
-    limparFormulario()
-}
-function limparFormulario(){
-    document.getElementById(`formularioFixoDDD`).value = ''
-    document.getElementById(`formularioFixoCelular`).value = ''
-    document.getElementById(`formularioFixoEmail`).value = ''
-    document.getElementById(`formularioFixoDate`).value = ''
-    document.getElementById(`formularioFixoSelect`).value = ''
-    document.getElementById(`formularioFixoTextarea`).value = ''
+        let indexNovoDoTemplate = 0
+        if (templates.length>0){
+            indexNovoDoTemplate = templates[templates.length -1].indice +1
+        }
+        else {
+            indexNovoDoTemplate = 4
+        }
 
-    document.getElementById(`formularioDinamicoDDD`).value = ''
-    document.getElementById(`formularioDinamicoCelular`).value = ''
-    document.getElementById(`formularioDinamicoEmail`).value = ''
-    document.getElementById(`formularioDinamicoDate`).value = ''
-    document.getElementById(`formularioDinamicoSelect`).value = ''
-    document.getElementById(`formularioDinamicoTextarea`).value = ''
-}
-function formatarFormulario(numero){
-
-    ddd = document.getElementById(`formularioFixoDDD`)
-    celular = document.getElementById(`formularioFixoCelular`)
-    email = document.getElementById(`formularioFixoEmail`)
-    data = document.getElementById(`formularioFixoDate`)
-    select = document.getElementById(`formularioFixoSelect`)
-    text = document.getElementById(`formularioFixoTextarea`)
-
-    if (numero == 0){
-        ddd.style.display =  'inline-block'
-        celular.style.display = 'inline-block'
-        email.style.display = 'none'
-        data.style.display = 'none'
-        select.style.display = 'none'
-        text.style.display = 'inline-block'        
+        template = {
+            'indice': indexNovoDoTemplate,
+            'ddd': ddd,
+            'celular': celular,
+            'email': email,
+            'data': data,
+            'select': select,
+            'text': text
+        }
+        templates.push(template)
+        setStorageTemplates(templates);
     }
-    else if (numero == 1){
-        ddd.style.display =  'inline-block'
-        celular.style.display = 'inline-block'
-        email.style.display = 'inline-block'
-        data.style.display = 'none'
-        select.style.display = 'none'
-        text.style.display = 'inline-block' 
+    function pegarFormularioDinamico(){ //falta fazer
+        console.log('Funcao: PegarFormularioDinamico')
     }
-    else if (numero == 2){
-        ddd.style.display =  'inline-block'
-        celular.style.display = 'inline-block'
-        email.style.display = 'inline-block'
-        data.style.display = 'inline-block'
-        select.style.display = 'none'
-        text.style.display = 'inline-block' 
-    }
-    else if (numero == 3){
+    function formatarFormularioDinamico(){ //falta fazer
+        console.log('Funcao: formatarFormularioFixo(numero)')
+        ddd = document.getElementById(`formularioFixoDDD`)
+        celular = document.getElementById(`formularioFixoCelular`)
+        email = document.getElementById(`formularioFixoEmail`)
+        data = document.getElementById(`formularioFixoDate`)
+        select = document.getElementById(`formularioFixoSelect`)
+        text = document.getElementById(`formularioFixoTextarea`)
+    
         ddd.style.display =  'inline-block'
         celular.style.display = 'inline-block'
         email.style.display = 'inline-block'
@@ -221,29 +225,67 @@ function formatarFormulario(numero){
         select.style.display = 'inline-block'
         text.style.display = 'inline-block' 
         document.getElementById('formularioDinamicoDate').disabled = false
+        
     }
-}
+    function mostrarFormularioDinamico(){ // Troca de Telas -  Formulario Fixo ou Dinamico
+        console.log('Funcao: mostrarFormularioDinamico')
+        x = document.getElementsByClassName('flex')
+        x[0].style.display='none' //pagina inicial
+        document.getElementById('divNovoCard').style.display = 'none'
+        document.getElementById('formularioDinamico').style.display ='block'
+        formatarFormularioDinamico()
+    }
+    function enviarFormularioDinamico(){
+        console.log('Funcao: enviarFormularioDinamico')
+        pegarFormularioDinamicoEGravarNoStorage()
+        limparFormularioDinamico()
+        cancelarFormularioDinamico()
+        gerarHtmlDoTemplateCriado()
+    }
+    function cancelarFormularioDinamico(){
+        console.log('Funcao: cancelarFormulario')
+        x = document.getElementsByClassName('flex')
+        x[0].style.display='flex' //pagina inicial
+        document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
+        document.getElementById('formularioFixo').style.display ='none' // formulario Fixo
+        document.getElementById('formularioDinamico').style.display ='none'// formulario Dinamico
+    }
 
 /*Storage*/
     /*Templates*/
     function setStorageTemplates(conteudo){
+        console.log('Funcao: setStorageTemplates(conteudo)')
         localStorage.setItem(`Templates`, JSON.stringify(conteudo));
     }
     function getStorageTemplates(){
+        console.log('Funcao: getStorageTemplates')
         return JSON.parse(localStorage.getItem(`Templates`)) || []
     }
     function deleteStorageTemplates(){
-        localStorage.removeItem(`Templates`)
+        console.log('Funcao: deleteStorageTemplates')
+        if (templates.length>0){
+            localStorage.removeItem(`Templates`)
+            console.log('Deletado')
+        }
+        else console.log('Nao Deletado, Pois nao Existe')
+        
     }
     /*Mensagens*/
     function setStorageMensagens(conteudo){
+        console.log('Funcao: setStorageMensagens(conteudo)')
         localStorage.setItem(`Mensagens`, JSON.stringify(conteudo));
     }
     function getStorageMensagens(){
+        console.log('Funcao: getStorageMensagens')
         return JSON.parse(localStorage.getItem(`Mensagens`)) || []
     }
     function deleteStorageMensagens(){
-        localStorage.removeItem(`Mensagens`)
+        console.log('Funcao: deleteStorageMensagens')
+        if (mensagens.length>0){
+            localStorage.removeItem(`Mensagens`)
+            console.log('Deletado')
+        }
+        else console.log('Nao Deletado, Pois nao Existe')
     }
     
     
