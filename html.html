@@ -8,9 +8,6 @@
     <title>Prova 5</title>
 </head>
 <body>
-    <button onclick='deleteStorage();'>Delete Storage</button>
-    <button onclick='deletarCard(0);'>Deletar card[0]</button>
-    
     <section class='flex'><!--Sessao dos Cards Fixos-->
 
         <div class='classe-cards'><!--Classe dos Cards Fixos-->
@@ -19,145 +16,67 @@
             <div>
                 <h1>Templates</h1>
             </div>
-
+            <div>
+                <button onclick='deleteStorageTemplates();'>Delete Storage Templates</button>
+                <button onclick='deleteStorageMensagens();'>Delete Storage Mensagens</button>
+                <button onclick='deletarCard(0);'>Deletar card[0]</button>
+            </div>
+            <div>
+                <h2>
+                    Esse site envia a sua mensagem por whatsapp
+                </h2>
+            </div>
             <!--Card 0-->
             <div id='card0' class='classe-cards'>
-
                 <div class='titulo'>
-                    <h2>Template0</h2>
+                    <h2>Template 0 Fixo</h2>
                 </div>
-
-                <div class='inputs'>
-                    <input id='ddd0' type="numeric"  placeholder="DDD" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='celular0' type="numeric"  placeholder="Celular" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='email0' disabled type="email"  placeholder="Email" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='date0' disabled type="date"  placeholder="Data" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <select disabled id="select0" readonly>
-                        <option value="">Option1</option>
-                        <option value="">Option2</option>
-                        <option value="">Option3</option>
-                    </select>
-                </div>
-
-                <div class='inputs'>
-                    <textarea id="textarea0" cols="70" rows="5" placeholder="Texto" readonly></textarea>
-                </div>
+                <h4>
+                    Voce preenche 
+                </h4>
+                <p>DDD, Celular e Mensagem</p>
 
                 <div class='class-botoes'>
                     <button id='btn0' onclick='mostrarFormulario(0)'>Mostrar Formulario</button>
                 </div>
-                
             </div>
-
             <!--Card 1-->
             <div id='card1' class='classe-cards'> 
-                
                 <div class='titulo'>
-                    <h2>Template1</h2>
+                    <h2>Template 1 Fixo</h2>
                 </div>
-
-                <div class='inputs'>
-                    <input id='ddd1' type="numeric" placeholder="DDD" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='celular1' type="numeric" placeholder="Celular" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='email1' type="email" placeholder="Email" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='date1' disabled type="date" placeholder="Data" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <select id="select1" disabled readonly>
-                        <option value="">Option1</option>
-                        <option value="">Option2</option>
-                        <option value="">Option3</option>
-                    </select>
-                </div>
-
-                <div class='inputs'>
-                    <textarea id="textarea1" cols="70" rows="5" placeholder="Texto" readonly></textarea>
-                </div>
-
+                <h4>
+                    Voce preenche 
+                </h4>
+                <p>DDD, Celular, Email e Mensagem</p>
                 <div class='class-botoes'>
                     <button id='btn1' onclick='mostrarFormulario(1)'>Mostrar Formulario</button>
                 </div>
-
             </div>
-
             <!--Card 2-->
             <div id='card2' class='classe-cards'> 
-
                 <div class='titulo'>
-                    <h2>Template2</h2>
+                    <h2>Template2 Fixo</h2>
                 </div>
-
-                <div class='inputs'>
-                    <input id='ddd2' type="numeric" placeholder="DDD" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='celular2' type="numeric" placeholder="Celular" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='email2' type="email" placeholder="Email" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <input id='date2' type="date" placeholder="Data" readonly>
-                </div>
-
-                <div class='inputs'>
-                    <select id="select2" disabled readonly>
-                        <option value="">Option1</option>
-                        <option value="">Option2</option>
-                        <option value="">Option3</option>
-                    </select>
-                </div>
-
-                <div class='inputs'>
-                    <textarea id="textarea2" cols="70" rows="5" placeholder="Texto" readonly></textarea>
-                </div>
-
+                <h4>
+                    Voce preenche 
+                </h4>
+                <p>DDD, Celular Email e Data e Mensagem</p>
                 <div class='class-botoes'>
                     <button id='btn2' onclick='mostrarFormulario(2)'>Mostrar Formulario</button>
                 </div>
-
             </div>
-
             <!--Card 3-->
             <div id='card3' class='classe-cards'>
-
                 <div>
-                    <h2>Template3</h2>
+                    <h2>Template3 Dinamico</h2>
                 </div>
-
                 <div class='class-botoes'>
                     <button id='btn-criar-card' onclick="mostrarFormulario(3)">Criar Novo Template</button>
                 </div>
-
             </div>
 
         </div>
-
     </section>
 
     <!--Sessao dos Templates Inseridos-->
@@ -174,35 +93,35 @@
             
         </div>
 
-    
     </section>
-    <!--Formulario-->
+
+    <!--Formulario Fixo-->
     <section>
 
-        <div id='formulario' class='classe-cards'> 
+        <div id='formularioFixo' class='classe-cards'> 
 
             <div class='titulo'>
-                <h2>Formulario</h2>
+                <h2>Formulario Fixo</h2>
             </div>
 
             <div class='inputs'>
-                <input id='formulario-ddd' type="numeric" placeholder="DDD" autofocus>
+                <input id='formularioFixoDDD' type="numeric" placeholder="DDD" autofocus>
             </div>
 
             <div class='inputs'>
-                <input id='formulario-celular' type="numeric" placeholder="Celular">
+                <input id='formularioFixoCelular' type="numeric" placeholder="Celular">
             </div>
 
             <div class='inputs'>
-                <input id='formulario-email' type="email" placeholder="Email">
+                <input id='formularioFixoEmail' type="email" placeholder="Email">
             </div>
 
             <div class='inputs'>
-                <input id='formulario-date' type="date" placeholder="Data">
+                <input id='formularioFixoDate' type="date" placeholder="Data">
             </div>
 
             <div class='inputs'>
-                <select id="formulario-select" disabled>
+                <select id="formularioFixoSelect" disabled>
                     <option value="">Option1</option>
                     <option value="">Option2</option>
                     <option value="">Option3</option>
@@ -210,7 +129,58 @@
             </div>
 
             <div class='inputs'>
-                <textarea id="formulario-textarea" cols="70" rows="5" placeholder="Texto"></textarea>
+                <textarea id="formularioFixoTextarea" cols="70" rows="5" placeholder="Texto"></textarea>
+            </div>
+
+            <div class='class-botoes'>
+                <button id='formulario-limpar' onclick='limparFormulario()'>Limpar Campos</button>
+                <button id='formulario-cancelar' onclick='cancelarFormulario()'>Cancelar</button>
+                <button id='formulario-enviar' onclick='enviarFormulario("fixo")'>Enviar Mensagem</button>
+            </div>
+
+        </div>
+
+    </section>
+
+    <!--Formulario Dinamico-->
+    <section>
+
+        <div id='formularioDinamico' class='classe-cards'> 
+
+            <!--Aqui vai vir o dinamico-->
+            <div class='titulo'>
+                <h2>Formulario Dinamico</h2>
+            </div>
+
+            <div class='inputs'>
+                <input id='formularioDinamicoDDD' type="numeric" placeholder="DDD" autofocus>
+                <input id='formularioDinamicoDDD' type="numeric" placeholder="DDD" autofocus>
+                <input id='formularioDinamicoDDD' type="numeric" placeholder="DDD" autofocus>
+                <input id='formularioDinamicoDDD' type="numeric" placeholder="DDD" autofocus>
+            </div>
+
+            <div class='inputs'>
+                <input id='formularioDinamicoCelular' type="numeric" placeholder="Celular">
+            </div>
+
+            <div class='inputs'>
+                <input id='formularioDinamicoEmail' type="email" placeholder="Email">
+            </div>
+
+            <div class='inputs'>
+                <input id='formularioDinamicoDate' type="date" placeholder="Data">
+            </div>
+
+            <div class='inputs'>
+                <select id="formularioDinamicoSelect">
+                    <option value="">Option1</option>
+                    <option value="">Option2</option>
+                    <option value="">Option3</option>
+                </select>
+            </div>
+
+            <div class='inputs'>
+                <textarea id="formularioDinamicoTextarea" cols="70" rows="5" placeholder="Texto"></textarea>
             </div>
 
             <div class='class-botoes'>
@@ -218,11 +188,11 @@
                 <button id='formulario-cancelar' onclick='cancelarFormulario()'>Cancelar</button>
                 <button id='formulario-enviar' onclick='enviarFormulario()'>Criar</button>
             </div>
-
+            <!--Aqui vai terminar o dinamico-->
         </div>
 
     </section>
-    
+
     <script src="js.js"></script>
 
 </body>

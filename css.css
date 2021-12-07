@@ -46,9 +46,14 @@ textarea{
 /*Section dos itens mutaveis*/
 
 /*Form*/
-#formulario{
+#formularioFixo{
     display: none;
-    background: rgb(58, 58, 58);
+    background: rgb(209, 207, 207);
     text-align: center;
-    visibility: visible;
+}
+#formularioDinamico{
+    display: none;
+    background: rgb(230, 227, 227);
+    text-align: center;
+
 }

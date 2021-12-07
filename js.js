@@ -1,5 +1,6 @@
 /*Contadores */
-templates = getStorage()
+templates = getStorageTemplates()
+mensagensEnviadas = getStorageMensagens()
 
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
@@ -7,7 +8,8 @@ gerarHtmlDoTemplateCriado()
 /*Templates*/
 function deletarCard(indice){
     templates.splice(indice, 1);
-    setStorage(templates)
+    setStorageTemplates(templates)
+    location.reload()
 }
 function gerarHtmlDoTemplateCriado(){
     let divNovoCard = document.getElementById('divNovoCard');
@@ -20,27 +22,27 @@ function gerarHtmlDoTemplateCriado(){
             htmlASerGerado = `
                 <div id='card${templates[i].indice}' class='classe-cards'> 
     
-                    <div class='titulo'>
+                    <div class='titulo' id='divtitutlo${templates[i].indice}'>
                         <h2>Card${templates[i].indice}</h2>
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divddd${templates[i].indice}'>
                         <input id='ddd${templates[i].indice}' type="numeric" placeholder="DDD">
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divcelular${templates[i].indice}'>
                         <input id='celular${templates[i].indice}' type="numeric" placeholder="Celular">
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divemail${templates[i].indice}'>
                         <input id='email${templates[i].indice}' type="email" placeholder="Email">
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divdata${templates[i].indice}'>
                         <input id='date${templates[i].indice}' type="date" placeholder="Date">
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divselect${templates[i].indice}'>
                         <select id="select${templates[i].indice}">
                             <option value="">Option1</option>
                             <option value="">Option2</option>
@@ -48,15 +50,15 @@ function gerarHtmlDoTemplateCriado(){
                         </select>
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divtextarea${templates[i].indice}'>
                         <textarea id="textarea${templates[i].indice}" cols="70" rows="5" placeholder="Texto"></textarea>
                     </div>
     
-                    <div class='inputs'>
+                    <div class='inputs' id='divpreview${templates[i].indice}'>
                         Preview
                     </div>
     
-                    <div class='class-botoes'>
+                    <div class='class-botoes' id='divbotoes${templates[i].indice}'>
                         <button id='limpar${templates[i].indice}' onclick='limparFormulario(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
                         <button id='deletar${templates[i].indice}' onclick='deletarCard(${templates[i].indice})'>Deletar Card ${templates[i].indice}</button>
                         <button id='btn${templates[i].indice}' onclick='pegarValoresCard(${templates[i].indice})'>Card${templates[i].indice}</button>
@@ -69,38 +71,72 @@ function gerarHtmlDoTemplateCriado(){
         }
     }
 }
+/**/
+function enviarMensagem(conteudo){
+    alert(`Mensagem: ${conteudo}`)
+}
 
 /*Formulario*/
-function enviarFormulario(){
-    pegarValoresFormularioEGravarNoStorage()
-    cancelarFormulario()
-    gerarHtmlDoTemplateCriado()
-}
-function mostrarFormulario(){
-    
+function mostrarFormulario(numero){ // mostra formulario fixo ou dinamico
     x = document.getElementsByClassName('flex') 
     x[0].style.display='none' //pagina inicial
     document.getElementById('divNovoCard').style.display = 'none'
 
-    document.getElementById('formulario').style.display ='block'
+    if (numero>=3){
+        document.getElementById('formularioFixo').style.display ='none'
+        document.getElementById('formularioDinamico').style.display ='block'
+    }
+    else {
+        document.getElementById('formularioFixo').style.display ='block'
+        document.getElementById('formularioDinamico').style.display ='none'
+        formatarFormulario(numero)
+    }
+}
+function enviarFormulario(form){
+    if (form == 'fixo'){
+        ddd = document.getElementById(`formularioFixoDDD`).value
+        celular = document.getElementById(`formularioFixoCelular`).value
+        email = document.getElementById(`formularioFixoEmail`).value
+        data = document.getElementById(`formularioFixoDate`).value
+        select = document.getElementById(`formularioFixoSelect`).value
+        text = document.getElementById(`formularioFixoTextarea`).value
+
+        mensagem = {
+            'ddd': ddd,
+            'celular': celular,
+            'email': email,
+            'data': data,
+            'select': select,
+            'text': text
+        }
+        
+        mensagensEnviadas.push(mensagem)
+        enviarMensagem(JSON.stringify(mensagem))
+        setStorageMensagens(mensagem)
+        cancelarFormulario()
+    }
+    else{
+        gerarHtmlDoTemplateCriado()
+    }
+    
+}
+function pegarValoresFormulario(){
     
 }
 function cancelarFormulario(){
-
     x = document.getElementsByClassName('flex')
     x[0].style.display='flex' //pagina inicial
     document.getElementById('divNovoCard').style.display = 'flex' // Templates criados
-
-    document.getElementById('formulario').style.display ='none' // formulario
-    
+    document.getElementById('formularioFixo').style.display ='none' // formulario Fixo
+    document.getElementById('formularioDinamico').style.display ='none'// formulario Dinamico
 }
 function pegarValoresFormularioEGravarNoStorage(){
-    ddd = document.getElementById(`formulario-ddd`).value
-    celular = document.getElementById(`formulario-celular`).value
-    email = document.getElementById(`formulario-email`).value
-    data = document.getElementById(`formulario-date`).value
-    select = document.getElementById(`formulario-select`).value
-    text = document.getElementById(`formulario-textarea`).value
+    ddd = document.getElementById(`formularioDinamicoDDD`).value
+    celular = document.getElementById(`formularioDinamicoCelular`).value
+    email = document.getElementById(`formularioDinamicoEmail`).value
+    data = document.getElementById(`formularioDinamicoDate`).value
+    select = document.getElementById(`formularioDinamicoSelect`).value
+    text = document.getElementById(`formularioDinamicoTextarea`).value
 
     let indexNovoDoTemplate = 0
     if (templates.length>0){
@@ -124,65 +160,72 @@ function pegarValoresFormularioEGravarNoStorage(){
         'text': text
     }
     templates.push(template)
-    setStorage(templates);
+    setStorageTemplates(templates);
     limparFormulario()
 }
 function limparFormulario(){
-    document.getElementById(`formulario-ddd`).value = ''
-    document.getElementById(`formulario-celular`).value = ''
-    document.getElementById(`formulario-email`).value = ''
-    document.getElementById(`formulario-date`).value = ''
-    document.getElementById(`formulario-select`).value = ''
-    document.getElementById(`formulario-textarea`).value = ''
+    document.getElementById(`formularioFixoDDD`).value = ''
+    document.getElementById(`formularioFixoCelular`).value = ''
+    document.getElementById(`formularioFixoEmail`).value = ''
+    document.getElementById(`formularioFixoDate`).value = ''
+    document.getElementById(`formularioFixoSelect`).value = ''
+    document.getElementById(`formularioFixoTextarea`).value = ''
 }
 function formatarFormulario(numero){
-    ddd = document.getElementById(`formulario-ddd`)
-    celular = document.getElementById(`formulario-celular`)
-    email = document.getElementById(`formulario-email`)
-    data = document.getElementById(`formulario-date`)
-    select = document.getElementById(`formulario-select`)
-    text = document.getElementById(`formulario-textarea`)
+    ddd = document.getElementById(`formularioFixoDDD`)
+    celular = document.getElementById(`formularioFixoCelular`)
+    email = document.getElementById(`formularioFixoEmail`)
+    data = document.getElementById(`formularioFixoDate`)
+    select = document.getElementById(`formularioFixoSelect`)
+    text = document.getElementById(`formularioFixoTextarea`)
     if (numero == 0){
-        ddd.style.visibility =  'visible'
-        celular.style.visibility = 'visible'
-        email.style.visibility = 'hidden'
-        data.style.visibility = 'hidden'
-        select.style.visibility = 'hidden'
-        text.style.visibility = 'visible'        
+        ddd.style.display =  'inline-block'
+        celular.style.display = 'inline-block'
+        email.style.display = 'none'
+        data.style.display = 'none'
+        select.style.display = 'none'
+        text.style.display = 'inline-block'        
     }
     else if (numero == 1){
-        ddd.style.visibility =  'visible'
-        celular.style.visibility = 'visible'
-        email.style.visibility = 'visible'
-        data.style.visibility = 'hidden'
-        select.style.visibility = 'hidden'
-        text.style.visibility = 'visible' 
+        ddd.style.display =  'inline-block'
+        celular.style.display = 'inline-block'
+        email.style.display = 'inline-block'
+        data.style.display = 'none'
+        select.style.display = 'none'
+        text.style.display = 'inline-block' 
     }
     else if (numero == 2){
-        ddd.style.visibility =  'visible'
-        celular.style.visibility = 'visible'
-        email.style.visibility = 'visible'
-        data.style.visibility = 'visible'
-        select.style.visibility = 'hidden'
-        text.style.visibility = 'visible' 
+        ddd.style.display =  'inline-block'
+        celular.style.display = 'inline-block'
+        email.style.display = 'inline-block'
+        data.style.display = 'inline-block'
+        select.style.display = 'none'
+        text.style.display = 'inline-block' 
     }
     else if (numero == 3){
-        ddd.style.visibility =  'visible'
-        celular.style.visibility = 'visible'
-        email.style.visibility = 'visible'
-        data.style.visibility = 'visible'
-        select.style.visibility = 'visible'
-        text.style.visibility = 'visible' 
+        ddd.style.display =  'inline-block'
+        celular.style.display = 'inline-block'
+        email.style.display = 'inline-block'
+        data.style.display = 'inline-block'
+        select.style.display = 'inline-block'
+        text.style.display = 'inline-block' 
+        document.getElementById('formularioDinamicoDate').disabled = false
     }
 }
 
 /*Storage*/
-function setStorage(conteudo){
+function setStorageTemplates(conteudo){
     localStorage.setItem(`Templates`, JSON.stringify(conteudo));
 }
-function getStorage(){
+function getStorageTemplates(){
     return JSON.parse(localStorage.getItem(`Templates`)) || []
 }
-function deleteStorage(){
+function setStorageMensagens(conteudo){
+    localStorage.setItem(`Mensagens`, JSON.stringify(conteudo));
+}
+function getStorageMensagens(){
+    return JSON.parse(localStorage.getItem(`Mensagens`)) || []
+}
+function deleteStorageTemplates(){
     localStorage.removeItem(`Templates`)
 }
