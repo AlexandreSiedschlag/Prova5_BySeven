@@ -4,7 +4,7 @@ mensagens = getStorageMensagens()
 
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
-console.log(`Templates[0]: ${JSON.stringify(templates[0])}`)
+
 /*Templates*/
 function deletarTemplate(indice){
     console.log('Funcao: deletarTemplate(indice)')
@@ -15,7 +15,7 @@ function deletarTemplate(indice){
     setStorageTemplates(templates)
     location.reload()
 }
-function gerarHtmlDoTemplateCriado(){
+function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
     console.log('Funcao: gerarHTMLDoTemplateCriado')
     let divNovoCard = document.getElementById('divNovoCard');
     divNovoCard.innerHTML = ''
@@ -31,18 +31,22 @@ function gerarHtmlDoTemplateCriado(){
     
                     <div class='inputs' id='divddd${templates[i].indice}'>
                         <input id='ddd${templates[i].indice}' type="numeric" placeholder="DDD">
+                        <button class='btn btn-primary' id='btnAddddd${templates[i].indice}'>+</button>
                     </div>
     
                     <div class='inputs' id='divcelular${templates[i].indice}'>
                         <input id='celular${templates[i].indice}' type="numeric" placeholder="Celular">
+                        <button class='btn btn-primary' id='btnAddcelular${templates[i].indice}'>+</button>
                     </div>
-    
+
                     <div class='inputs' id='divemail${templates[i].indice}'>
                         <input id='email${templates[i].indice}' type="email" placeholder="Email">
+                        <button class='btn btn-primary' id='btnAddemail${templates[i].indice}'>+</button>
                     </div>
     
                     <div class='inputs' id='divdata${templates[i].indice}'>
                         <input id='date${templates[i].indice}' type="date" placeholder="Date">
+                        <button class='btn btn-primary' id='btnAddemail${templates[i].indice}'>+</button>
                     </div>
     
                     <div class='inputs' id='divselect${templates[i].indice}'>
@@ -51,10 +55,12 @@ function gerarHtmlDoTemplateCriado(){
                             <option value="">Option2</option>
                             <option value="">Option3</option>
                         </select>
+                        <button class='btn btn-primary' id='btnAddselect${templates[i].indice}'>+</button>
                     </div>
     
                     <div class='inputs' id='divtextarea${templates[i].indice}'>
                         <textarea id="textarea${templates[i].indice}" cols="70" rows="5" placeholder="Texto"></textarea>
+                        <button class='btn btn-primary' id='btnAddtextarea${templates[i].indice}'>+</button>
                     </div>
     
                     <div class='inputs' id='divpreview${templates[i].indice}'>
@@ -62,9 +68,9 @@ function gerarHtmlDoTemplateCriado(){
                     </div>
     
                     <div class='class-botoes' id='divbotoes${templates[i].indice}'>
-                        <button id='limpar${templates[i].indice}' onclick='limparFormularioDinamico(${templates[i].indice})'>Limpar Campos ${templates[i].indice}</button>
-                        <button id='deletar${templates[i].indice}' onclick='deletarTemplate(${i})'>Deletar Card ${templates[i].indice}</button>
-                        <button id='btn${templates[i].indice}' onclick='pegarFormularioDinamico(${templates[i].indice})'>Card${templates[i].indice}</button>
+                        <button id='limpar${templates[i].indice}' class='btn btn-warning' onclick='limparFormularioDinamico(${i})'>Limpar Campos</button>
+                        <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar Card </button>
+                        <button id='btn${templates[i].indice}' class='btn btn-success' onclick='pegarFormularioDinamico(${i})'>Card</button>
                     </div>`
             let div = document.createElement('div');
             div.innerHTML = htmlASerGerado
@@ -77,7 +83,7 @@ function gerarHtmlDoTemplateCriado(){
 /*EnviarMensagem*/
 function enviarMensagem(mensagem){
     console.log('Funcao: enviarMensagem(mensagem)')
-    alert(`Mensagem: ${mensagem}`)
+    alert(`Mensagem: ${JSON.stringify(mensagem)}`)
     
 }
 
