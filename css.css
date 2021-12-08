@@ -52,8 +52,8 @@ h1{
 textarea{
     resize: none;
 }
-/*Section dos itens mutaveis*/
-
-/*Form*/
+ #divpreview{
+     border: 3px solid black;
+ }
 
 

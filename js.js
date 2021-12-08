@@ -1,5 +1,4 @@
-/*  1- Fazer um For para pegar as quantidades de cada input diferente, o for tem que ser pelo id
-    Armazenar todas as informações em um dicionario
+/*  1- Acessar id pelo childNodes
     Quantidade, Valor(conteudo que o usuario inseriu)
 
     2- Mudar o Template Gerado para apenas preview
@@ -36,7 +35,7 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
                         <h2>Template${templates[i].indice}</h2>
                     </div>
                     <div>
-                     <h4>Itens a mais</h4>
+                        <h4>Itens a mais</h4>
                         <p>Quantidade DDD: ${templates[i].dddinfo.quantidade} (Templates.dddinfo.quantidade)</p>
                         <p>Valor ddd: ${templates[i].dddinfo.valor} (Templates.dddinfo.quantidade)</p>
 
@@ -51,7 +50,6 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
 
                         <p>Quantidade Select: ${templates[i].selectinfo.quantidade} (Templates.dddinfo.quantidade)</p>
                         <p>Valor Select: ${templates[i].selectinfo.valor} (Templates.dddinfo.quantidade)</p>
-                        
                     </div>
                     <div class='class-botoes' id='divbotoes'>
                         <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar</button>
@@ -185,6 +183,11 @@ function enviarMensagem(mensagem){
         }
         templates.push(template)
         setStorageTemplates(templates)
+        location.reload()
+        // x = document.getElementById('divNovoCard')
+        // y = x.scrollIntoView()
+        window.location.href='#divNovoCard'
+        
     }
     function cancelarFormularioDinamico(){
         console.log('Funcao: cancelarFormulario')
@@ -194,15 +197,15 @@ function enviarMensagem(mensagem){
         document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
         document.getElementById('sectionFixo').style.display = 'none'
     }
-    function mostrarFormularioDinamico(){ // Troca de Telas -  Formulario Fixo ou Dinamico
+    function mostrarFormularioDinamico(indice){ // Troca de Telas -  Formulario Fixo ou Dinamico
         console.log('Funcao: mostrarFormulario(numero)')
         document.getElementById('sectionPaginaPrincipal').style.display='none' //pagina inicial
         document.getElementById('sectionTemplatesInseridos').style.display = 'none'
         document.getElementById('sectionDinamico').style.display = 'block'// formulario Dinamico
         document.getElementById('sectionFixo').style.display = 'none'
-        gerarFormalarioDinamico()
+        gerarFormalarioDinamico(indice)
     }
-    function gerarFormalarioDinamico(){ // Gerador De formulario Dinamico
+    function gerarFormalarioDinamico(indice){ // Gerador De formulario Dinamico
         console.log('Funcao: gerarHTMLDoTemplateCriado')
         let divFormularioDinamico = document.getElementById('formularioDinamico');
         divFormularioDinamico.innerHTML = ''
@@ -261,22 +264,27 @@ function enviarMensagem(mensagem){
                     </div>
                     <!--Textarea Adicionados-->
                 </div>
-
-                <div class='inputs' id='divpreview'>
-                    <!--Preview Feito-->
-                </div>
-
                 <div class='class-botoes' id='divbotoes'>
                     <button id='formulario-limpar' class='btn btn-warning' onclick='limparFormularioDinamico()'>Limpar</button>
                     <button id='formulario-cancelar' class='btn btn-danger' onclick='cancelarFormularioDinamico()'>Cancelar</button>
                     <button id='formulario-enviar' class='btn btn-success' onclick='enviarFormularioDinamico()'>Criar</button>
-                </div>`
+                </div>
+                <div class='inputs' id='divpreview'>
+                    <!--Preview Feito-->
+                    <br>Preview:
+                    <br> Celular Quantidade: ${templates[indice]} 
+                    <br>
+                    <br>Emails: 
+                    <br>Datas:
+                    <br>Selects: 
+                </div>
+            </div>`
         let div = document.createElement('div');
         div.innerHTML = htmlASerGerado
         divFormularioDinamico.appendChild(div)
     }
-    function editarFormularioDinamico(){
-
+    function editarFormularioDinamico(indice){
+        mostrarFormularioDinamico(indice)
     }
 
         /*Em Espera*/
