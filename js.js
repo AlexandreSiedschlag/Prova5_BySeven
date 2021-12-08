@@ -30,26 +30,10 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
         while (i<templates.length){
             htmlASerGerado = `
                 <div id='Template${templates[i].indice}' class='classecards'> 
-
                     <div class='titulo' id='divtitutlo${templates[i].indice}'>
                         <h2>Template${templates[i].indice}</h2>
                     </div>
-                    <div>
-                        <h4>Itens a mais</h4>
-                        <p>Quantidade DDD: ${templates[i].dddinfo.quantidade} (Templates.dddinfo.quantidade)</p>
-                        <p>Valor ddd: ${templates[i].dddinfo.valor} (Templates.dddinfo.quantidade)</p>
-
-                        <p>Quantidade Celulares: ${templates[i].celularinfo.quantidade} (Templates.dddinfo.quantidade)</p>
-                        <p>Valor Celulares: ${templates[i].celularinfo.valor} (Templates.dddinfo.quantidade)</p>
-
-                        <p>Quantidade Email: ${templates[i].emailinfo.quantidade} (Templates.dddinfo.quantidade)</p>
-                        <p>Valor Email: ${templates[i].emailinfo.valor} (Templates.dddinfo.quantidade)</p>
-
-                        <p>Quantidade Data: ${templates[i].datainfo.quantidade} (Templates.dddinfo.quantidade)</p>
-                        <p>Valor Data: ${templates[i].datainfo.valor} (Templates.dddinfo.quantidade)</p>
-
-                        <p>Quantidade Select: ${templates[i].selectinfo.quantidade} (Templates.dddinfo.quantidade)</p>
-                        <p>Valor Select: ${templates[i].selectinfo.valor} (Templates.dddinfo.quantidade)</p>
+                    <div> 
                     </div>
                     <div class='class-botoes' id='divbotoes'>
                         <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar</button>
@@ -208,6 +192,12 @@ function enviarMensagem(mensagem){
     function gerarFormalarioDinamico(indice){ // Gerador De formulario Dinamico
         console.log('Funcao: gerarHTMLDoTemplateCriado')
         let divFormularioDinamico = document.getElementById('formularioDinamico');
+        let div = document.createElement('div');
+        let contador_ddd = 0
+        let contador_celular = contador_ddd
+        let contador_email = 0
+        let contador_data = 0
+        let contador_select = 0
         divFormularioDinamico.innerHTML = ''
         htmlASerGerado = `
             <div id='templateDinamico' class='classecards'> 
@@ -219,9 +209,9 @@ function enviarMensagem(mensagem){
                 <div id='divddd'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">DDD e Celular</span>
-                        <input id='formularioDinamicoDDD$' class='form-control' type="numeric" placeholder="DDD" autofocus>
-                        <input id='formularioDinamicoCelular' class='form-control' type="numeric" placeholder="Celular">
-                        <button class='btn btn-primary' id='btnAddddd'>+</button>
+                        <input id='formularioDinamicoDDD' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" autofocus>
+                        <input id='formularioDinamicoCelular' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
+                        <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular'>+</button>
                     </div>
                     <!--DDD e Celular Adicionados-->
                 </div>
@@ -229,7 +219,7 @@ function enviarMensagem(mensagem){
                 <div class='inputs' id='divemail'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Email</span>
-                        <input id='formularioDinamicoEmail' class='form-control' type="email" placeholder="Email">
+                        <input id='formularioDinamicoEmail' oninput='preview()' class='form-control' type="email" placeholder="Email">
                         <button class='btn btn-primary' id='btnAddemail'>+</button>
                     </div>
                     <!--Emails Adicionados-->
@@ -238,7 +228,7 @@ function enviarMensagem(mensagem){
                 <div class='inputs' id='divdata'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Date</span>
-                        <input id='formularioDinamicoDate' class='form-control' type="date" placeholder="Data">
+                        <input id='formularioDinamicoDate' oninput='preview()' class='form-control' type="date" placeholder="Data">
                         <button class='btn btn-primary' id='btnAddemail'>+</button>
                     </div>
                     <!--Data Adicionados-->
@@ -246,7 +236,7 @@ function enviarMensagem(mensagem){
 
                 <div class='inputs' id='divselect'>
                     <div class='input-group'>
-                        <span class="input-group-text" id="">Select</span>
+                        <span class="input-group-text" id="" oninput='preview()'>Select</span>
                         <select id="formularioDinamicoSelect" class='form-control'>
                             <option value="">Option1</option>
                             <option value="">Option2</option>
@@ -260,7 +250,7 @@ function enviarMensagem(mensagem){
                 <div class='inputs' id='divtextarea'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Textarea</span>
-                        <textarea id="formularioDinamicoTextarea" class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
+                        <textarea id="formularioDinamicoTextarea" oninput='preview()' class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
                     </div>
                     <!--Textarea Adicionados-->
                 </div>
@@ -271,20 +261,47 @@ function enviarMensagem(mensagem){
                 </div>
                 <div class='inputs' id='divpreview'>
                     <!--Preview Feito-->
-                    <br>Preview:
-                    <br> Celular Quantidade: ${templates[indice]} 
-                    <br>
-                    <br>Emails: 
-                    <br>Datas:
-                    <br>Selects: 
+                    Preview Aparece Aqui
                 </div>
             </div>`
-        let div = document.createElement('div');
+        
         div.innerHTML = htmlASerGerado
         divFormularioDinamico.appendChild(div)
     }
     function editarFormularioDinamico(indice){
         mostrarFormularioDinamico(indice)
+    }
+    function preview(){ //Preview
+        let preview = document.getElementById('divpreview')
+        let div = document.createElement('div')
+        preview.innerHTML =''
+        htmlDoPreview = 
+        `
+        <br>DDD: ${document.getElementById('formularioDinamicoDDD').value}
+        <br>Celular: ${document.getElementById('formularioDinamicoCelular').value}
+        <br>Email: ${document.getElementById('formularioDinamicoEmail').value}
+        <br>Data: ${document.getElementById('formularioDinamicoDate').value}
+        <br>Select: ${document.getElementById('formularioDinamicoSelect').value}
+        <br>Textarea: ${document.getElementById('formularioDinamicoTextarea').value}
+
+        `
+        div.innerHTML = htmlDoPreview
+        preview.appendChild(div)
+    }
+    function criarDDDeCelular(){
+        let div = document.createElement('div')
+        let divddd = document.getElementById('divddd')
+        htmlASerGerado = 
+        `
+        <div class='input-group'>
+            <span class="input-group-text" id="">DDD e Celular</span>
+            <input id='formularioDinamicoDDD' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" autofocus>
+            <input id='formularioDinamicoCelular' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
+            <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular'>-</button>
+        </div>
+        `
+        div.innerHTML = htmlASerGerado
+        divddd.appendChild(div)
     }
 
         /*Em Espera*/
