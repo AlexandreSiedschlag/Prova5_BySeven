@@ -7,26 +7,7 @@
 /*Contadores */
 templates = getStorageTemplates()
 mensagens = getStorageMensagens()
-dddinfo = {
-    'quantidade':0,
-    'valor' : []
-}
-celularinfo = {
-    'quantidade':0,
-    'valor' : []
-}
-emailinfo = {
-    'quantidade':0,
-    'valor' : []
-}
-datainfo = {
-    'quantidade':0,
-    'valor' : []
-}
-selectinfo = {
-    'quantidade':0,
-    'valor' : []
-}
+
 
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
@@ -49,15 +30,34 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
         i=0
         while (i<templates.length){
             htmlASerGerado = `
-                <div id='card${templates[i].indice}' class='classecards'> 
+                <div id='Template${templates[i].indice}' class='classecards'> 
+
                     <div class='titulo' id='divtitutlo${templates[i].indice}'>
                         <h2>Template${templates[i].indice}</h2>
                     </div>
+                    <div>
+                     <h4>Itens a mais</h4>
+                        <p>Quantidade DDD: ${templates[i].dddinfo.quantidade} (Templates.dddinfo.quantidade)</p>
+                        <p>Valor ddd: ${templates[i].dddinfo.valor} (Templates.dddinfo.quantidade)</p>
 
+                        <p>Quantidade Celulares: ${templates[i].celularinfo.quantidade} (Templates.dddinfo.quantidade)</p>
+                        <p>Valor Celulares: ${templates[i].celularinfo.valor} (Templates.dddinfo.quantidade)</p>
+
+                        <p>Quantidade Email: ${templates[i].emailinfo.quantidade} (Templates.dddinfo.quantidade)</p>
+                        <p>Valor Email: ${templates[i].emailinfo.valor} (Templates.dddinfo.quantidade)</p>
+
+                        <p>Quantidade Data: ${templates[i].datainfo.quantidade} (Templates.dddinfo.quantidade)</p>
+                        <p>Valor Data: ${templates[i].datainfo.valor} (Templates.dddinfo.quantidade)</p>
+
+                        <p>Quantidade Select: ${templates[i].selectinfo.quantidade} (Templates.dddinfo.quantidade)</p>
+                        <p>Valor Select: ${templates[i].selectinfo.valor} (Templates.dddinfo.quantidade)</p>
+                        
+                    </div>
                     <div class='class-botoes' id='divbotoes'>
                         <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar</button>
-                        <button id='btn${templates[i].indice}' class='btn btn-success' onclick='pegarFormularioDinamico(${i})'>Editar</button>
-                    </div>`
+                        <button id='btn${templates[i].indice}' class='btn btn-success' onclick='editarFormularioDinamico(${i})'>Editar</button>
+                    </div>
+                </div>`
             let div = document.createElement('div');
             div.innerHTML = htmlASerGerado
             divFormularioDinamico.appendChild(div)
@@ -160,39 +160,15 @@ function enviarMensagem(mensagem){
     
     /*Dinamico*/
     function addFormularioNosTemplatesCriados(){
-        
-    }
-    
-    
-    function limparFormularioDinamico(){ //falta fazer
-        console.log('Funcao: limparFormularioDinamico')
-        document.getElementById(`formularioDinamicoDDD`).value = ''
-        document.getElementById(`formularioDinamicoCelular`).value = ''
-        document.getElementById(`formularioDinamicoEmail`).value = ''
-        document.getElementById(`formularioDinamicoDate`).value = ''
-        document.getElementById(`formularioDinamicoSelect`).value = ''
-        document.getElementById(`formularioDinamicoTextarea`).value = ''
-    }
-    function contarQuantidadeFieldsDinamico(index){
-        /*Count de cada elemento*/
-        if (templates.length==0){qtddd=0}
-        else qtddd=templates[index].qtddd
-        return qtddd
-    }
-    function pegarFormularioDinamicoEGravarNoStorage(){ // falta dividir em partes
-        console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
-
         let indexNovoDoTemplate = 0
         if (templates.length>0){indexNovoDoTemplate = templates[templates.length -1].indice +1}
         else {indexNovoDoTemplate = 4}
-
-        ddd = document.getElementById(`formularioDinamicoDDD`).value
-        celular = document.getElementById(`formularioDinamicoCelular`).value
-        email = document.getElementById(`formularioDinamicoEmail`).value
-        data = document.getElementById(`formularioDinamicoDate`).value
-        select = document.getElementById(`formularioDinamicoSelect`).value
-        text = document.getElementById(`formularioDinamicoTextarea`).value
-
+        ddd='', celular='', email='', data='', select='', text=''
+        dddinfo = {'quantidade': 0,'valor': []}
+        celularinfo = {'quantidade': 0,'valor': []}
+        emailinfo = {'quantidade': 0,'valor': []}
+        datainfo = {'quantidade': 0,'valor': []}
+        selectinfo = {'quantidade': 0,'valor': []}
         template = {
             'indice': indexNovoDoTemplate,
             'ddd': ddd,
@@ -210,17 +186,6 @@ function enviarMensagem(mensagem){
         templates.push(template)
         setStorageTemplates(templates)
     }
-    function pegarFormularioDinamico(){ //falta fazer
-        console.log('Funcao: PegarFormularioDinamico')
-    }
-    function mostrarFormularioDinamico(){ // Troca de Telas -  Formulario Fixo ou Dinamico
-        console.log('Funcao: mostrarFormulario(numero)')
-        document.getElementById('sectionPaginaPrincipal').style.display='none' //pagina inicial
-        document.getElementById('sectionTemplatesInseridos').style.display = 'none'
-        document.getElementById('sectionDinamico').style.display = 'block'// formulario Dinamico
-        document.getElementById('sectionFixo').style.display = 'none'
-        gerarFormalarioDinamico()
-    }
     function cancelarFormularioDinamico(){
         console.log('Funcao: cancelarFormulario')
         console.log('Funcao: mostrarFormulario(numero)')
@@ -229,12 +194,13 @@ function enviarMensagem(mensagem){
         document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
         document.getElementById('sectionFixo').style.display = 'none'
     }
-    function enviarFormularioDinamico(){
-        console.log('Funcao: enviarFormularioDinamico')
-        pegarFormularioDinamicoEGravarNoStorage()
-        limparFormularioDinamico()
-        cancelarFormularioDinamico()
-        gerarHtmlDoTemplateCriado()
+    function mostrarFormularioDinamico(){ // Troca de Telas -  Formulario Fixo ou Dinamico
+        console.log('Funcao: mostrarFormulario(numero)')
+        document.getElementById('sectionPaginaPrincipal').style.display='none' //pagina inicial
+        document.getElementById('sectionTemplatesInseridos').style.display = 'none'
+        document.getElementById('sectionDinamico').style.display = 'block'// formulario Dinamico
+        document.getElementById('sectionFixo').style.display = 'none'
+        gerarFormalarioDinamico()
     }
     function gerarFormalarioDinamico(){ // Gerador De formulario Dinamico
         console.log('Funcao: gerarHTMLDoTemplateCriado')
@@ -309,6 +275,64 @@ function enviarMensagem(mensagem){
         div.innerHTML = htmlASerGerado
         divFormularioDinamico.appendChild(div)
     }
+    function editarFormularioDinamico(){
+
+    }
+
+        /*Em Espera*/
+        function limparFormularioDinamico(){ //falta fazer
+            console.log('Funcao: limparFormularioDinamico')
+            document.getElementById(`formularioDinamicoDDD`).value = ''
+            document.getElementById(`formularioDinamicoCelular`).value = ''
+            document.getElementById(`formularioDinamicoEmail`).value = ''
+            document.getElementById(`formularioDinamicoDate`).value = ''
+            document.getElementById(`formularioDinamicoSelect`).value = ''
+            document.getElementById(`formularioDinamicoTextarea`).value = ''
+        }
+        function contarQuantidadeFieldsDinamico(index){
+            /*Count de cada elemento*/
+        }
+        function pegarFormularioDinamicoEGravarNoStorage(){ // falta dividir em partes
+            console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
+
+            let indexNovoDoTemplate = 0
+            if (templates.length>0){indexNovoDoTemplate = templates[templates.length -1].indice +1}
+            else {indexNovoDoTemplate = 4}
+
+            ddd = document.getElementById(`formularioDinamicoDDD`).value
+            celular = document.getElementById(`formularioDinamicoCelular`).value
+            email = document.getElementById(`formularioDinamicoEmail`).value
+            data = document.getElementById(`formularioDinamicoDate`).value
+            select = document.getElementById(`formularioDinamicoSelect`).value
+            text = document.getElementById(`formularioDinamicoTextarea`).value
+
+            template = {
+                'indice': indexNovoDoTemplate,
+                'ddd': ddd,
+                'celular': celular,
+                'email': email,
+                'data': data,
+                'select': select,
+                'text': text,
+                'dddinfo': dddinfo,
+                'celularinfo': celularinfo,
+                'emailinfo': emailinfo,
+                'datainfo': datainfo,
+                'selectinfo': selectinfo
+            }
+            templates.push(template)
+            setStorageTemplates(templates)
+        }
+        function pegarFormularioDinamico(){ //falta fazer
+            console.log('Funcao: PegarFormularioDinamico')
+        }
+        function enviarFormularioDinamico(){
+            console.log('Funcao: enviarFormularioDinamico')
+            pegarFormularioDinamicoEGravarNoStorage()
+            limparFormularioDinamico()
+            cancelarFormularioDinamico()
+            gerarHtmlDoTemplateCriado()
+        }
 
 /*Storage*/
     /*Templates*/
