@@ -7,6 +7,26 @@
 /*Contadores */
 templates = getStorageTemplates()
 mensagens = getStorageMensagens()
+dddinfo = {
+    'quantidade':0,
+    'valor' : []
+}
+celularinfo = {
+    'quantidade':0,
+    'valor' : []
+}
+emailinfo = {
+    'quantidade':0,
+    'valor' : []
+}
+datainfo = {
+    'quantidade':0,
+    'valor' : []
+}
+selectinfo = {
+    'quantidade':0,
+    'valor' : []
+}
 
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
@@ -23,67 +43,29 @@ function deletarTemplate(indice){
 }
 function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
     console.log('Funcao: gerarHTMLDoTemplateCriado')
-    let divNovoCard = document.getElementById('divNovoCard');
-    divNovoCard.innerHTML = ''
+    let divFormularioDinamico = document.getElementById('divNovoCard');
+    divFormularioDinamico.innerHTML = ''
     if (templates.length>0){
         i=0
         while (i<templates.length){
             htmlASerGerado = `
                 <div id='card${templates[i].indice}' class='classecards'> 
-    
                     <div class='titulo' id='divtitutlo${templates[i].indice}'>
                         <h2>Template${templates[i].indice}</h2>
                     </div>
-    
-                    <div class='inputs' id='divddd${templates[i].indice}'>
-                        <input id='ddd${templates[i].indice}' type="numeric" placeholder="DDD">
-                        <button class='btn btn-primary' id='btnAddddd${templates[i].indice}'>+</button>
-                    </div>
-    
-                    <div class='inputs' id='divcelular${templates[i].indice}'>
-                        <input id='celular${templates[i].indice}' type="numeric" placeholder="Celular">
-                        <button class='btn btn-primary' id='btnAddcelular${templates[i].indice}'>+</button>
-                    </div>
 
-                    <div class='inputs' id='divemail${templates[i].indice}'>
-                        <input id='email${templates[i].indice}' type="email" placeholder="Email">
-                        <button class='btn btn-primary' id='btnAddemail${templates[i].indice}'>+</button>
-                    </div>
-    
-                    <div class='inputs' id='divdata${templates[i].indice}'>
-                        <input id='date${templates[i].indice}' type="date" placeholder="Date">
-                        <button class='btn btn-primary' id='btnAddemail${templates[i].indice}'>+</button>
-                    </div>
-    
-                    <div class='inputs' id='divselect${templates[i].indice}'>
-                        <select id="select${templates[i].indice}">
-                            <option value="">Option1</option>
-                            <option value="">Option2</option>
-                            <option value="">Option3</option>
-                        </select>
-                        <button class='btn btn-primary' id='btnAddselect${templates[i].indice}'>+</button>
-                    </div>
-    
-                    <div class='inputs' id='divtextarea${templates[i].indice}'>
-                        <textarea id="textarea${templates[i].indice}" cols="70" rows="5" placeholder="Texto"></textarea>
-                        <button class='btn btn-primary' id='btnAddtextarea${templates[i].indice}'>+</button>
-                    </div>
-    
-                    <div class='inputs' id='divpreview${templates[i].indice}'>
-                        Preview
-                    </div>
-    
-                    <div class='class-botoes' id='divbotoes${templates[i].indice}'>
+                    <div class='class-botoes' id='divbotoes'>
                         <button id='deletar${templates[i].indice}' class='btn btn-danger' onclick='deletarTemplate(${i})'>Deletar</button>
                         <button id='btn${templates[i].indice}' class='btn btn-success' onclick='pegarFormularioDinamico(${i})'>Editar</button>
                     </div>`
             let div = document.createElement('div');
             div.innerHTML = htmlASerGerado
-            divNovoCard.appendChild(div)
+            divFormularioDinamico.appendChild(div)
             i += 1;
         }
     }
 }
+
 
 /*EnviarMensagem*/
 function enviarMensagem(mensagem){
@@ -174,10 +156,14 @@ function enviarMensagem(mensagem){
         document.getElementById('sectionTemplatesInseridos').style.display = 'block'
         document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
         document.getElementById('sectionFixo').style.display = 'none' // formulario Fixo
-       
     }
     
     /*Dinamico*/
+    function addFormularioNosTemplatesCriados(){
+        
+    }
+    
+    
     function limparFormularioDinamico(){ //falta fazer
         console.log('Funcao: limparFormularioDinamico')
         document.getElementById(`formularioDinamicoDDD`).value = ''
@@ -187,22 +173,25 @@ function enviarMensagem(mensagem){
         document.getElementById(`formularioDinamicoSelect`).value = ''
         document.getElementById(`formularioDinamicoTextarea`).value = ''
     }
+    function contarQuantidadeFieldsDinamico(index){
+        /*Count de cada elemento*/
+        if (templates.length==0){qtddd=0}
+        else qtddd=templates[index].qtddd
+        return qtddd
+    }
     function pegarFormularioDinamicoEGravarNoStorage(){ // falta dividir em partes
         console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
+
+        let indexNovoDoTemplate = 0
+        if (templates.length>0){indexNovoDoTemplate = templates[templates.length -1].indice +1}
+        else {indexNovoDoTemplate = 4}
+
         ddd = document.getElementById(`formularioDinamicoDDD`).value
         celular = document.getElementById(`formularioDinamicoCelular`).value
         email = document.getElementById(`formularioDinamicoEmail`).value
         data = document.getElementById(`formularioDinamicoDate`).value
         select = document.getElementById(`formularioDinamicoSelect`).value
         text = document.getElementById(`formularioDinamicoTextarea`).value
-
-        let indexNovoDoTemplate = 0
-        if (templates.length>0){
-            indexNovoDoTemplate = templates[templates.length -1].indice +1
-        }
-        else {
-            indexNovoDoTemplate = 4
-        }
 
         template = {
             'indice': indexNovoDoTemplate,
@@ -211,31 +200,18 @@ function enviarMensagem(mensagem){
             'email': email,
             'data': data,
             'select': select,
-            'text': text
+            'text': text,
+            'dddinfo': dddinfo,
+            'celularinfo': celularinfo,
+            'emailinfo': emailinfo,
+            'datainfo': datainfo,
+            'selectinfo': selectinfo
         }
         templates.push(template)
-        setStorageTemplates(templates);
+        setStorageTemplates(templates)
     }
     function pegarFormularioDinamico(){ //falta fazer
         console.log('Funcao: PegarFormularioDinamico')
-    }
-    function formatarFormularioDinamico(){ //falta fazer
-        console.log('Funcao: formatarFormularioFixo(numero)')
-        ddd = document.getElementById(`formularioFixoDDD`)
-        celular = document.getElementById(`formularioFixoCelular`)
-        email = document.getElementById(`formularioFixoEmail`)
-        data = document.getElementById(`formularioFixoDate`)
-        select = document.getElementById(`formularioFixoSelect`)
-        text = document.getElementById(`formularioFixoTextarea`)
-    
-        ddd.style.display =  'inline-block'
-        celular.style.display = 'inline-block'
-        email.style.display = 'inline-block'
-        data.style.display = 'inline-block'
-        select.style.display = 'inline-block'
-        text.style.display = 'inline-block' 
-        document.getElementById('formularioDinamicoDate').disabled = false
-        
     }
     function mostrarFormularioDinamico(){ // Troca de Telas -  Formulario Fixo ou Dinamico
         console.log('Funcao: mostrarFormulario(numero)')
@@ -243,7 +219,7 @@ function enviarMensagem(mensagem){
         document.getElementById('sectionTemplatesInseridos').style.display = 'none'
         document.getElementById('sectionDinamico').style.display = 'block'// formulario Dinamico
         document.getElementById('sectionFixo').style.display = 'none'
-        formatarFormularioDinamico()
+        gerarFormalarioDinamico()
     }
     function cancelarFormularioDinamico(){
         console.log('Funcao: cancelarFormulario')
@@ -259,6 +235,79 @@ function enviarMensagem(mensagem){
         limparFormularioDinamico()
         cancelarFormularioDinamico()
         gerarHtmlDoTemplateCriado()
+    }
+    function gerarFormalarioDinamico(){ // Gerador De formulario Dinamico
+        console.log('Funcao: gerarHTMLDoTemplateCriado')
+        let divFormularioDinamico = document.getElementById('formularioDinamico');
+        divFormularioDinamico.innerHTML = ''
+        htmlASerGerado = `
+            <div id='templateDinamico' class='classecards'> 
+
+                <div class='titulo' id='divtitutlo'>
+                    <h2>Template</h2>
+                </div>
+
+                <div id='divddd'>
+                    <div class='input-group'>
+                        <span class="input-group-text" id="">DDD e Celular</span>
+                        <input id='formularioDinamicoDDD$' class='form-control' type="numeric" placeholder="DDD" autofocus>
+                        <input id='formularioDinamicoCelular' class='form-control' type="numeric" placeholder="Celular">
+                        <button class='btn btn-primary' id='btnAddddd'>+</button>
+                    </div>
+                    <!--DDD e Celular Adicionados-->
+                </div>
+
+                <div class='inputs' id='divemail'>
+                    <div class='input-group'>
+                        <span class="input-group-text" id="">Email</span>
+                        <input id='formularioDinamicoEmail' class='form-control' type="email" placeholder="Email">
+                        <button class='btn btn-primary' id='btnAddemail'>+</button>
+                    </div>
+                    <!--Emails Adicionados-->
+                </div>
+
+                <div class='inputs' id='divdata'>
+                    <div class='input-group'>
+                        <span class="input-group-text" id="">Date</span>
+                        <input id='formularioDinamicoDate' class='form-control' type="date" placeholder="Data">
+                        <button class='btn btn-primary' id='btnAddemail'>+</button>
+                    </div>
+                    <!--Data Adicionados-->
+                </div>
+
+                <div class='inputs' id='divselect'>
+                    <div class='input-group'>
+                        <span class="input-group-text" id="">Select</span>
+                        <select id="formularioDinamicoSelect" class='form-control'>
+                            <option value="">Option1</option>
+                            <option value="">Option2</option>
+                            <option value="">Option3</option>
+                        </select>
+                        <button class='btn btn-primary' id='btnAddselect}'>+</button>
+                    </div>
+                    <!--Select Adicionados-->
+                </div>
+
+                <div class='inputs' id='divtextarea'>
+                    <div class='input-group'>
+                        <span class="input-group-text" id="">Textarea</span>
+                        <textarea id="formularioDinamicoTextarea" class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
+                    </div>
+                    <!--Textarea Adicionados-->
+                </div>
+
+                <div class='inputs' id='divpreview'>
+                    <!--Preview Feito-->
+                </div>
+
+                <div class='class-botoes' id='divbotoes'>
+                    <button id='formulario-limpar' class='btn btn-warning' onclick='limparFormularioDinamico()'>Limpar</button>
+                    <button id='formulario-cancelar' class='btn btn-danger' onclick='cancelarFormularioDinamico()'>Cancelar</button>
+                    <button id='formulario-enviar' class='btn btn-success' onclick='enviarFormularioDinamico()'>Criar</button>
+                </div>`
+        let div = document.createElement('div');
+        div.innerHTML = htmlASerGerado
+        divFormularioDinamico.appendChild(div)
     }
 
 /*Storage*/
