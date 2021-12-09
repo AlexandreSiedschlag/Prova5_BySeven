@@ -209,9 +209,9 @@ function enviarMensagem(mensagem){
                 <div id='divddd'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">DDD e Celular</span>
-                        <input id='formularioDinamicoDDD' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" autofocus>
-                        <input id='formularioDinamicoCelular' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
-                        <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular'>+</button>
+                        <input id='formularioDinamicoDDD${indice}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" autofocus>
+                        <input id='formularioDinamicoCelular${indice}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
+                        <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular(${indice})'>+</button>
                     </div>
                     <!--DDD e Celular Adicionados-->
                 </div>
@@ -219,7 +219,7 @@ function enviarMensagem(mensagem){
                 <div class='inputs' id='divemail'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Email</span>
-                        <input id='formularioDinamicoEmail' oninput='preview()' class='form-control' type="email" placeholder="Email">
+                        <input id='formularioDinamicoEmail${indice}' oninput='preview()' class='form-control' type="email" placeholder="Email">
                         <button class='btn btn-primary' id='btnAddemail'>+</button>
                     </div>
                     <!--Emails Adicionados-->
@@ -228,7 +228,7 @@ function enviarMensagem(mensagem){
                 <div class='inputs' id='divdata'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Date</span>
-                        <input id='formularioDinamicoDate' oninput='preview()' class='form-control' type="date" placeholder="Data">
+                        <input id='formularioDinamicoDate${indice}' oninput='preview()' class='form-control' type="date" placeholder="Data">
                         <button class='btn btn-primary' id='btnAddemail'>+</button>
                     </div>
                     <!--Data Adicionados-->
@@ -237,7 +237,7 @@ function enviarMensagem(mensagem){
                 <div class='inputs' id='divselect'>
                     <div class='input-group'>
                         <span class="input-group-text" id="" oninput='preview()'>Select</span>
-                        <select id="formularioDinamicoSelect" class='form-control'>
+                        <select id="formularioDinamicoSelect${indice}" class='form-control'>
                             <option value="">Option1</option>
                             <option value="">Option2</option>
                             <option value="">Option3</option>
@@ -249,15 +249,15 @@ function enviarMensagem(mensagem){
 
                 <div class='inputs' id='divtextarea'>
                     <div class='input-group'>
-                        <span class="input-group-text" id="">Textarea</span>
-                        <textarea id="formularioDinamicoTextarea" oninput='preview()' class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
+                        <span class="input-group-text">Textarea</span>
+                        <textarea id="formularioDinamicoTextarea${indice}" oninput='preview()' class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
                     </div>
                     <!--Textarea Adicionados-->
                 </div>
                 <div class='class-botoes' id='divbotoes'>
                     <button id='formulario-limpar' class='btn btn-warning' onclick='limparFormularioDinamico()'>Limpar</button>
                     <button id='formulario-cancelar' class='btn btn-danger' onclick='cancelarFormularioDinamico()'>Cancelar</button>
-                    <button id='formulario-enviar' class='btn btn-success' onclick='enviarFormularioDinamico()'>Criar</button>
+                    <button id='formulario-enviar' class='btn btn-success' onclick='enviarFormularioDinamico(${indice})'>Criar</button>
                 </div>
                 <div class='inputs' id='divpreview'>
                     <!--Preview Feito-->
@@ -288,22 +288,25 @@ function enviarMensagem(mensagem){
         div.innerHTML = htmlDoPreview
         preview.appendChild(div)
     }
-    function criarDDDeCelular(){
+    function criarDDDeCelular(indice){
         let div = document.createElement('div')
         let divddd = document.getElementById('divddd')
         htmlASerGerado = 
         `
-        <div class='input-group'>
+        <div class='input-group' id='divformularioDinamicoDDD${indice}'>
             <span class="input-group-text" id="">DDD e Celular</span>
-            <input id='formularioDinamicoDDD' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" autofocus>
-            <input id='formularioDinamicoCelular' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
-            <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular'>-</button>
+            <input id='formularioDinamicoDDD${indice}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD">
+            <input id='formularioDinamicoCelular${indice}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
+            <button class='btn btn-primary' id='btnRemoveddd' onclick='deleteDDDeCelular(${indice})'>-</button>
         </div>
         `
         div.innerHTML = htmlASerGerado
         divddd.appendChild(div)
     }
-
+    function deleteDDDeCelular(indice){
+        let div = document.getElementById(`divformularioDinamicoDDD${indice}`)
+        div.remove()
+    }
         /*Em Espera*/
         function limparFormularioDinamico(){ //falta fazer
             console.log('Funcao: limparFormularioDinamico')
