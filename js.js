@@ -275,12 +275,40 @@ function enviarMensagem(mensagem){
         let div = document.createElement('div')
         preview.innerHTML =''
         htmlDoPreview = 
-        `
-        
+        ` 
         `
         div.innerHTML = htmlDoPreview
         preview.appendChild(div)
-        
+    }
+    function pegarFormularioDinamico(){
+        // console.log('Funcao: PegarFormularioDinamico')
+        let DDDeCelular = document.getElementById('divddd').getElementsByTagName('input')
+        let Email = document.getElementById('divemail').getElementsByTagName('input')
+        let Data = document.getElementById('divdata').getElementsByTagName('input')
+        let Select = document.getElementById('divselect').getElementsByTagName('select')
+        let Textarea = document.getElementById('divtextarea').getElementsByTagName('textarea')
+        return [DDDeCelular,Email,Data,Select,Textarea]
+    }
+    function pegarFormularioDinamico2(){
+        DDDeCelular = Array.from(pegarFormularioDinamico()[0], x=> x.value) //pra cada item dentro desse array me traz o item.value
+                        //[DDD, Celular]
+        Email = Array.from(pegarFormularioDinamico()[1], x=> x.value)
+                        //[Email]
+        Data = Array.from(pegarFormularioDinamico()[2], x=> x.value)
+                        //[Data]
+        Select = Array.from(pegarFormularioDinamico()[3], x=> x.value) //Esse ainda nao esta pronto
+                        //[Select, Opcoes]
+        Textarea = Array.from(pegarFormularioDinamico()[4], x=> x.value)
+                        //[Textarea]
+        DDD = []
+        Celular = []
+        console.log(DDD)
+        console.log(DDDeCelular.length)
+        for (let i=0; i<DDDeCelular.length; i=i+2){
+            DDD.push(DDDeCelular[i])
+            console.log(DDD)
+            
+        }
     }
     /*Criar e Deletar Itens*/
     function criarDDDeCelular(){
@@ -431,13 +459,7 @@ function enviarMensagem(mensagem){
             templates.push(template)
             setStorageTemplates(templates)
         }
-        function pegarFormularioDinamico(){ //falta fazer
-            console.log('Funcao: PegarFormularioDinamico')
-            let dadosDDDeCelular = document.getElementById('divddd').getElementsByTagName('input')
-            console.log(`dadosDDDeCelular: ${dadosDDDeCelular[0].value}`)
-            let dadosEmail = document.getElementById('divemail').getElementsByTagName('input')
-            console.log(`dadosEmail: ${dadosEmail.value}`)
-        }
+        
         function enviarFormularioDinamico(){
             console.log('Funcao: enviarFormularioDinamico')
             pegarFormularioDinamicoEGravarNoStorage()
