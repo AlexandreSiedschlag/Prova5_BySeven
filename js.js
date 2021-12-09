@@ -235,7 +235,7 @@ function enviarMensagem(mensagem){
 
                 <div class='inputs' id='divselect'>
                     <div class='input-group'>
-                        <span class="input-group-text" id="" oninput='preview()'>Select</span>
+                        <span class="input-group-text" id="" oninput='preview()' onChange='pegarSelect(this.value)'>Select</span>
                         <select id="formularioDinamicoSelect${indice}" class='form-control'>
                             <option value="">Option1</option>
                             <option value="">Option2</option>
@@ -327,10 +327,11 @@ function enviarMensagem(mensagem){
                         //[Email]
         Data = Array.from(pegarFormularioDinamico2()[2], x=> x.value)
                         //[Data]
-        Select = Array.from(pegarFormularioDinamico2()[3][0], x=> x.text) //Esse ainda nao esta pronto
-                        //[Select, Opcoes]
-        // console.log(pegarFormularioDinamico2()[3][0].options[0].text)
-        console.log(Select)
+        
+        Select = pegarOption() //Esse ainda nao esta pronto
+                        //[Select]
+        console.log(pegarFormularioDinamico2()[3][0].options.selectedIndex.text)
+        // console.log(Select)
         Textarea = Array.from(pegarFormularioDinamico2()[4], x=> x.value)
                         //[Textarea]
         DDD = []
@@ -341,6 +342,11 @@ function enviarMensagem(mensagem){
         }
         
         return [DDD, Celular, Email, Data, Select, Textarea]
+    }
+    /*Pegar Option */
+    function pegarOption(Selected){
+        Selected = Selected
+        return Selected
     }
     /*Criar e Deletar Itens*/
     function criarDDDeCelular(){
@@ -457,6 +463,7 @@ function enviarMensagem(mensagem){
             }       
         }
     }
+    
     
     
         /*Em Espera*/
