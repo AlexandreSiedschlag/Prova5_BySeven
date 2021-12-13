@@ -57,7 +57,6 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
 
 /*EnviarMensagem*/
 function enviarMensagem(phone, mensagem){
-    let name = 'Alexandre'
     let x = window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${mensagem}&app_absent=0`)
     x.focus()
   }
@@ -152,32 +151,26 @@ function enviarMensagem(phone, mensagem){
         let indexNovoDoTemplate = 0
         if (templates.length>0){indexNovoDoTemplate = templates[templates.length -1].indice +1}
         else {indexNovoDoTemplate = 4}
-        ddd='', celular='', email='', data='', select='', text=''
-        dddinfo = {'quantidade': 0,'valor': []}
-        celularinfo = {'quantidade': 0,'valor': []}
-        emailinfo = {'quantidade': 0,'valor': []}
-        datainfo = {'quantidade': 0,'valor': []}
-        selectinfo = {'quantidade': 0,'valor': []}
         template = {
             'indice': indexNovoDoTemplate,
-            'ddd': ddd,
-            'celular': celular,
-            'email': email,
-            'data': data,
-            'select': select,
-            'text': text,
-            'dddinfo': dddinfo,
-            'celularinfo': celularinfo,
-            'emailinfo': emailinfo,
-            'datainfo': datainfo,
-            'selectinfo': selectinfo
+            'ddd': ddd='',
+            'celular': celular='',
+            'email': email='',
+            'data': data='',
+            'select': select='',
+            'text': text='',
+            'dddinfo': dddinfo={'quantidade': 5,'valor': []},
+            'celularinfo': celularinfo={'quantidade': 0,'valor': []},
+            'emailinfo': emailinfo={'quantidade': 0,'valor': []},
+            'datainfo': datainfo={'quantidade': 0,'valor': []},
+            'selectinfo': selectinfo={'quantidade': 0,'valor': []}
         }
         templates.push(template)
         setStorageTemplates(templates)
         location.reload()
         // x = document.getElementById('divNovoCard')
         // y = x.scrollIntoView()
-        window.location.href='#divNovoCard'
+        window.location.href='#divNovoCard' //faz scroll para o local dos templates
         
     }
     function cancelarFormularioDinamico(){
@@ -188,8 +181,11 @@ function enviarMensagem(phone, mensagem){
         document.getElementById('sectionDinamico').style.display = 'none'// formulario Dinamico
         document.getElementById('sectionFixo').style.display = 'none'
     }
+    function editarFormularioDinamico(indice){
+        mostrarFormularioDinamico(indice)
+    }
     function mostrarFormularioDinamico(indice){ // Troca de Telas -  Formulario Fixo ou Dinamico
-        console.log('Funcao: mostrarFormulario(numero)')
+        console.log('Funcao: mostrarFormularioDinamico(numero)')
         document.getElementById('sectionPaginaPrincipal').style.display='none' //pagina inicial
         document.getElementById('sectionTemplatesInseridos').style.display = 'none'
         document.getElementById('sectionDinamico').style.display = 'block'// formulario Dinamico
@@ -198,6 +194,7 @@ function enviarMensagem(phone, mensagem){
     }
     function gerarFormalarioDinamico(indice){ // Gerador De formulario Dinamico
         console.log('Funcao: gerarHTMLDoTemplateCriado')
+        /*Passo1 - Gerar Formulario Normal*/
         let divFormularioDinamico = document.getElementById('formularioDinamico');
         let div = document.createElement('div');
         divFormularioDinamico.innerHTML = ''
@@ -216,6 +213,7 @@ function enviarMensagem(phone, mensagem){
                         <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular()'>+</button>
                     </div>
                     <!--DDD e Celular Adicionados-->
+                    ${reloadDDDeCelularFormulario()}
                 </div>
 
                 <div class='inputs' id='divemail'>
@@ -269,9 +267,26 @@ function enviarMensagem(phone, mensagem){
         
         div.innerHTML = htmlASerGerado
         divFormularioDinamico.appendChild(div)
-    }
-    function editarFormularioDinamico(indice){
-        mostrarFormularioDinamico(indice)
+        /*Passo2 - Gerar Formulario com a quantidade de ddd e celular*/
+        function reloadDDDeCelularFormulario(){
+            for (let i=0; i<templates[indice].dddinfo.quantidade;i++){
+                let div = document.createElement('div')
+                console.log(div)
+                let divddd = document.getElementById('divddd')
+                console.log(divddd)
+                htmlASerGerado =
+                            `
+                            <div class='input-group' id='divformularioDinamicoDDD${i}'>
+                                <span class="input-group-text" id="">DDD e Celular${i}</span>
+                                <input id='formularioDinamicoDDD${i}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" value='${templates[indice].dddinfo.valor[i]}'>
+                                <input id='formularioDinamicoCelular${i}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular" value='${templates[indice].celularinfo.valor[i]}'>
+                                <button class='btn btn-primary' id='btnRemoveddd' onclick='deleteDDDeCelular(${i})'>-</button>
+                            </div>
+                            `
+                div.innerHTML = htmlASerGerado
+                divddd.appendChild(div)
+            }
+        }
     }
     function preview(){ //Preview
         let preview = document.getElementById('divpreview')
@@ -313,6 +328,13 @@ function enviarMensagem(phone, mensagem){
             'data': data,
             'select': select,
             'text': text,
+            'dddinf': {'quantidade': 0, 'valor':[]},
+            'celularinfo': {'quantidade': 0, 'valor':[]},
+            'emailinfo': {'quantidade': 0, 'valor':[]},
+            'datainfo': {'quantidade': 0, 'valor':[]},
+            'selectinfo': {'quantidade': 0, 'valor':[]},
+            'textinfo': {'quantidade': 0, 'valor':[]}
+
         }
         templates.push(template)
         setStorageTemplates(templates)
