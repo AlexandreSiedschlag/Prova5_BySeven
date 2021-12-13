@@ -85,7 +85,7 @@ function enviarMensagem(phone, mensagem){
         setStorageMensagens(mensagens)
         limparFormularioFixo()
         cancelarFormularioFixo()
-        enviarMensagem(mensagem)
+        // enviarMensagem(mensagem)
     }
     function limparFormularioFixo(){
         console.log('Funcao: limparFormularioFixo')
@@ -204,8 +204,8 @@ function enviarMensagem(phone, mensagem){
                 <div id='divddd'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">DDD e Celular</span>
-                        <input id='formularioDinamicoDDD${indice}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" autofocus>
-                        <input id='formularioDinamicoCelular${indice}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
+                        <input id='formularioDinamicoDDD${indice}' oninput='preview()' class='form-control' value='${templates[indice].ddd.valor[0]?templates[indice].ddd.valor[0]:''}' type="numeric" placeholder="DDD" autofocus>
+                        <input id='formularioDinamicoCelular${indice}' oninput='preview()' class='form-control' value='${templates[indice].celular.valor[0]?templates[indice].celular.valor[0]:''}' type="numeric" placeholder="Celular">
                         <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular()'>+</button>
                     </div>
                     <!--DDD e Celular Adicionados-->
@@ -214,7 +214,7 @@ function enviarMensagem(phone, mensagem){
                 <div class='inputs' id='divemail'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Email</span>
-                        <input id='formularioDinamicoEmail${indice}' oninput='preview()' class='form-control' type="email" placeholder="Email">
+                        <input id='formularioDinamicoEmail${indice}' oninput='preview()' class='form-control' type="email" placeholder="Email" value='${templates[indice].email.valor[0]?templates[indice].email.valor[0]:''}'>
                         <button class='btn btn-primary' id='btnAddemail' onclick='criarEmail()'>+</button>
                     </div>
                     <!--Emails Adicionados-->
@@ -252,8 +252,8 @@ function enviarMensagem(phone, mensagem){
                 <div class='class-botoes' id='divbotoes'>
                     <button id='formulario-limpar' class='btn btn-warning' type='reset' onclick='limparFormularioDinamico('templateDinamico')'>Limpar</button>
                     <button id='formulario-cancelar' class='btn btn-danger' onclick='cancelarFormularioDinamico()'>Cancelar</button>
-                    <button id='formulario-salvar' class='btn btn-success' onclick='pegarFormularioDinamicoEGravarNoStorage(${indice})'>Salvar Apenas</button>
-                    <button id='formulario-enviar' class='btn btn-success' onclick='enviarMensagem()'>Salvar e Enviar</button>
+                    <button id='formulario-salvar' class='btn btn-primary' onclick='pegarFormularioDinamicoEGravarNoStorage(${indice})'>Salvar</button>
+                    <button id='formulario-enviar' class='btn btn-success' onclick='enviarMensagem("5547999249119","oi")'>Salvar e Enviar</button>
                 </div>
                 <div class='inputs' id='divpreview'>
                     <!--Preview Feito-->
@@ -263,27 +263,51 @@ function enviarMensagem(phone, mensagem){
         
         div.innerHTML = htmlASerGerado
         divFormularioDinamico.appendChild(div)
+
         /*Passo2 - Gerar Formulario com a quantidade de ddd e celular*/
         function reloadDDDeCelularFormulario(){
             console.log('Funcao reloadDDDeCelularFormulario')
-            for (let i=0; i<templates[indice].dddinfo.quantidade;i++){
+            for (let i=0; i<templates[indice].ddd.quantidade;i++){
+                x = i+1
                 let div = document.createElement('div')
                 let divddd = document.getElementById('divddd')
                 htmlASerGerado =
                             `
                             <div class='input-group' id='divformularioDinamicoDDD${i}'>
                                 <span class="input-group-text" id="">DDD e Celular${i}</span>
-                                <input id='formularioDinamicoDDD${i}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" value='${templates[indice].dddinfo.valor[i]?templates[indice].dddinfo.valor[i]:''}'>
-                                <input id='formularioDinamicoCelular${i}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular" value='${templates[indice].celularinfo.valor[i]?templates[indice].celularinfo.valor[i]:''}'>
-                                <button class='btn btn-primary' id='btnRemoveddd' onclick='deleteDDDeCelular(${i})'>-</button>
+                                <input id='formularioDinamicoDDD${i}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" value='${templates[indice].ddd.valor[x]?templates[indice].ddd.valor[x]:''}'>
+                                <input id='formularioDinamicoCelular${i}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular" value='${templates[indice].celular.valor[x]?templates[indice].celular.valor[x]:''}'>
+                                <button class='btn btn-danger' id='btnRemoveddd' onclick='deleteDDDeCelular(${i})'>-</button>
                             </div>
                             `
                 div.innerHTML = htmlASerGerado
                 divddd.appendChild(div)
-                console.log(templates[indice].dddinfo.valor[i])
+                console.log(templates[indice].ddd.valor[i])
             }
         }
         reloadDDDeCelularFormulario()
+
+        /*Passo3 - Gerar Formulario com a quantidade de email*/
+        function reloadEmailFormulario(){
+            console.log('Funcao reloadEmailFormulario')
+            for (let i=0; i<templates[indice].email.quantidade;i++){
+                x=i+1
+                let div = document.createElement('div')
+                let divddd = document.getElementById('divemail')
+                htmlASerGerado =
+                            `
+                            <div class='input-group' id='divformularioDinamicoEmail${i}'>
+                                <span class="input-group-text">Email${i}</span>
+                                <input id='formularioDinamicoEmail${i}' oninput='preview()' class='form-control' type="email" placeholder="Email" value='${templates[indice].email.valor[x]?templates[indice].email.valor[x]:''}'>
+                                <button class='btn btn-danger' id='btnRemoveemail' onclick='deleteEmail(${i})'>-</button>
+                            </div>
+                            `
+                div.innerHTML = htmlASerGerado
+                divddd.appendChild(div)
+                console.log(templates[indice].email.valor[i])
+            }
+        }
+        reloadEmailFormulario()
     }
     
     /*Quando Aperta Salvar Apenas*/
@@ -312,7 +336,6 @@ function enviarMensagem(phone, mensagem){
             }
             return phone
         }
-        
         
         //Joga tudo no JSON
         template = {
@@ -368,7 +391,7 @@ function enviarMensagem(phone, mensagem){
                         <span class="input-group-text" id="">DDD e Celular${contador_ddd}</span>
                         <input id='formularioDinamicoDDD${contador_ddd}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD">
                         <input id='formularioDinamicoCelular${contador_ddd}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
-                        <button class='btn btn-primary' id='btnRemoveddd' onclick='deleteDDDeCelular(${contador_ddd})'>-</button>
+                        <button class='btn btn-danger' id='btnRemoveddd' onclick='deleteDDDeCelular(${contador_ddd})'>-</button>
                     </div>
                     `
         div.innerHTML = htmlASerGerado
@@ -388,7 +411,7 @@ function enviarMensagem(phone, mensagem){
                     <div class='input-group' id='divformularioDinamicoEmail${contador_email}'>
                         <span class="input-group-text">Email${contador_email}</span>
                         <input id='formularioDinamicoEmail${contador_email}' oninput='preview()' class='form-control' type="email" placeholder="Email">
-                        <button class='btn btn-primary' id='btnRemoveemail' onclick='deleteEmail(${contador_email})'>-</button>
+                        <button class='btn btn-danger' id='btnRemoveemail' onclick='deleteEmail(${contador_email})'>-</button>
                     </div>
                     `
         div.innerHTML = htmlASerGerado
@@ -408,7 +431,7 @@ function enviarMensagem(phone, mensagem){
                     <div class='input-group' id='divformularioDinamicoData${contador_data}'>
                         <span class="input-group-text" id="">Date${contador_data}</span>
                         <input id='formularioDinamicoDate${contador_data}' oninput='preview()' class='form-control' type="date" placeholder="Data">
-                        <button class='btn btn-primary' id='btnAddemail' onclick='deleteData(${contador_data})'>-</button>
+                        <button class='btn btn-danger' id='btnAddemail' onclick='deleteData(${contador_data})'>-</button>
                     </div>
                     `
         div.innerHTML = htmlASerGerado
@@ -431,7 +454,7 @@ function enviarMensagem(phone, mensagem){
                             <option >Option2</option>
                             <option >Option3</option>
                         </select>
-                        <button class='btn btn-primary' id='btnAddselect' onclick='deleteSelect(${contador_select})'>-</button>
+                        <button class='btn btn-danger' id='btnAddselect' onclick='deleteSelect(${contador_select})'>-</button>
                     </div>
                     `
         div.innerHTML = htmlASerGerado
