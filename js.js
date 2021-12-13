@@ -12,8 +12,10 @@ contador_email = 0
 contador_data = 0
 contador_select = 0
 
+
 /*Chamadas de funcoes*/
 gerarHtmlDoTemplateCriado()
+
 
 /*Templates*/
 function deletarTemplate(indice){
@@ -54,11 +56,12 @@ function gerarHtmlDoTemplateCriado(){ // Gerador De formulario Dinamico
 
 
 /*EnviarMensagem*/
-function enviarMensagem(mensagem){
-    console.log('Funcao: enviarMensagem(mensagem)')
-    alert(`Mensagem: ${JSON.stringify(mensagem)}`)
-    
-}
+function enviarMensagem(phone, mensagem){
+    let name = 'Alexandre'
+    let x = window.open(`https://web.whatsapp.com/send?phone=${phone}&text=${mensagem}&app_absent=0`)
+    x.focus()
+  }
+
 
 /*Formulario*/
     /*Fixo*/
@@ -256,7 +259,7 @@ function enviarMensagem(mensagem){
                 <div class='class-botoes' id='divbotoes'>
                     <button id='formulario-limpar' class='btn btn-warning' type='reset' onclick='limparFormularioDinamico('templateDinamico')'>Limpar</button>
                     <button id='formulario-cancelar' class='btn btn-danger' onclick='cancelarFormularioDinamico()'>Cancelar</button>
-                    <button id='formulario-enviar' class='btn btn-success' onclick='pegarFormularioDinamico()'>Criar</button>
+                    <button id='formulario-enviar' class='btn btn-success' onclick='pegarFormularioDinamicoEGravarNoStorage()'>Criar</button>
                 </div>
                 <div class='inputs' id='divpreview'>
                     <!--Preview Feito-->
@@ -276,24 +279,32 @@ function enviarMensagem(mensagem){
         preview.innerHTML =''
         htmlDoPreview = 
         ` 
+        DDD: ${pegarFormularioDinamico()[0]}
+        <br>Celular: ${pegarFormularioDinamico()[1]}
+        <br>Email: ${pegarFormularioDinamico()[2]}
+        <br>Data: ${pegarFormularioDinamico()[3]}
+        <br>Select: ${pegarFormularioDinamico()[4]}
+        <br>Text: ${pegarFormularioDinamico()[5]}
         `
         div.innerHTML = htmlDoPreview
         preview.appendChild(div)
     }
     function pegarFormularioDinamicoEGravarNoStorage(){ // falta dividir em partes
         console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
-
         let indexNovoDoTemplate = 0
         if (templates.length>0){indexNovoDoTemplate = templates[templates.length -1].indice +1}
         else {indexNovoDoTemplate = 4}
 
-        ddd = document.getElementById(`formularioDinamicoDDD`).value
-        celular = document.getElementById(`formularioDinamicoCelular`).value
-        email = document.getElementById(`formularioDinamicoEmail`).value
-        data = document.getElementById(`formularioDinamicoDate`).value
-        select = document.getElementById(`formularioDinamicoSelect`).value
-        text = document.getElementById(`formularioDinamicoTextarea`).value
-
+        ddd = pegarFormularioDinamico()[0]
+        celular = pegarFormularioDinamico()[1]
+        email = pegarFormularioDinamico()[2]
+        data = pegarFormularioDinamico()[3]
+        select = pegarFormularioDinamico()[4]
+        text = pegarFormularioDinamico()[5]
+        pais = '55'
+        phone = pais.concat(ddd[0]).concat(celular)
+        console.log(phone)
+        
         template = {
             'indice': indexNovoDoTemplate,
             'ddd': ddd,
@@ -302,18 +313,16 @@ function enviarMensagem(mensagem){
             'data': data,
             'select': select,
             'text': text,
-            'dddinfo': dddinfo,
-            'celularinfo': celularinfo,
-            'emailinfo': emailinfo,
-            'datainfo': datainfo,
-            'selectinfo': selectinfo
         }
         templates.push(template)
         setStorageTemplates(templates)
+        mensagem = template.text[0]
+        console.log(mensagem)
+        enviarMensagem(phone, mensagem)
     }
     function pegarFormularioDinamico(){
         function pegarFormularioDinamico2(){
-            // console.log('Funcao: PegarFormularioDinamico')
+            console.log('Funcao: PegarFormularioDinamico')
             let DDDeCelular = document.getElementById('divddd').getElementsByTagName('input')
             let Email = document.getElementById('divemail').getElementsByTagName('input')
             let Data = document.getElementById('divdata').getElementsByTagName('input')
@@ -327,13 +336,10 @@ function enviarMensagem(mensagem){
                         //[Email]
         Data = Array.from(pegarFormularioDinamico2()[2], x=> x.value)
                         //[Data]
-        
-        Select = pegarOption() //Esse ainda nao esta pronto
-                        //[Select]
-        console.log(pegarFormularioDinamico2()[3][0].options.selectedIndex.text)
-        // console.log(Select)
         Textarea = Array.from(pegarFormularioDinamico2()[4], x=> x.value)
                         //[Textarea]
+        Select = pegarFormularioDinamico2()[3][0].selectedOptions[0].text
+                        //[Select]
         DDD = []
         Celular = []
         for (let i=0; i<DDDeCelular.length; i=i+2){
@@ -342,11 +348,6 @@ function enviarMensagem(mensagem){
         }
         
         return [DDD, Celular, Email, Data, Select, Textarea]
-    }
-    /*Pegar Option */
-    function pegarOption(Selected){
-        Selected = Selected
-        return Selected
     }
     /*Criar e Deletar Itens*/
     function criarDDDeCelular(){
@@ -463,13 +464,7 @@ function enviarMensagem(mensagem){
             }       
         }
     }
-    
-    
-    
         /*Em Espera*/
-        
-        
-        
         function enviarFormularioDinamico(){
             console.log('Funcao: enviarFormularioDinamico')
             pegarFormularioDinamicoEGravarNoStorage()
@@ -477,6 +472,7 @@ function enviarMensagem(mensagem){
             cancelarFormularioDinamico()
             gerarHtmlDoTemplateCriado()
         }
+
 
 /*Storage*/
     /*Templates*/
