@@ -153,17 +153,12 @@ function enviarMensagem(phone, mensagem){
         else {indexNovoDoTemplate = 4}
         template = {
             'indice': indexNovoDoTemplate,
-            'ddd': ddd='',
-            'celular': celular='',
-            'email': email='',
-            'data': data='',
-            'select': select='',
+            'ddd': {'quantidade':qtddd=0, 'valor':ddd=[]},
+            'celular': {'quantidade':qtcelular=0, 'valor':celular=[]},
+            'email': {'quantidade':qtemail=0, 'valor':email=[]},
+            'data': {'quantidade':qtdata=0, 'valor':data=[]},
+            'select': {'quantidade':qtselect=0, 'valor':select=[], 'nomeOpcoes':[]},
             'text': text='',
-            'dddinfo': dddinfo={'quantidade': 0,'valor': []},
-            'celularinfo': celularinfo={'quantidade': 0,'valor': []},
-            'emailinfo': emailinfo={'quantidade': 0,'valor': []},
-            'datainfo': datainfo={'quantidade': 0,'valor': []},
-            'selectinfo': selectinfo={'quantidade': 0,'valor': []},
             'phone' : phone=[]
         }
         templates.push(template)
@@ -278,8 +273,8 @@ function enviarMensagem(phone, mensagem){
                             `
                             <div class='input-group' id='divformularioDinamicoDDD${i}'>
                                 <span class="input-group-text" id="">DDD e Celular${i}</span>
-                                <input id='formularioDinamicoDDD${i}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" value='${templates[indice].dddinfo.valor[i]}'>
-                                <input id='formularioDinamicoCelular${i}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular" value='${templates[indice].celularinfo.valor[i]}'>
+                                <input id='formularioDinamicoDDD${i}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD" value='${templates[indice].dddinfo.valor[i]?templates[indice].dddinfo.valor[i]:''}'>
+                                <input id='formularioDinamicoCelular${i}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular" value='${templates[indice].celularinfo.valor[i]?templates[indice].celularinfo.valor[i]:''}'>
                                 <button class='btn btn-primary' id='btnRemoveddd' onclick='deleteDDDeCelular(${i})'>-</button>
                             </div>
                             `
@@ -290,11 +285,12 @@ function enviarMensagem(phone, mensagem){
         }
         reloadDDDeCelularFormulario()
     }
+    
     /*Quando Aperta Salvar Apenas*/
     function pegarFormularioDinamicoEGravarNoStorage(indice){ // falta dividir em partes
-        
         console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
 
+        //Pegar Valores Digitados
         ddd = pegarFormularioDinamico()[0]
         celular = pegarFormularioDinamico()[1]
         email = pegarFormularioDinamico()[2]
@@ -302,42 +298,36 @@ function enviarMensagem(phone, mensagem){
         select = pegarFormularioDinamico()[4]
         text = pegarFormularioDinamico()[5]
 
-        qtdddinfo = (document.getElementById('divddd').getElementsByTagName('input').length)/2 //pega a quantidade de DDD e Celulares
-        qtcelularinfo = (document.getElementById('divddd').getElementsByTagName('input').length)/2
-        qtemailinfo = (document.getElementById('divemail').getElementsByTagName('input').length)
-        qtdatainfo = (document.getElementById('divdata').getElementsByTagName('input').length)
-        qtselectinfo = (document.getElementById('divselect').getElementsByTagName('select').length)
+        //Pegar Quantidades de campos
+        qtddd = (document.getElementById('divddd').getElementsByTagName('input').length)/2-1
+        qtcelular = (document.getElementById('divddd').getElementsByTagName('input').length)/2-1
+        qtemail = (document.getElementById('divemail').getElementsByTagName('input').length)-1
+        qtdata = (document.getElementById('divdata').getElementsByTagName('input').length)-1
+        qtselect = (document.getElementById('divselect').getElementsByTagName('select').length)-1
+        phone=[]
+        function telefone(){
+            for (let i=0;i<(ddd.length);i++){
+                let x = String('55') + String(ddd[i]) + String(celular[i])
+                phone.push(x)
+            }
+            return phone
+        }
         
-        //limpa os valores
-        templates[indice].dddinfo.valor.splice(0,templates[indice].dddinfo.valor.length)
-        templates[indice].celularinfo.valor.splice(0,templates[indice].celularinfo.valor.length)
-        templates[indice].emailinfo.valor.splice(0,templates[indice].emailinfo.valor.length)
-        templates[indice].datainfo.valor.splice(0,templates[indice].datainfo.valor.length)
-
-        // for (let i=0; i<qtdddinfo ;i++){
-
-        //     x.appendChild(valor)
-        //     return x
-        // }
-        pais = '55'
-        let phone =[]
-        phone.push(pais.concat(ddd[0]).concat(celular))
+        
+        //Joga tudo no JSON
         template = {
             'indice': templates[indice].indice,
-            'ddd': ddd,
-            'celular': celular,
-            'email': email,
-            'data': data,
-            'select': select,
+            'ddd': {'quantidade':qtddd, 'valor':ddd},
+            'celular': {'quantidade':qtcelular, 'valor':celular},
+            'email': {'quantidade':qtemail, 'valor':email},
+            'data': {'quantidade':qtdata, 'valor':data},
+            'select': {'quantidade':qtselect, 'valor':select},
             'text': text,
-            'dddinfo': {'quantidade': qtdddinfo, 'valor':[]},
-            'celularinfo': {'quantidade': qtcelularinfo, 'valor':[]},
-            'emailinfo': {'quantidade': qtemailinfo, 'valor':[]},
-            'datainfo': {'quantidade': qtdatainfo, 'valor':[]},
-            'selectinfo': {'quantidade': qtselectinfo, 'valor':[]},
-            'phone' : phone
+            'phone' : telefone()
         }
-        templates.splice(0,1, template)
+        console.log(template.phone)
+        //Overwrite no storage
+        templates.splice(indice,1, template)
         setStorageTemplates(templates)
     }
     function pegarFormularioDinamico(){
