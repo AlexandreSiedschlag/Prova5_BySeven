@@ -52,8 +52,20 @@ h1{
 textarea{
     resize: none;
 }
- #divpreview{
+#divpreview{
      border: 3px solid black;
- }
+}
+#templateSalvo{
+    display: none;
+    color: white;
+    background-color: chartreuse;
+    justify-content: center;
+    text-transform:uppercase;
+    width: 100%;
+    font-size: 80px;
+    border-radius: 100px;
+    margin: 15px;
+}
+
 
 

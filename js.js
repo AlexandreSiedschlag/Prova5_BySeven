@@ -255,6 +255,9 @@
                         <!--Preview Feito-->
                         Preview Aparece Aqui
                     </div>
+                    <div class='input-group' id='templateSalvo'>
+                        <h1>Template Salvo</h1>
+                    </div>
                 </div>`
             
             div.innerHTML = htmlASerGerado
@@ -408,7 +411,6 @@
                     }
                     function validarFormulario2(){
                         if(validaDDD() && validaCelular() && validaEmail() && validaData()){
-                            console.log('dale')
                             template = {
                                 'indice': templates[indice].indice,
                                 'ddd': {'quantidade':qtddd, 'valor':ddd},
@@ -421,7 +423,8 @@
                                 //Overwrite no storage
                             templates.splice(indice,1, template)
                             setStorageTemplates(templates)
-                            console.log('formulario salvo')
+                            /*Push Template Salvo*/
+                            document.getElementById('templateSalvo').style.display = 'block'
                             return true} 
                         else{alert('Formulario Nao Validado'); return false}
                     }
