@@ -1,8 +1,4 @@
-/*  1- Acessar id pelo childNodes
-    Quantidade, Valor(conteudo que o usuario inseriu)
 
-    2- Mudar o Template Gerado para apenas preview
-*/
 /*Contadores */
 templates = getStorageTemplates()
 mensagens = getStorageMensagens()
@@ -195,7 +191,7 @@ function enviarMensagem(phone, mensagem){
         let div = document.createElement('div');
         divFormularioDinamico.innerHTML = ''
         htmlASerGerado = `
-            <div id='templateDinamico' class='classecards'> 
+            <div id='templateDinamico'> 
 
                 <div class='titulo' id='divtitutlo'>
                     <h2>Template</h2>
@@ -204,35 +200,35 @@ function enviarMensagem(phone, mensagem){
                 <div id='divddd'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">DDD e Celular</span>
-                        <input id='formularioDinamicoDDD${indice}' oninput='preview()' class='form-control' value='${templates[indice].ddd.valor[0]?templates[indice].ddd.valor[0]:''}' type="numeric" placeholder="DDD" autofocus>
-                        <input id='formularioDinamicoCelular${indice}' oninput='preview()' class='form-control' value='${templates[indice].celular.valor[0]?templates[indice].celular.valor[0]:''}' type="numeric" placeholder="Celular">
+                        <input id='formularioDinamicoDDD' oninput='preview()' pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==2) return false;" class='form-control' value='${templates[indice].ddd.valor[0]?templates[indice].ddd.valor[0]:''}' type="number" placeholder="DDD" autofocus required>
+                        <input id='formularioDinamicoCelular' oninput='preview()' pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==9) return false;" class='form-control' value='${templates[indice].celular.valor[0]?templates[indice].celular.valor[0]:''}' type="number" placeholder="Celular">
                         <button class='btn btn-primary' id='btnAddddd' onclick='criarDDDeCelular()'>+</button>
                     </div>
                     <!--DDD e Celular Adicionados-->
                 </div>
 
-                <div class='inputs' id='divemail'>
+                <div id='divemail'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Email</span>
-                        <input id='formularioDinamicoEmail${indice}' oninput='preview()' class='form-control' type="email" placeholder="Email" value='${templates[indice].email.valor[0]?templates[indice].email.valor[0]:''}'>
+                        <input id='formularioDinamicoEmail' oninput='preview()' class='form-control' type="email" placeholder="Email" value='${templates[indice].email.valor[0]?templates[indice].email.valor[0]:''}'>
                         <button class='btn btn-primary' id='btnAddemail' onclick='criarEmail()'>+</button>
                     </div>
                     <!--Emails Adicionados-->
                 </div>
 
-                <div class='inputs' id='divdata'>
+                <div id='divdata'>
                     <div class='input-group'>
                         <span class="input-group-text" id="">Date</span>
-                        <input id='formularioDinamicoDate${indice}' oninput='preview()' class='form-control' type="date" placeholder="Data">
+                        <input id='formularioDinamicoDate' oninput='preview()' class='form-control' type="date" placeholder="Data" value='${templates[indice].data.valor[0]?templates[indice].data.valor[0]:''}'>
                         <button class='btn btn-primary' id='btnAddemail' onclick='criarData()'>+</button>
                     </div>
                     <!--Data Adicionados-->
                 </div>
 
-                <div class='inputs' id='divselect'>
+                <div id='divselect'>
                     <div class='input-group'>
                         <span class="input-group-text" id="" oninput='preview()' onChange='pegarSelect(this.value)'>Select</span>
-                        <select id="formularioDinamicoSelect${indice}" class='form-control'>
+                        <select id="formularioDinamicoSelect" class='form-control'>
                             <option value="">Option1</option>
                             <option value="">Option2</option>
                             <option value="">Option3</option>
@@ -242,20 +238,20 @@ function enviarMensagem(phone, mensagem){
                     <!--Select Adicionados-->
                 </div>
 
-                <div class='inputs' id='divtextarea'>
+                <div id='divtextarea'>
                     <div class='input-group'>
                         <span class="input-group-text">Textarea</span>
-                        <textarea id="formularioDinamicoTextarea${indice}" oninput='preview()' class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
+                        <textarea id="formularioDinamicoTextarea" oninput='preview()' class='form-control' cols="70" rows="5" placeholder="Texto"></textarea>
                     </div>
                     <!--Textarea Adicionados-->
                 </div>
                 <div class='class-botoes' id='divbotoes'>
-                    <button id='formulario-limpar' class='btn btn-warning' type='reset' onclick='limparFormularioDinamico('templateDinamico')'>Limpar</button>
+                    <button id='formulario-limpar' class='btn btn-warning' type='button' onclick='limparFormularioDinamico("templateDinamico")'>Limpar</button>
                     <button id='formulario-cancelar' class='btn btn-danger' onclick='cancelarFormularioDinamico()'>Cancelar</button>
                     <button id='formulario-salvar' class='btn btn-primary' onclick='pegarFormularioDinamicoEGravarNoStorage(${indice})'>Salvar</button>
                     <button id='formulario-enviar' class='btn btn-success' onclick='enviarMensagem("5547999249119","oi")'>Salvar e Enviar</button>
                 </div>
-                <div class='inputs' id='divpreview'>
+                <div id='divpreview'>
                     <!--Preview Feito-->
                     Preview Aparece Aqui
                 </div>
@@ -282,7 +278,6 @@ function enviarMensagem(phone, mensagem){
                             `
                 div.innerHTML = htmlASerGerado
                 divddd.appendChild(div)
-                console.log(templates[indice].ddd.valor[i])
             }
         }
         reloadDDDeCelularFormulario()
@@ -298,225 +293,231 @@ function enviarMensagem(phone, mensagem){
                             `
                             <div class='input-group' id='divformularioDinamicoEmail${i}'>
                                 <span class="input-group-text">Email${i}</span>
-                                <input id='formularioDinamicoEmail${i}' oninput='preview()' class='form-control' type="email" placeholder="Email" value='${templates[indice].email.valor[x]?templates[indice].email.valor[x]:''}'>
+                                <input id='formularioDinamicoEmail${i}' oninput='preview()' class='form-control' type="email" placeholder="Email" value='${templates[indice].email.valor[i]?templates[indice].email.valor[i]:''}'>
                                 <button class='btn btn-danger' id='btnRemoveemail' onclick='deleteEmail(${i})'>-</button>
                             </div>
                             `
                 div.innerHTML = htmlASerGerado
                 divddd.appendChild(div)
-                console.log(templates[indice].email.valor[i])
             }
         }
         reloadEmailFormulario()
-    }
-    
-    /*Quando Aperta Salvar Apenas*/
-    function pegarFormularioDinamicoEGravarNoStorage(indice){ // falta dividir em partes
-        console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
 
-        //Pegar Valores Digitados
-        ddd = pegarFormularioDinamico()[0]
-        celular = pegarFormularioDinamico()[1]
-        email = pegarFormularioDinamico()[2]
-        data = pegarFormularioDinamico()[3]
-        select = pegarFormularioDinamico()[4]
-        text = pegarFormularioDinamico()[5]
-
-        //Pegar Quantidades de campos
-        qtddd = (document.getElementById('divddd').getElementsByTagName('input').length)/2-1
-        qtcelular = (document.getElementById('divddd').getElementsByTagName('input').length)/2-1
-        qtemail = (document.getElementById('divemail').getElementsByTagName('input').length)-1
-        qtdata = (document.getElementById('divdata').getElementsByTagName('input').length)-1
-        qtselect = (document.getElementById('divselect').getElementsByTagName('select').length)-1
-        phone=[]
-        function telefone(){
-            for (let i=0;i<(ddd.length);i++){
-                let x = String('55') + String(ddd[i]) + String(celular[i])
-                phone.push(x)
+        /*Passo4 - Gerar Formulario com a quantidade de data*/
+        function reloadDataFormulario(){
+            console.log('Funcao reloadDataFormulario')
+            for (let i=0; i<templates[indice].data.quantidade;i++){
+                x=i+1
+                let div = document.createElement('div')
+                let divddd = document.getElementById('divdata')
+                htmlASerGerado =
+                            `
+                            <div class='input-group' id='divformularioDinamicoData${i}'>
+                                <span class="input-group-text" id="">Date${i}</span>
+                                <input id='formularioDinamicoDate${i}' oninput='preview()' class='form-control' type="date" placeholder="Data" value='${templates[indice].data.valor[x]?templates[indice].data.valor[x]:''}'>
+                                <button class='btn btn-danger' id='btnAddedata' onclick='deleteData(${i})'>-</button>
+                            </div>
+                            `
+                div.innerHTML = htmlASerGerado
+                divddd.appendChild(div)
+                
             }
-            return phone
         }
-        
-        //Joga tudo no JSON
-        template = {
-            'indice': templates[indice].indice,
-            'ddd': {'quantidade':qtddd, 'valor':ddd},
-            'celular': {'quantidade':qtcelular, 'valor':celular},
-            'email': {'quantidade':qtemail, 'valor':email},
-            'data': {'quantidade':qtdata, 'valor':data},
-            'select': {'quantidade':qtselect, 'valor':select},
-            'text': text,
-            'phone' : telefone()
-        }
-        console.log(template.phone)
-        //Overwrite no storage
-        templates.splice(indice,1, template)
-        setStorageTemplates(templates)
+        reloadDataFormulario()
     }
-    function pegarFormularioDinamico(){
-        function pegarFormularioDinamico2(){
-            let DDDeCelular = document.getElementById('divddd').getElementsByTagName('input')
-            let Email = document.getElementById('divemail').getElementsByTagName('input')
-            let Data = document.getElementById('divdata').getElementsByTagName('input')
-            let Select = document.getElementById('divselect').getElementsByTagName('select')
-            let Textarea = document.getElementById('divtextarea').getElementsByTagName('textarea')
-            return [DDDeCelular,Email,Data,Select,Textarea]
-        }
-        DDDeCelular = Array.from(pegarFormularioDinamico2()[0], x=> x.value) //pra cada item dentro desse array me traz o item.value
-                        //[DDD, Celular]
-        Email = Array.from(pegarFormularioDinamico2()[1], x=> x.value)
-                        //[Email]
-        Data = Array.from(pegarFormularioDinamico2()[2], x=> x.value)
-                        //[Data]
-        Textarea = Array.from(pegarFormularioDinamico2()[4], x=> x.value)
-                        //[Textarea]
-        Select = pegarFormularioDinamico2()[3][0].selectedOptions[0].text
-                        //[Select]
-        DDD = []
-        Celular = []
-        for (let i=0; i<DDDeCelular.length; i=i+2){
-            DDD.push(DDDeCelular[i])
-            Celular.push(DDDeCelular[i+1])
-        }
-        
-        return [DDD, Celular, Email, Data, Select, Textarea]
-    }
-    /*Criar e Deletar Itens*/
-    function criarDDDeCelular(){
-        let div = document.createElement('div')
-        let divddd = document.getElementById('divddd')
-        htmlASerGerado = 
-                    `
-                    <div class='input-group' id='divformularioDinamicoDDD${contador_ddd}'>
-                        <span class="input-group-text" id="">DDD e Celular${contador_ddd}</span>
-                        <input id='formularioDinamicoDDD${contador_ddd}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD">
-                        <input id='formularioDinamicoCelular${contador_ddd}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
-                        <button class='btn btn-danger' id='btnRemoveddd' onclick='deleteDDDeCelular(${contador_ddd})'>-</button>
-                    </div>
-                    `
-        div.innerHTML = htmlASerGerado
-        divddd.appendChild(div)
-        contador_ddd+=1
-    }
-    function deleteDDDeCelular(indice){
-        let div = document.getElementById(`divformularioDinamicoDDD${indice}`)
-        div.remove()
-    }
-    /*Email*/
-    function criarEmail(){
-        let div = document.createElement('div')
-        let divemail = document.getElementById('divemail')
-        htmlASerGerado = 
-                    `
-                    <div class='input-group' id='divformularioDinamicoEmail${contador_email}'>
-                        <span class="input-group-text">Email${contador_email}</span>
-                        <input id='formularioDinamicoEmail${contador_email}' oninput='preview()' class='form-control' type="email" placeholder="Email">
-                        <button class='btn btn-danger' id='btnRemoveemail' onclick='deleteEmail(${contador_email})'>-</button>
-                    </div>
-                    `
-        div.innerHTML = htmlASerGerado
-        divemail.appendChild(div)
-        contador_email+=1
-    }
-    function deleteEmail(indice){
-        let div = document.getElementById(`divformularioDinamicoEmail${indice}`)
-        div.remove()
-    }
-    /*Data*/
-    function criarData(){
-        let div = document.createElement('div')
-        let divemail = document.getElementById('divdata')
-        htmlASerGerado = 
-                    `
-                    <div class='input-group' id='divformularioDinamicoData${contador_data}'>
-                        <span class="input-group-text" id="">Date${contador_data}</span>
-                        <input id='formularioDinamicoDate${contador_data}' oninput='preview()' class='form-control' type="date" placeholder="Data">
-                        <button class='btn btn-danger' id='btnAddemail' onclick='deleteData(${contador_data})'>-</button>
-                    </div>
-                    `
-        div.innerHTML = htmlASerGerado
-        divemail.appendChild(div)
-        contador_data+=1
-    }
-    function deleteData(indice){
-        let div = document.getElementById(`divformularioDinamicoData${indice}`)
-        div.remove()
-    }
-    function criarSelect(){
-        let div = document.createElement('div')
-        let divemail = document.getElementById('divselect')
-        htmlASerGerado = 
-                    `
-                    <div class='input-group' id='divformularioDinamicoSelect${contador_select}'>
-                        <span class="input-group-text" oninput='preview()'>Select${contador_select}</span>
-                        <select id="formularioDinamicoSelect${contador_select}" class='form-control'>
-                            <option >Option1</option>
-                            <option >Option2</option>
-                            <option >Option3</option>
-                        </select>
-                        <button class='btn btn-danger' id='btnAddselect' onclick='deleteSelect(${contador_select})'>-</button>
-                    </div>
-                    `
-        div.innerHTML = htmlASerGerado
-        divemail.appendChild(div)
-        contador_select+=1
-    }
-    function deleteSelect(indice){
-        let div = document.getElementById(`divformularioDinamicoSelect${indice}`)
-        div.remove()
-    }
+        /*Quando Aperta Salvar Apenas*/
+        function pegarFormularioDinamicoEGravarNoStorage(indice){ // falta dividir em partes
+            console.log('Funcao: pegarFormularioDinamicoEGravarNoStorage')
 
-    /*Limpar Formualrio Dinamico*/
-    function limparFormularioDinamico(divElement){ //falta fazer
-        console.log('Funcao: limparFormularioDinamico')
-        var ele = document.getElementById(divElement);
-        // IT WILL READ ALL THE ELEMENTS. <p>, <div>, <input> ETC.
-        for (i = 0; i < ele.childNodes.length; i++) {
-            // SINCE THE <input> FIELDS ARE INSIDE A <p> TAG, 
-            // I'LL USE THE "firstChild" PROPERTY TO GET THE <input> TAG.
-            var child = ele.childNodes[i];
-            console.log(child);
+            //Pegar Valores Digitados
+            ddd = pegarFormularioDinamico()[0]
+            celular = pegarFormularioDinamico()[1]
+            email = pegarFormularioDinamico()[2]
+            data = pegarFormularioDinamico()[3]
+            select = pegarFormularioDinamico()[4]
+            text = pegarFormularioDinamico()[5]
 
-            // CHECK IF CHILD NOT NULL.
-            // THIS IS IMPORTANT AS IT WILL RETURN A TEXT FOR EVERY "Whitespace".
-            // 'Whitespace' IS A TEXT OR NODE BETWEEN <div> AND <p> AND AFTER <p>.
-            if (child) {
-                switch (child.type) {
-                    case 'button':
-                    case 'text':
-                    case 'submit':
-                    case 'password':
-                    case 'file':
-                    case 'email':
-                    case 'date':
-                    case 'number':
-                        child.value = '';
-                    case 'checkbox':
-                    case 'radio':
-                        child.checked = false;
+            //Pegar Quantidades de campos
+            qtddd = (document.getElementById('divddd').getElementsByTagName('input').length)/2-1
+            qtcelular = (document.getElementById('divddd').getElementsByTagName('input').length)/2-1
+            qtemail = (document.getElementById('divemail').getElementsByTagName('input').length)-1
+            qtdata = (document.getElementById('divdata').getElementsByTagName('input').length)-1
+            qtselect = (document.getElementById('divselect').getElementsByTagName('select').length)-1
+            phone=[]
+            function telefone(){
+                for (let i=0;i<(ddd.length);i++){
+                    let x = String('55') + String(ddd[i]) + String(celular[i])
+                    phone.push(x)
                 }
-            }       
+                return phone
+            }
+            
+            //Joga tudo no JSON
+            template = {
+                'indice': templates[indice].indice,
+                'ddd': {'quantidade':qtddd, 'valor':ddd},
+                'celular': {'quantidade':qtcelular, 'valor':celular},
+                'email': {'quantidade':qtemail, 'valor':email},
+                'data': {'quantidade':qtdata, 'valor':data},
+                'select': {'quantidade':qtselect, 'valor':select},
+                'text': text,
+                'phone' : telefone()
+            }
+            
+            //Overwrite no storage
+            templates.splice(indice,1, template)
+            setStorageTemplates(templates)
         }
-    }
-
-    /*Prview*/
-    function preview(){
-        let preview = document.getElementById('divpreview')
-        let div = document.createElement('div')
-        preview.innerHTML = ''
-        htmlDoPreview = 
-        ` 
-        DDD: ${pegarFormularioDinamico()[0]}
-        <br>Celular: ${pegarFormularioDinamico()[1]}
-        <br>Email: ${pegarFormularioDinamico()[2]}
-        <br>Data: ${pegarFormularioDinamico()[3]}
-        <br>Select: ${pegarFormularioDinamico()[4]}
-        <br>Text: ${pegarFormularioDinamico()[5]}
-        `
-        div.innerHTML = htmlDoPreview
-        preview.appendChild(div)
-    }
+        function pegarFormularioDinamico(){
+            function pegarFormularioDinamico2(){
+                let DDDeCelular = document.getElementById('divddd').getElementsByTagName('input')
+                let Email = document.getElementById('divemail').getElementsByTagName('input')
+                let Data = document.getElementById('divdata').getElementsByTagName('input')
+                let Select = document.getElementById('divselect').getElementsByTagName('select')
+                let Textarea = document.getElementById('divtextarea').getElementsByTagName('textarea')
+                return [DDDeCelular,Email,Data,Select,Textarea]
+            }
+            DDDeCelular = Array.from(pegarFormularioDinamico2()[0], x=> x.value) //pra cada item dentro desse array me traz o item.value
+                            //[DDD, Celular]
+            Email = Array.from(pegarFormularioDinamico2()[1], x=> x.value)
+                            //[Email]
+            Data = Array.from(pegarFormularioDinamico2()[2], x=> x.value)
+                            //[Data]
+            Textarea = Array.from(pegarFormularioDinamico2()[4], x=> x.value)
+                            //[Textarea]
+            Select = pegarFormularioDinamico2()[3][0].selectedOptions[0].text
+                            //[Select]
+            DDD = []
+            Celular = []
+            for (let i=0; i<DDDeCelular.length; i=i+2){
+                DDD.push(DDDeCelular[i])
+                Celular.push(DDDeCelular[i+1])
+            }
+            
+            return [DDD, Celular, Email, Data, Select, Textarea]
+        }
+        /*Criar e Deletar Itens*/
+        function criarDDDeCelular(){
+            let div = document.createElement('div')
+            let divddd = document.getElementById('divddd')
+            htmlASerGerado = 
+                        `
+                        <div class='input-group' id='divformularioDinamicoDDD${contador_ddd}'>
+                            <span class="input-group-text" id="">DDD e Celular${contador_ddd}</span>
+                            <input id='formularioDinamicoDDD${contador_ddd}' oninput='preview()' class='form-control' type="numeric" placeholder="DDD">
+                            <input id='formularioDinamicoCelular${contador_ddd}' oninput='preview()' class='form-control' type="numeric" placeholder="Celular">
+                            <button class='btn btn-danger' id='btnRemoveddd' onclick='deleteDDDeCelular(${contador_ddd})'>-</button>
+                        </div>
+                        `
+            div.innerHTML = htmlASerGerado
+            divddd.appendChild(div)
+            contador_ddd+=1
+        }
+        function deleteDDDeCelular(indice){
+            let div = document.getElementById(`divformularioDinamicoDDD${indice}`)
+            div.remove()
+        }
+        /*Email*/
+        function criarEmail(){
+            let div = document.createElement('div')
+            let divemail = document.getElementById('divemail')
+            htmlASerGerado = 
+                        `
+                        <div class='input-group' id='divformularioDinamicoEmail${contador_email}'>
+                            <span class="input-group-text">Email${contador_email}</span>
+                            <input id='formularioDinamicoEmail${contador_email}' oninput='preview()' class='form-control' type="email" placeholder="Email">
+                            <button class='btn btn-danger' id='btnRemoveemail' onclick='deleteEmail(${contador_email})'>-</button>
+                        </div>
+                        `
+            div.innerHTML = htmlASerGerado
+            divemail.appendChild(div)
+            contador_email+=1
+        }
+        function deleteEmail(indice){
+            let div = document.getElementById(`divformularioDinamicoEmail${indice}`)
+            div.remove()
+        }
+        /*Data*/
+        function criarData(){
+            let div = document.createElement('div')
+            let divemail = document.getElementById('divdata')
+            htmlASerGerado = 
+                        `
+                        <div class='input-group' id='divformularioDinamicoData${contador_data}'>
+                            <span class="input-group-text" id="">Date${contador_data}</span>
+                            <input id='formularioDinamicoDate${contador_data}' oninput='preview()' class='form-control' type="date" placeholder="Data">
+                            <button class='btn btn-danger' id='btnAddedata' onclick='deleteData(${contador_data})'>-</button>
+                        </div>
+                        `
+            div.innerHTML = htmlASerGerado
+            divemail.appendChild(div)
+            contador_data+=1
+        }
+        function deleteData(indice){
+            let div = document.getElementById(`divformularioDinamicoData${indice}`)
+            div.remove()
+        }
+        /*Select*/
+        function criarSelect(){
+            let div = document.createElement('div')
+            let divemail = document.getElementById('divselect')
+            htmlASerGerado = 
+                        `
+                        <div class='input-group' id='divformularioDinamicoSelect${contador_select}'>
+                            <span class="input-group-text" oninput='preview()'>Select${contador_select}</span>
+                            <select id="formularioDinamicoSelect${contador_select}" class='form-control'>
+                                <option >Option1</option>
+                                <option >Option2</option>
+                                <option >Option3</option>
+                            </select>
+                            <button class='btn btn-danger' id='btnAddselect' onclick='deleteSelect(${contador_select})'>-</button>
+                        </div>
+                        `
+            div.innerHTML = htmlASerGerado
+            divemail.appendChild(div)
+            contador_select+=1
+        }
+        function deleteSelect(indice){
+            let div = document.getElementById(`divformularioDinamicoSelect${indice}`)
+            div.remove()
+        }
+        /*Limpar Formualrio Dinamico*/
+        function limparFormularioDinamico(id){
+            console.log('Funcao: limparFormularioDinamico')
+            let container = document.getElementById(id)
+            let inputs = container.getElementsByTagName('input')
+            for(let index = 0;index<inputs.length;index++){
+                x = inputs[index].id
+                document.getElementById(x).value =''
+            }
+        }
+        /*Preview*/
+        function preview(){
+            let preview = document.getElementById('divpreview')
+            let div = document.createElement('div')
+            preview.innerHTML = ''
+            htmlDoPreview = 
+            ` 
+            DDD: ${pegarFormularioDinamico()[0]}
+            <br>Celular: ${pegarFormularioDinamico()[1]}
+            <br>Email: ${pegarFormularioDinamico()[2]}
+            <br>Data: ${pegarFormularioDinamico()[3]}
+            <br>Select: ${pegarFormularioDinamico()[4]}
+            <br>Text: ${pegarFormularioDinamico()[5]}
+            `
+            div.innerHTML = htmlDoPreview
+            preview.appendChild(div)
+        }
         
+
+/*Validations*/
+function validarDDD(id){
+    console.log('validarDDD')
+
+    let x = document.getElementById(id).value //divddd
+
+}
+
 
 /*Storage*/
     /*Templates*/
