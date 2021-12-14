@@ -509,14 +509,44 @@ function enviarMensagem(phone, mensagem){
             preview.appendChild(div)
         }
         
-
+        
 /*Validations*/
-function validarDDD(id){
-    console.log('validarDDD')
-
-    let x = document.getElementById(id).value //divddd
-
+let typingTimer
+doneTypingInterval = 5000
+myInput = document.getElementById('formularioDinamicoDDD');
+myInput.addEventListener('keyup', () =>{
+        clearTimeout(typingTimer);
+        if(myInput.value){
+            typingTimer = setTimeout(doneTyping, doneTypingInterval)
+        };
+    }
+);
+function doneTyping(){
+    document.getElementById('formularioDinamicoDDD').style.color = 'red'
+    console.log('parou de digitar')
 }
+
+
+// function validarDDD(id){
+    
+
+//     console.log('validarDDD')
+
+//     let container = document.getElementById(id).value //divddd
+//     let inputs = container.getElementsByTagName('input')
+    
+//     for(let index = 0; index<inputs.length;index+=2){
+//         if (inputs[index].value.trim() = ''){ //Campo Vazio
+//             console.log('Campo nao pode estar vazio')
+//         }
+//         else if(inputs[index].value.length <2){ //<2 Caracteres
+//             console.log('Campo precisa ter 2 numeros, Ex: 47(Santa Catarina), 46(Parana)')
+//         }
+//         else { //excessao
+//             console.log('Algum erro de sintaxe aconteceu')
+//         }
+//     } 
+// }
 
 
 /*Storage*/
