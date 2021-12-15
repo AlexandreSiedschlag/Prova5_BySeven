@@ -457,7 +457,6 @@
                     DDD.push(DDDeCelular[i])
                     Celular.push(DDDeCelular[i+1])
                 }
-                
                 return [DDD, Celular, Email, Data, Select, Textarea]
             }
         /*Criar e Deletar Itens*/
