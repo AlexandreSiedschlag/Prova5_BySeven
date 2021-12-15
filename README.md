@@ -37,7 +37,6 @@ The needs of the client were:
   - Work with following options Combobox, TextBox, Date and Numeric. :heavy_check_mark:
   - Store all information in a DataBase :x:
   - Intuitive Interface :x:
-  - Almost 0% failures (Poka Yoke) :x:
   - Send Message to WhatsApp :heavy_check_mark:
 
   :heavy_exclamation_mark: :heavy_exclamation_mark: <p style='font-size:30px'>!UNDER CONSTRUCTION!</p>:technologist:
