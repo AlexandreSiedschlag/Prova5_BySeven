@@ -32,11 +32,11 @@ Suported by:
   
   
 The needs of the client were:
-  - Develop 3 Standard Templates. :heavy_check_mark:
-  - User can create new templates. :heavy_check_mark:
-  - Work with following options Combobox, TextBox, Date and Numeric. :heavy_check_mark:
+  - Develop 3 Standard Templates. :heavy_check_mark: done
+  - User can create new templates. :heavy_check_mark: done
+  - Work with following options Combobox, TextBox, Date and Numeric. :heavy_check_mark: done
   - Store all information in a DataBase :x:
   - Intuitive Interface :x:
-  - Send Message to WhatsApp :heavy_check_mark:
+  - Send Message to WhatsApp :heavy_check_mark: done
 
   :heavy_exclamation_mark: :heavy_exclamation_mark: <p style='font-size:30px'>!UNDER CONSTRUCTION!</p>:technologist:
