@@ -35,7 +35,7 @@ The needs of the client were:
   - Develop 3 Standard Templates. :heavy_check_mark:
   - User can create new templates. :heavy_check_mark:
   - Work with following options Combobox, TextBox, Date and Numeric. :heavy_check_mark:
-  - Must store all information in a DataBase :x:
+  - Store all information in a DataBase :x:
   - Intuitive Interface :x:
   - Almost 0% failures (Poka Yoke) :x:
   - Send Message to WhatsApp :heavy_check_mark:
