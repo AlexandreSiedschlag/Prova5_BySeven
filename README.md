@@ -1,7 +1,7 @@
 # Prova5_BySeven
 
 :flying_saucer:
-This project is been developed to fulfill the need of the company i was working for. :heavy_dollar_sign:
+This project is been developed to fulfill the need of the company i was working for.
 
 What this project do?:
   - User send a message through a form to whatsapp.
